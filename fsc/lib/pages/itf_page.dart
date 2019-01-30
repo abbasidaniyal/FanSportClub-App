@@ -14,6 +14,7 @@ class ItfPage extends StatefulWidget {
   }
 }
 
+
 class _ItfPage extends State<ItfPage> with AutomaticKeepAliveClientMixin<ItfPage> {
   List<dynamic> array = [];
   bool isLoading = false;
@@ -54,6 +55,8 @@ class _ItfPage extends State<ItfPage> with AutomaticKeepAliveClientMixin<ItfPage
         child: CircularProgressIndicator(),
       );
     } else {
+
+
       return Column(
         children: <Widget>[
           Container(
@@ -63,12 +66,7 @@ class _ItfPage extends State<ItfPage> with AutomaticKeepAliveClientMixin<ItfPage
               child: ListView.builder(
             itemCount: array.length,
             itemBuilder: (BuildContext context, int index) {
-              return CardRender(
-                array[index]["name"],
-                array[index]['grade'],
-                array[index]["date"],
-                array[index]["place"],
-              );
+              return CardRender(array[index]);
             },
           ))
         ],

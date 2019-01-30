@@ -1,17 +1,116 @@
 import 'package:flutter/material.dart';
 
 class CardRender extends StatelessWidget {
-  final String name;
-  final String grade;
-  final String date;
-  final String location;
+  String name;
+  String grade;
+  String date;
+  String location;
+  final Map<String, dynamic> array;
 
+  String startMonth, endMonth;
+  DateTime startDate, endDate;
+  int startDay, endDay, startMonthInt, endMonthInt, year;
 
-  CardRender(this.name, this.grade, this.date, this.location);
+  CardRender(this.array) {
+    name = array["name"];
+    grade = array["grade"];
+    location = array["place"];
+
+    startDay = int.parse(array["startDate"]["date"]);
+    startMonth = array["startDate"]["month"];
+
+    endDay = int.parse(array["endDate"]["date"]);
+    endMonth = array["endDate"]["month"];
+
+    year = int.parse(array["year"]);
+
+    switch (startMonth) {
+      case "Jan":
+        startMonthInt = 1;
+        break;
+      case "Feb":
+        startMonthInt = 2;
+        break;
+      case "Mar":
+        startMonthInt = 3;
+        break;
+      case "Apr":
+        startMonthInt = 4;
+        break;
+      case "May":
+        startMonthInt = 5;
+        break;
+      case "Jun":
+        startMonthInt = 6;
+        break;
+      case "Jul":
+        startMonthInt = 7;
+        break;
+      case "Aug":
+        startMonthInt = 8;
+        break;
+      case "Sep":
+        startMonthInt = 9;
+        break;
+      case "Oct":
+        startMonthInt = 10;
+        break;
+      case "Nov":
+        startMonthInt = 11;
+        break;
+      case "Dec":
+        startMonthInt = 12;
+        break;
+
+      default:
+        startMonthInt = 0;
+    }
+
+    switch (endMonth) {
+      case "Jan":
+        endMonthInt = 1;
+        break;
+      case "Feb":
+        endMonthInt = 2;
+        break;
+      case "Mar":
+        endMonthInt = 3;
+        break;
+      case "Apr":
+        endMonthInt = 4;
+        break;
+      case "May":
+        endMonthInt = 5;
+        break;
+      case "Jun":
+        endMonthInt = 6;
+        break;
+      case "Jul":
+        endMonthInt = 7;
+        break;
+      case "Aug":
+        endMonthInt = 8;
+        break;
+      case "Sep":
+        endMonthInt = 9;
+        break;
+      case "Oct":
+        endMonthInt = 10;
+        break;
+      case "Nov":
+        endMonthInt = 11;
+        break;
+      case "Dec":
+        endMonthInt = 12;
+        break;
+
+      default:
+        endMonthInt = 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       height: 150.0,
       child: Stack(
@@ -71,14 +170,14 @@ class CardRender extends StatelessWidget {
                         size: 25.0,
                       ),
                       Container(
-                          width: 55.0,
+                          width: 100.0,
                           child: Text(
-                            date,
+                            startDay.toString()+" "+startMonth+" " + year.toString(),
                             maxLines: 1,
                             textScaleFactor: 1.2,
                           )),
                       SizedBox(
-                        width: 50.0,
+                        width: 20.0,
                       ),
                       Icon(
                         Icons.directions,

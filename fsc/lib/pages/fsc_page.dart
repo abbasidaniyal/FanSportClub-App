@@ -68,10 +68,7 @@ class _FscPage extends State<FscPage>
             itemCount: array.length,
             itemBuilder: (BuildContext context, int index) {
               return CardRender(
-                array[index]["name"],
-                array[index]['grade'],
-                array[index]["date"],
-                array[index]["place"],
+                array[index]
               );
             },
           ))
