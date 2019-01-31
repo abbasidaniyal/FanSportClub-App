@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-
 import './my_drawer.dart';
 import './fsc_page.dart';
 import './itf_page.dart';
 
-
 class CalendarPage extends StatelessWidget {
-
-
   @override
-  Widget build(BuildContext context) {    
-    
+  Widget build(BuildContext context) {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -31,10 +26,7 @@ class CalendarPage extends StatelessWidget {
               ),
             ),
             body: TabBarView(
-              children: <Widget>[
-                FscPage(),
-                ItfPage()                
-                ],
+              children: <Widget>[FscPage(), ItfPage()],
             )));
   }
 }

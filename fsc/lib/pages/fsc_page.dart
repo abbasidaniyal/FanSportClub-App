@@ -3,9 +3,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter_calendar/flutter_calendar.dart';
 
-import 'dart:core';
-
 import 'dart:convert';
+import 'dart:async';
 
 import './card.dart';
 
@@ -20,7 +19,21 @@ class _FscPage extends State<FscPage>
     with AutomaticKeepAliveClientMixin<FscPage> {
   List<dynamic> array = [];
   bool isLoading = false;
+  DateTime selectedDate;
+
+  ScrollController _scrollController;
+  final double elementHeight = 150.0;
+  final String imageUrl = 'assets/logo.jpg';
+
   bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+    selectedDate = DateTime.now();
+    _scrollController = ScrollController(initialScrollOffset: 0.0);
+  }
 
   void fetchData() {
     setState(() {
@@ -33,9 +46,6 @@ class _FscPage extends State<FscPage>
         .then((http.Response response) {
       if (response.statusCode == 200) {
         array = (json.decode(response.body) as List);
-
-        // array.sort((a,b)=> a.get('name').compareTo(b('name'))  );
-
         setState(() {
           isLoading = false;
         });
@@ -45,10 +55,87 @@ class _FscPage extends State<FscPage>
     });
   }
 
+  void setSelectedDate(DateTime b) {
+    setState(() {
+      selectedDate = b;
+    });
+  }
+
   @override
-  void initState() {
-    super.initState();
-    fetchData();
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  int monthToInt(String month) {
+    switch (month) {
+      case "Jan":
+        return 1;
+        break;
+      case "Feb":
+        return 2;
+        break;
+      case "Mar":
+        return 3;
+        break;
+      case "Apr":
+        return 4;
+        break;
+      case "May":
+        return 5;
+        break;
+      case "Jun":
+        return 6;
+        break;
+      case "Jul":
+        return 7;
+        break;
+      case "Aug":
+        return 8;
+        break;
+      case "Sep":
+        return 9;
+        break;
+      case "Oct":
+        return 10;
+        break;
+      case "Nov":
+        return 11;
+        break;
+      case "Dec":
+        return 12;
+        break;
+
+      default:
+        return 0;
+    }
+  }
+
+  void checkDateChange() {
+    DateTime d;
+    for (int i = 0; i < array.length; i++) {
+      if (array[i]["startDate"]["month"] == "Oct" ||
+          array[i]["startDate"]["month"] == "Nov" ||
+          array[i]["startDate"]["month"] == "Dec") {
+        d = DateTime.parse(array[i]["year"] +
+            (monthToInt(array[i]["startDate"]["month"])).toString() +
+            array[i]["startDate"]["date"] +
+            "T11000 Z");
+      } else {
+        d = DateTime.parse(array[i]["year"] +
+            "0" +
+            (monthToInt(array[i]["startDate"]["month"])).toString() +
+            array[i]["startDate"]["date"] +
+            " 12:00:00 Z");
+          
+      }
+
+      if (d.isAfter(selectedDate) || d == selectedDate) {
+        _scrollController.animateTo(i * elementHeight,
+            duration: Duration(milliseconds: 1000), curve: Curves.ease);
+        break;
+      }
+    }
   }
 
   @override
@@ -61,15 +148,17 @@ class _FscPage extends State<FscPage>
       return Column(
         children: <Widget>[
           Container(
-            child: Calendar(),
+            child: Calendar(
+              onDateSelected: (a) => setSelectedDate(a),
+            ),
           ),
           Expanded(
               child: ListView.builder(
+            controller: _scrollController,
             itemCount: array.length,
             itemBuilder: (BuildContext context, int index) {
-              return CardRender(
-                array[index]
-              );
+              checkDateChange();
+              return CardRender(array[index], monthToInt, imageUrl);
             },
           ))
         ],
