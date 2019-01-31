@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_calendar/flutter_calendar.dart';
@@ -30,6 +31,7 @@ class _ItfPage extends State<ItfPage>
   @override
   void initState() {
     super.initState();
+    
     fetchData();
     selectedDate = DateTime.now();
     _scrollController = ScrollController(initialScrollOffset: 0.0);
@@ -130,7 +132,6 @@ class _ItfPage extends State<ItfPage>
       }
 
       if (d.isAfter(selectedDate) || d == selectedDate) {
-        print(d.toString() + "  " + selectedDate.toString());
         _scrollController.animateTo(i * elementHeight,
             duration: Duration(milliseconds: 1000), curve: Curves.easeIn);
         break;
@@ -140,6 +141,7 @@ class _ItfPage extends State<ItfPage>
 
   @override
   Widget build(BuildContext context) {
+    
     if (isLoading == true) {
       return Center(
         child: CircularProgressIndicator(),
@@ -148,6 +150,7 @@ class _ItfPage extends State<ItfPage>
       return Column(
         children: <Widget>[
           Container(
+            
             child: Calendar(
               onDateSelected: (a) => setSelectedDate(a),
             ),

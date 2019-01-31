@@ -10,8 +10,10 @@ class AboutUsPage extends StatelessWidget {
       drawer: MyDrawer(),
       appBar: AppBar(title: Text("Fan Sport Club")),
       body: Column(
+        
         children: <Widget>[
           Container(
+            
             margin: EdgeInsets.all(5.0),
             padding: EdgeInsets.all(2.0),
             child: Center(
