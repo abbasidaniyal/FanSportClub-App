@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './tournament.dart';
+import './pages/tournament_info_page.dart';
 
 class CardRender extends StatelessWidget {
   String name;

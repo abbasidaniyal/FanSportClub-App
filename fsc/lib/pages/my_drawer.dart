@@ -5,6 +5,7 @@ import './about_us_page.dart';
 import './gallery_page.dart';
 import './ipin_page.dart';
 import './calendar_page.dart';
+import './cien_form_page.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -36,6 +37,15 @@ class MyDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 CupertinoPageRoute(builder: (context) => IPINPage()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('CIEN Renewal'),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                CupertinoPageRoute(builder: (context) => CIENPage()),
               );
             },
           ),
