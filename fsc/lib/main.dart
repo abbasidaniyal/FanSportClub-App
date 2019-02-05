@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-import './pages/calendar_page.dart';
+import './pages/welcome_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         "/": (BuildContext context){
-          return CalendarPage();
+          return WelcomePage();
         } 
       },
           

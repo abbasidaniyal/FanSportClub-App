@@ -59,7 +59,7 @@ class CardRender extends StatelessWidget {
                   BoxShadow(
                     color: Colors.grey,
                     blurRadius: 3.0,
-                    offset: Offset(10.0, 10.0),
+                    offset: Offset(8.0, 8.0),
                   ),
                 ],
               ),

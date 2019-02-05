@@ -38,12 +38,13 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
-                  initialValue: "Name",
+                  
                   validator: (value) {
                     name = value;
                     return name.isEmpty ? "Please enter a valid value" : null;
                   },
                   decoration: InputDecoration(
+                    labelText: "Full Name",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
@@ -54,7 +55,6 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
-                  initialValue: "Age",
                   validator: (value) {
                     age = int.parse(value);
 
@@ -63,6 +63,7 @@ class _CIENPage extends State<CIENPage> {
                     }
                   },
                   decoration: InputDecoration(
+                    labelText: "Age",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
@@ -73,7 +74,7 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
-                  initialValue: "Email ID",
+                  
                   validator: (value) {
                     emailID = value;
                     bool emailValid =
@@ -85,6 +86,7 @@ class _CIENPage extends State<CIENPage> {
                     }
                   },
                   decoration: InputDecoration(
+                    labelText: "Email ID",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
@@ -95,7 +97,7 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
-                  initialValue: "Contact Number (10 digit mobile number)",
+                  
                   validator: (value) {
                     contactNumber = int.parse(value);
                     if (contactNumber.isNaN ||
@@ -105,6 +107,7 @@ class _CIENPage extends State<CIENPage> {
                     }
                   },
                   decoration: InputDecoration(
+                    labelText: "Contact Number",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     ),
