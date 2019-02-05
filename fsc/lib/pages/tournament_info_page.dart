@@ -19,18 +19,7 @@ class Tournament extends StatelessWidget {
         constraints: BoxConstraints.expand(),
         margin:
             EdgeInsets.only(top: 16.0, bottom: 16.0, left: 24.0, right: 24.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 3.0,
-              offset: Offset(10.0, 10.0),
-            ),
-          ],
-        ),
+        
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
           padding: EdgeInsets.all(10.0),

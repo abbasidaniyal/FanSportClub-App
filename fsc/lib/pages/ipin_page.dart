@@ -13,41 +13,13 @@ class IPINPage extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Container(
-                width: 500.0,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 3.0,
-                      offset: Offset(10.0, 10.0),
-                    ),
-                  ],
-                ),
                 margin: EdgeInsets.all(10.0),
-                padding: EdgeInsets.all(10.0),
-                
                 child: Center(
                   child: Text(
                     "IPIN",
                     textScaleFactor: 1.7,
                   ),
                 )),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              padding: EdgeInsets.all(5.0),
-              child: Center(
-                child: RaisedButton(
-                  color: Colors.blueGrey[200],
-                  textColor: Colors.black,
-                  onPressed: _launchURL,
-                  child: Text('Renew IPIN'),
-                ),
-              ),
-            ),
             Container(
               margin: EdgeInsets.all(10.0),
               padding: EdgeInsets.all(5.0),
@@ -61,7 +33,19 @@ As well as allowing players to play in ITF tournaments, IPIN Membership provides
 You can obtain your IPIN Membership by paying the annual registration fee.
 
 Please make sure you understand when your IPIN """),
-            )
+            ),
+            Container(
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(5.0),
+              child: Center(
+                child: RaisedButton(
+                  color: Colors.blueGrey[200],
+                  textColor: Colors.black,
+                  onPressed: _launchURL,
+                  child: Text('Renew IPIN'),
+                ),
+              ),
+            ),
           ],
         ));
   }
