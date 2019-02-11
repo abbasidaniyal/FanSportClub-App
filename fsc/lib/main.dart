@@ -8,18 +8,35 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(  
+    return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        brightness: Brightness.light, 
-        accentColor: Colors.lightGreenAccent
+        primaryColor: Color.fromRGBO(120, 171, 9, 1), //green
+        textSelectionColor: Color.fromRGBO(120, 171, 9, 1),
+        accentColor: Color.fromRGBO(33, 33, 33, 1), //black
+        //fontFamily: "Oswald",
+        textTheme: TextTheme(
+          headline: TextStyle(
+            color: Color.fromRGBO(120, 171, 9, 1),
+          ),
+          title: TextStyle(
+            color: Color.fromRGBO(120, 171, 9, 1),
+          ),
+          caption: TextStyle(
+            color: Color.fromRGBO(120, 171, 9, 1),
+          ),
+          subtitle: TextStyle(
+            color: Colors.grey,
+          ),
+          
+           
+           
+        )
       ),
       routes: {
-        "/": (BuildContext context){
+        "/": (BuildContext context) {
           return WelcomePage();
-        } 
+        }
       },
-          
-      );
+    );
   }
 }

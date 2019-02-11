@@ -1,13 +1,14 @@
 import "package:flutter/material.dart";
 
-import './my_drawer.dart';
+import './drawer.dart';
 
 class GalleryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
-      appBar: AppBar(title: Text("Fan Sport Club")),
+      appBar: AppBar(title: Text("Fan Sport Club"),backgroundColor:Theme.of(context).accentColor,
+          ),
       body: Column(
         children: <Widget>[
           Container(

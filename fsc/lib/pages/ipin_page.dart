@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 
-import './my_drawer.dart';
+import './drawer.dart';
 
 class IPINPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: MyDrawer(),
-        appBar: AppBar(title: Text("Renew IPIN")),
+        appBar: AppBar(title: Text("Renew IPIN"),backgroundColor:Theme.of(context).accentColor,
+          ),
         body: Column(
           children: <Widget>[
             Container(

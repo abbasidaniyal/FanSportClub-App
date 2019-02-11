@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_calendar/flutter_calendar.dart';
+import '../get_data.dart';
 
 import 'dart:convert';
 
@@ -19,12 +20,12 @@ class _FscPage extends State<FscPage>
   List<dynamic> array = [];
   bool isLoading = false;
   DateTime selectedDate;
-  bool isDateChanged=false;
+  bool isDateChanged = false;
 
   ScrollController _scrollController;
-  final double elementHeight = 150.0;
+  final double elementHeight = 140.0;
   final String imageUrl = 'assets/logo.jpg';
-
+  bool isFiltered;
   bool get wantKeepAlive => true;
 
   @override
@@ -32,7 +33,8 @@ class _FscPage extends State<FscPage>
     super.initState();
     fetchData();
     selectedDate = DateTime.now();
-    isDateChanged=true;
+    isDateChanged = true;
+    isFiltered = false;
 
     _scrollController = ScrollController(initialScrollOffset: 0.0);
   }
@@ -44,12 +46,11 @@ class _FscPage extends State<FscPage>
 
     http
         .get(
-            "https://my-json-server.typicode.com/abbasidaniyal/DummyDB/tournaments")
+            'https://my-json-server.typicode.com/abbasidaniyal/DummyDB/tournaments') //to be replaced by localhost mongo/django service
         .then((http.Response response) {
       if (response.statusCode == 200) {
         array = (json.decode(response.body) as List);
         array.sort((a, b) {
-          
           DateTime startDate1, startDate2;
           if (a["startDate"]["month"] == "Oct" ||
               a["startDate"]["month"] == "Nov" ||
@@ -82,7 +83,6 @@ class _FscPage extends State<FscPage>
           }
 
           return startDate1.compareTo(startDate2);
-
         });
         setState(() {
           isLoading = false;
@@ -96,7 +96,7 @@ class _FscPage extends State<FscPage>
   void setSelectedDate(DateTime b) {
     setState(() {
       selectedDate = b;
-      isDateChanged=true;
+      isDateChanged = true;
     });
   }
 
@@ -154,32 +154,29 @@ class _FscPage extends State<FscPage>
     DateTime d;
     if (isDateChanged) {
       for (int i = 0; i < array.length; i++) {
-      if (array[i]["startDate"]["month"] == "Oct" ||
-          array[i]["startDate"]["month"] == "Nov" ||
-          array[i]["startDate"]["month"] == "Dec") {
-        d = DateTime.parse(array[i]["year"] +
-            (monthToInt(array[i]["startDate"]["month"])).toString() +
-            array[i]["startDate"]["date"] +
-            "T11000 Z");
-      } else {
-        d = DateTime.parse(array[i]["year"] +
-            "0" +
-            (monthToInt(array[i]["startDate"]["month"])).toString() +
-            array[i]["startDate"]["date"] +
-            " 12:00:00 Z");
-      }
+        if (array[i]["startDate"]["month"] == "Oct" ||
+            array[i]["startDate"]["month"] == "Nov" ||
+            array[i]["startDate"]["month"] == "Dec") {
+          d = DateTime.parse(array[i]["year"] +
+              (monthToInt(array[i]["startDate"]["month"])).toString() +
+              array[i]["startDate"]["date"] +
+              "T11000 Z");
+        } else {
+          d = DateTime.parse(array[i]["year"] +
+              "0" +
+              (monthToInt(array[i]["startDate"]["month"])).toString() +
+              array[i]["startDate"]["date"] +
+              " 12:00:00 Z");
+        }
 
-      if (d.isAfter(selectedDate) || d == selectedDate) {
-        _scrollController.animateTo(i * elementHeight,
-            duration: Duration(milliseconds: 1000), curve: Curves.ease);
-        break;
+        if (d.isAfter(selectedDate) || d == selectedDate) {
+          _scrollController.animateTo(i * elementHeight,
+              duration: Duration(milliseconds: 1000), curve: Curves.ease);
+          break;
+        }
       }
+      isDateChanged = false;
     }
-    isDateChanged=false;
-      
-    }
-
-    
   }
 
   @override
@@ -193,10 +190,12 @@ class _FscPage extends State<FscPage>
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 5.0),
+           
             child: Calendar(
-              
               onDateSelected: (a) => setSelectedDate(a),
               isExpandable: true,
+              
+              
             ),
           ),
           Expanded(

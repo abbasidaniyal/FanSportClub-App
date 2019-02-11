@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_calendar/flutter_calendar.dart';
 
 import 'dart:convert';
-import 'dart:async';
 
 import '../card.dart';
 
@@ -23,7 +22,7 @@ class _ItfPage extends State<ItfPage>
   bool isDateChanged = false;
 
   ScrollController _scrollController;
-  final double elementHeight = 150.0;
+  final double elementHeight = 140.0;
   final String imageUrl = 'assets/logoITF.jpg';
 
   bool get wantKeepAlive => true;
@@ -44,13 +43,11 @@ class _ItfPage extends State<ItfPage>
     });
 
     http
-        .get(
-            "https://my-json-server.typicode.com/abbasidaniyal/DummyDB/tournaments")
+        .get('https://my-json-server.typicode.com/abbasidaniyal/DummyDB/tournaments') //to be replaced by localhost mongo/django service
         .then((http.Response response) {
       if (response.statusCode == 200) {
         array = (json.decode(response.body) as List);
         array.sort((a, b) {
-          
           DateTime startDate1, startDate2;
           if (a["startDate"]["month"] == "Oct" ||
               a["startDate"]["month"] == "Nov" ||
@@ -83,7 +80,6 @@ class _ItfPage extends State<ItfPage>
           }
 
           return startDate1.compareTo(startDate2);
-
         });
         setState(() {
           isLoading = false;

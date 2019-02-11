@@ -15,7 +15,7 @@ class CardRender extends StatelessWidget {
   DateTime startDate, endDate;
   int startDay, endDay, startMonthInt, endMonthInt, year;
 
-  CardRender(this.tournamentData, this.toInt,this.imageUrl) {
+  CardRender(this.tournamentData, this.toInt, this.imageUrl) {
     name = tournamentData["name"];
     grade = tournamentData["grade"];
     location = tournamentData["place"];
@@ -28,10 +28,8 @@ class CardRender extends StatelessWidget {
 
     year = int.parse(tournamentData["year"]);
 
-
-    startMonthInt=toInt(startMonth);
-    endMonthInt=toInt(endMonth);
-
+    startMonthInt = toInt(startMonth);
+    endMonthInt = toInt(endMonth);
   }
 
   @override
@@ -44,22 +42,21 @@ class CardRender extends StatelessWidget {
                 builder: (context) => Tournament(tournamentData)));
       },
       child: Container(
-        height: 150.0,
+        height: 140.0,
         child: Stack(
           children: <Widget>[
             Container(
-              height: 150.0,
+              height: 140.0,
               margin: EdgeInsets.only(
-                  top: 16.0, bottom: 16.0, left: 24.0, right: 24.0),
+                  top: 10.0, bottom: 10.0, left: 24.0, right: 24.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10.0),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.grey,
                     blurRadius: 3.0,
-                    offset: Offset(8.0, 8.0),
+                    offset: Offset(2.0, 2.0),
                   ),
                 ],
               ),
@@ -68,20 +65,23 @@ class CardRender extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Container(
                       margin: EdgeInsets.only(right: 5.0),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.only(right: 5.0),
-                        controller: ScrollController(keepScrollOffset: false),
-                        child: Text(
-                          name,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 25.0),
-                        ),
+                      child: Text(
+                        name,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                        softWrap: true,
+                        textScaleFactor: 1,
+                        
                       ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
                     ),
                     Container(
                       child: Text(
@@ -92,14 +92,17 @@ class CardRender extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20.0,
+                      height: 15.0,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Icon(
-                          Icons.date_range,
-                          size: 25.0,
+                          Icons.calendar_today,
+                          size: 20.0,
+                        ),
+                        SizedBox(
+                          width: 3.0,
                         ),
                         Container(
                             width: 100.0,
@@ -110,18 +113,21 @@ class CardRender extends StatelessWidget {
                                   " " +
                                   year.toString(),
                               maxLines: 1,
-                              textScaleFactor: 1.2,
+                              textScaleFactor: 1.1,
                             )),
                         SizedBox(
-                          width: 20.0,
+                          width: 5.0,
                         ),
                         Icon(
-                          Icons.directions,
-                          size: 25.0,
+                          Icons.navigation,
+                          size: 20.0,
+                        ),
+                        SizedBox(
+                          width: 3.0,
                         ),
                         Text(
                           location,
-                          textScaleFactor: 1.2,
+                          textScaleFactor: 1.1,
                         ),
                       ],
                     )
