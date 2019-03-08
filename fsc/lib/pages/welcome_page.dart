@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import './calendar_page.dart';
 
-import 'package:fsc/get_data.dart';
 
 class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
-    //getData();
     return Scaffold(
       body: Container(
           decoration: BoxDecoration(

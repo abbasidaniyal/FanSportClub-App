@@ -26,10 +26,7 @@ class MyApp extends StatelessWidget {
           ),
           subtitle: TextStyle(
             color: Colors.grey,
-          ),
-          
-           
-           
+          ),         
         )
       ),
       routes: {
