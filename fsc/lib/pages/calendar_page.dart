@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import './drawer.dart';
+import '../widget/drawer.dart';
 import './fsc_page.dart';
 import './itf_page.dart';
-import '../filter_modal.dart';
+import '../widget/filter_modal.dart';
 
 class CalendarPage extends StatelessWidget {
   @override
@@ -14,7 +13,7 @@ class CalendarPage extends StatelessWidget {
       child: Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
-          backgroundColor:Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).accentColor,
           actions: <Widget>[
             GestureDetector(
               child: Container(
@@ -23,10 +22,11 @@ class CalendarPage extends StatelessWidget {
               ),
               onTap: () {
                 return showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return FilterModal();
-                    });
+                  context: context,
+                  builder: (BuildContext context) {
+                    return FilterModal();
+                  },
+                );
               },
             )
           ],
@@ -40,7 +40,7 @@ class CalendarPage extends StatelessWidget {
             tabs: <Widget>[
               Tab(
                 child: Text(
-                  "FSC Event",
+                  "Club Event",
                 ),
               ),
               Tab(

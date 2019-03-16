@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import '../models/itf_tournament.dart';
 
-class Tournament extends StatelessWidget {
-  final Map<String, dynamic> tournamentData;
+class ITFInfoPage extends StatelessWidget {
+  final ITFTournament tournamentData;
 
-  Tournament(this.tournamentData);
+  ITFInfoPage(this.tournamentData);
 
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Theme.of(context).accentColor,
-      
+        backgroundColor: Theme.of(context).accentColor,
         title: Text(
-          tournamentData["name"],
+          tournamentData.name,
           overflow: TextOverflow.fade,
           textScaleFactor: 0.9,
         ),
@@ -21,7 +22,6 @@ class Tournament extends StatelessWidget {
         constraints: BoxConstraints.expand(),
         margin:
             EdgeInsets.only(top: 16.0, bottom: 16.0, left: 24.0, right: 24.0),
-        
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
           padding: EdgeInsets.all(10.0),
@@ -32,7 +32,7 @@ class Tournament extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  tournamentData["name"],
+                  tournamentData.name,
                   textAlign: TextAlign.center,
                   textScaleFactor: 1.8,
                 ),
@@ -40,49 +40,49 @@ class Tournament extends StatelessWidget {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Date : " + tournamentData["date"],
+                  "Date : " + tournamentData.startDate.toString(),
                   textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Grade : " + tournamentData["grade"],
+                  "Grade : " + tournamentData.grade,
                   textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Place : " + tournamentData["place"],
+                  "Place : " + tournamentData.venue,
                   textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Address : (To be added) ",
+                  "End Date : " + tournamentData.endDate.toString(),
                   textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Website : (To be added)",
+                tournamentData.website==null? "Website : Not Available": "Website :" + tournamentData.website,
                   textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Court Type : (To be added)",
+                  "Court Type : " + tournamentData.surface,
                   textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
-                  "Other2 : (To be added)",
+                  "Link : " + tournamentData.link,
                   textScaleFactor: 1.2,
                 ),
               ),

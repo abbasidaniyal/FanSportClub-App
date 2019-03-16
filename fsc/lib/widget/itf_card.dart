@@ -1,45 +1,39 @@
 import 'package:flutter/material.dart';
 
-import './pages/tournament_info_page.dart';
+import 'package:fsc/models/fsc_tournament.dart';
+import 'package:fsc/models/itf_tournament.dart';
+import '../pages/itf_tournament_info_page.dart';
 
-class CardRender extends StatelessWidget {
+class ITFCardRender extends StatelessWidget {
   String name;
   String grade;
-  String date;
-  String location;
-  final Function toInt;
-  final Map<String, dynamic> tournamentData;
+  DateTime startDate;
+  String venue;
+
+  final ITFTournament tournamentData;
   final imageUrl;
 
-  String startMonth, endMonth;
-  DateTime startDate, endDate;
-  int startDay, endDay, startMonthInt, endMonthInt, year;
+  // String startMonth, endMonth;
+  // DateTime startDate, endDate;
+  // int startDay, endDay, startMonthInt, endMonthInt, year;
 
-  CardRender(this.tournamentData, this.toInt, this.imageUrl) {
-    name = tournamentData["name"];
-    grade = tournamentData["grade"];
-    location = tournamentData["place"];
-
-    startDay = int.parse(tournamentData["startDate"]["date"]);
-    startMonth = tournamentData["startDate"]["month"];
-
-    endDay = int.parse(tournamentData["endDate"]["date"]);
-    endMonth = tournamentData["endDate"]["month"];
-
-    year = int.parse(tournamentData["year"]);
-
-    startMonthInt = toInt(startMonth);
-    endMonthInt = toInt(endMonth);
+  ITFCardRender(this.tournamentData, this.imageUrl) {
+    name = tournamentData.name;
+    grade = tournamentData.grade;
+    venue = tournamentData.venue;
+    startDate = tournamentData.startDate;
+    
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print("Clicked");
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Tournament(tournamentData)));
+                builder: (context) => ITFInfoPage(tournamentData)));
       },
       child: Container(
         height: 140.0,
@@ -74,10 +68,10 @@ class CardRender extends StatelessWidget {
                         name,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18.0, fontWeight: FontWeight.bold),
                         softWrap: true,
                         textScaleFactor: 1,
-                        
                       ),
                     ),
                     SizedBox(
@@ -87,6 +81,7 @@ class CardRender extends StatelessWidget {
                       child: Text(
                         "Grade : " + grade,
                         maxLines: 1,
+                        overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
                         style: TextStyle(fontSize: 18.0),
                       ),
@@ -107,12 +102,9 @@ class CardRender extends StatelessWidget {
                         Container(
                             width: 100.0,
                             child: Text(
-                              startDay.toString() +
-                                  " " +
-                                  startMonth +
-                                  " " +
-                                  year.toString(),
+                              startDate.toString(),
                               maxLines: 1,
+                              overflow: TextOverflow.clip,
                               textScaleFactor: 1.1,
                             )),
                         SizedBox(
@@ -125,10 +117,15 @@ class CardRender extends StatelessWidget {
                         SizedBox(
                           width: 3.0,
                         ),
-                        Text(
-                          location,
+                        Container(
+                          width: 80.0,
+                            child: Text(
+                              
+                          venue,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
                           textScaleFactor: 1.1,
-                        ),
+                        )),
                       ],
                     )
                   ],

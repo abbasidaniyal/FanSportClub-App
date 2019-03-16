@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-
-import './drawer.dart';
+import '../widget/drawer.dart';
 
 class GalleryPage extends StatelessWidget {
   @override

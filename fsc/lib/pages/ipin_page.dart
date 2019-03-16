@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../widget/button.dart';
 import 'package:flutter/cupertino.dart';
 
-import './drawer.dart';
+import '../widget/drawer.dart';
 
 class IPINPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: MyDrawer(),
-        appBar: AppBar(title: Text("Renew IPIN"),backgroundColor:Theme.of(context).accentColor,
-          ),
+        appBar: AppBar(
+          title: Text("Renew IPIN"),
+          backgroundColor: Theme.of(context).accentColor,
+        ),
         body: Column(
           children: <Widget>[
             Container(
@@ -38,21 +41,14 @@ Please make sure you understand when your IPIN """),
             Container(
               margin: EdgeInsets.all(10.0),
               padding: EdgeInsets.all(5.0),
-              child: Center(
-                child: RaisedButton(
-                  color: Colors.blueGrey[200],
-                  textColor: Colors.black,
-                  onPressed: _launchURL,
-                  child: Text('Renew IPIN'),
-                ),
-              ),
+              child: Center(child: MyButton("Renew IPIN", launchURL)),
             ),
           ],
         ));
   }
 }
 
-_launchURL() async {
+launchURL() async {
   const url = 'https://ipin.itftennis.com/login.asp';
   if (await canLaunch(url)) {
     await launch(url);

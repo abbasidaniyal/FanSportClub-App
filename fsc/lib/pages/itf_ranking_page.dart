@@ -1,8 +1,9 @@
 //to be developed
 import 'package:flutter/material.dart';
 
-import '../ranking_card.dart';
-import 'drawer.dart';
+import '../widget/ranking_card.dart';
+import '../widget/drawer.dart';
+
 
 class ItfRankingPage extends StatelessWidget {
   @override

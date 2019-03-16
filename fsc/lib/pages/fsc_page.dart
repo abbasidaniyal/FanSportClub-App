@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
+import '../scoped_model/main.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
+import '../models/fsc_tournament.dart';
 
-import 'dart:convert';
-
-import '../card.dart';
+import '../widget/fsc_card.dart';
 
 class FscPage extends StatefulWidget {
   @override
@@ -16,80 +16,47 @@ class FscPage extends StatefulWidget {
 
 class _FscPage extends State<FscPage>
     with AutomaticKeepAliveClientMixin<FscPage> {
-  List<dynamic> array = [];
+
   bool isLoading = false;
+  List<FSCTournament> array = [];
   DateTime selectedDate;
   bool isDateChanged = false;
 
   ScrollController _scrollController;
   final double elementHeight = 140.0;
   final String imageUrl = 'assets/logo.jpg';
-  bool isFiltered;
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
+    print("Working");
     super.initState();
-    fetchData();
+    MainModel model = ScopedModel.of(context);
+    print(model.isFSCLoaded);
+    print(model.fscTournaments);
+    if (!model.isFSCLoaded) {
+      model.initFscData().then((s) {
+        if (model.isFSCLoaded) {
+          setState(() {
+            array = model.fscTournaments;
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            isLoading = true;
+          });
+        }
+      });
+    } else {
+      setState(() {
+        array = model.fscTournaments;
+        isLoading = false;
+      });
+    }
     selectedDate = DateTime.now();
     isDateChanged = true;
-    isFiltered = false;
 
     _scrollController = ScrollController(initialScrollOffset: 0.0);
-  }
-
-  void fetchData() {
-    setState(() {
-      isLoading = true;
-    });
-
-    http
-        .get(
-            'https://my-json-server.typicode.com/abbasidaniyal/DummyDB/tournaments') //to be replaced by localhost mongo/django service
-        .then((http.Response response) {
-      if (response.statusCode == 200) {
-        array = (json.decode(response.body) as List);
-        array.sort((a, b) {
-          DateTime startDate1, startDate2;
-          if (a["startDate"]["month"] == "Oct" ||
-              a["startDate"]["month"] == "Nov" ||
-              a["startDate"]["month"] == "Dec") {
-            startDate1 = DateTime.parse(a["year"] +
-                (monthToInt(a["startDate"]["month"])).toString() +
-                a["startDate"]["date"] +
-                "T11000 Z");
-          } else {
-            startDate1 = DateTime.parse(a["year"] +
-                "0" +
-                (monthToInt(a["startDate"]["month"])).toString() +
-                a["startDate"]["date"] +
-                " 12:00:00 Z");
-          }
-
-          if (b["startDate"]["month"] == "Oct" ||
-              b["startDate"]["month"] == "Nov" ||
-              b["startDate"]["month"] == "Dec") {
-            startDate2 = DateTime.parse(b["year"] +
-                (monthToInt(b["startDate"]["month"])).toString() +
-                b["startDate"]["date"] +
-                "T11000 Z");
-          } else {
-            startDate2 = DateTime.parse(b["year"] +
-                "0" +
-                (monthToInt(b["startDate"]["month"])).toString() +
-                b["startDate"]["date"] +
-                " 12:00:00 Z");
-          }
-
-          return startDate1.compareTo(startDate2);
-        });
-        setState(() {
-          isLoading = false;
-        });
-      } else {
-        throw Exception("Error: Server did not respond");
-      }
-    });
   }
 
   void setSelectedDate(DateTime b) {
@@ -105,68 +72,11 @@ class _FscPage extends State<FscPage>
     super.dispose();
   }
 
-  int monthToInt(String month) {
-    switch (month) {
-      case "Jan":
-        return 1;
-        break;
-      case "Feb":
-        return 2;
-        break;
-      case "Mar":
-        return 3;
-        break;
-      case "Apr":
-        return 4;
-        break;
-      case "May":
-        return 5;
-        break;
-      case "Jun":
-        return 6;
-        break;
-      case "Jul":
-        return 7;
-        break;
-      case "Aug":
-        return 8;
-        break;
-      case "Sep":
-        return 9;
-        break;
-      case "Oct":
-        return 10;
-        break;
-      case "Nov":
-        return 11;
-        break;
-      case "Dec":
-        return 12;
-        break;
-
-      default:
-        return 0;
-    }
-  }
-
   void checkDateChange() {
     DateTime d;
     if (isDateChanged) {
       for (int i = 0; i < array.length; i++) {
-        if (array[i]["startDate"]["month"] == "Oct" ||
-            array[i]["startDate"]["month"] == "Nov" ||
-            array[i]["startDate"]["month"] == "Dec") {
-          d = DateTime.parse(array[i]["year"] +
-              (monthToInt(array[i]["startDate"]["month"])).toString() +
-              array[i]["startDate"]["date"] +
-              "T11000 Z");
-        } else {
-          d = DateTime.parse(array[i]["year"] +
-              "0" +
-              (monthToInt(array[i]["startDate"]["month"])).toString() +
-              array[i]["startDate"]["date"] +
-              " 12:00:00 Z");
-        }
+        d = array[i].date;
 
         if (d.isAfter(selectedDate) || d == selectedDate) {
           _scrollController.animateTo(i * elementHeight,
@@ -180,32 +90,34 @@ class _FscPage extends State<FscPage>
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading == true) {
-      return Center(
-        child: CircularProgressIndicator(),
+    // print("BEFORE BUILD"+isLoading + array.length);
+    if (isLoading == true || array.length <= 0) {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       );
     } else {
       return Column(
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 5.0),
-           
             child: Calendar(
               onDateSelected: (a) => setSelectedDate(a),
               isExpandable: true,
-              
-              
             ),
           ),
           Expanded(
-              child: ListView.builder(
-            controller: _scrollController,
-            itemCount: array.length,
-            itemBuilder: (BuildContext context, int index) {
-              checkDateChange();
-              return CardRender(array[index], monthToInt, imageUrl);
-            },
-          ))
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: array.length,
+              itemBuilder: (BuildContext context, int index) {
+                checkDateChange();
+
+                return FSCCardRender(array[index], imageUrl);
+              },
+            ),
+          ),
         ],
       );
     }
