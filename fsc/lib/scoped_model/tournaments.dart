@@ -8,7 +8,6 @@ import 'dart:convert';
 import 'dart:core';
 import '../models/itf_tournament.dart';
 
-
 mixin TournamentModel on Model {
   List<FSCTournament> fscTournaments = [];
   List<ITFTournament> itfTournaments = [];
@@ -43,9 +42,8 @@ mixin TournamentModel on Model {
         print(res.statusCode);
         isITFLoaded = false;
       }
+      notifyListeners();
     });
-
-    
   }
 
   Future<void> initFscData() async {

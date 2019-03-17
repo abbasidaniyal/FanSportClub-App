@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import '../models/itf_tournament.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ITFInfoPage extends StatelessWidget {
   final ITFTournament tournamentData;
@@ -8,7 +10,6 @@ class ITFInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).accentColor,
@@ -41,49 +42,50 @@ class ITFInfoPage extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   "Date : " + tournamentData.startDate.toString(),
-                  textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   "Grade : " + tournamentData.grade,
-                  textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   "Place : " + tournamentData.venue,
-                  textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   "End Date : " + tournamentData.endDate.toString(),
-                  textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                tournamentData.website==null? "Website : Not Available": "Website :" + tournamentData.website,
-                  textScaleFactor: 1.2,
+                child: Linkify(
+                  text: tournamentData.website == null
+                      ? "Website : Not Available"
+                      : "Website :" + tournamentData.website,
+                  onOpen: (url) {
+                    launch(url);
+                  },
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(
                   "Court Type : " + tournamentData.surface,
-                  textScaleFactor: 1.2,
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "Link : " + tournamentData.link,
-                  textScaleFactor: 1.2,
+                child: Linkify(
+                  text: "Link : " + tournamentData.link,
+                  onOpen: (url) {
+                    launch(url);
+                  },
                 ),
               ),
             ],

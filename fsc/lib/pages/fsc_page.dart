@@ -105,6 +105,7 @@ class _FscPage extends State<FscPage>
             child: Calendar(
               onDateSelected: (a) => setSelectedDate(a),
               isExpandable: true,
+
             ),
           ),
           Expanded(

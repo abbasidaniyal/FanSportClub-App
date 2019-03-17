@@ -11,7 +11,7 @@ class WelcomePage extends StatelessWidget {
       builder: (BuildContext context, Widget child, MainModel model) {
         return SplashScreen(
           seconds: 3,
-          image: Image.asset("assets/logo.jpg",),
+          image: Image.asset("assets/logo.png",),
           
           backgroundColor: Theme.of(context).accentColor,
           navigateAfterSeconds: CalendarPage(),

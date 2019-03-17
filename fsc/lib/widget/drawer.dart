@@ -13,14 +13,39 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
+        padding: EdgeInsets.only(left: 20.0),
         color: Theme.of(context).accentColor,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            AppBar(
-              automaticallyImplyLeading: false,
-              title: Text("FSC"),
-              backgroundColor: Theme.of(context).accentColor,
-              textTheme: Theme.of(context).textTheme,
+            // AppBar(
+
+            //   automaticallyImplyLeading: false,
+            //   title: Container(
+            //     margin: EdgeInsets.all(3.0),
+            //     child: Image.asset("assets/logo.png"),
+            //   ),
+
+            //   backgroundColor: Theme.of(context).accentColor,
+            //   textTheme: Theme.of(context).textTheme,
+            // ),
+
+            Container(
+              margin: EdgeInsets.all(3.0),
+              padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
+              child: Image.asset(
+                "assets/logo.png",
+                alignment: Alignment.topLeft,
+                width: 110,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
+              child: Divider(
+                color: Color.fromRGBO(120, 120, 120, 1),
+                height: 1.0,
+              ),
             ),
             ListTile(
               title: Text(

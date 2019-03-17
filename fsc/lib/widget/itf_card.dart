@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fsc/models/fsc_tournament.dart';
 import 'package:fsc/models/itf_tournament.dart';
 import '../pages/itf_tournament_info_page.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ITFCardRender extends StatelessWidget {
   String name;
@@ -45,12 +46,12 @@ class ITFCardRender extends StatelessWidget {
                   top: 10.0, bottom: 10.0, left: 24.0, right: 24.0),
               decoration: BoxDecoration(
                 color: Colors.white,
+                borderRadius: BorderRadius.circular(3.0),
                 shape: BoxShape.rectangle,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.grey,
                     blurRadius: 3.0,
-                    offset: Offset(2.0, 2.0),
                   ),
                 ],
               ),
@@ -83,7 +84,7 @@ class ITFCardRender extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 18.0),
+                        style: TextStyle(fontSize: 16.0,color: Color.fromRGBO(120, 120, 120, 1)),
                       ),
                     ),
                     SizedBox(
@@ -93,7 +94,7 @@ class ITFCardRender extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Icon(
-                          Icons.calendar_today,
+                          MdiIcons.calendarClock,
                           size: 20.0,
                         ),
                         SizedBox(
@@ -104,14 +105,15 @@ class ITFCardRender extends StatelessWidget {
                             child: Text(
                               startDate.toString(),
                               maxLines: 1,
-                              overflow: TextOverflow.clip,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: Color.fromRGBO(120, 120, 120, 1)),
                               textScaleFactor: 1.1,
                             )),
                         SizedBox(
                           width: 5.0,
                         ),
                         Icon(
-                          Icons.navigation,
+                          MdiIcons.mapMarker,
                           size: 20.0,
                         ),
                         SizedBox(
@@ -122,8 +124,9 @@ class ITFCardRender extends StatelessWidget {
                             child: Text(
                               
                           venue,
+                          style: TextStyle(color: Color.fromRGBO(120, 120, 120, 1)),
                           maxLines: 1,
-                          overflow: TextOverflow.clip,
+                          overflow: TextOverflow.ellipsis,
                           textScaleFactor: 1.1,
                         )),
                       ],

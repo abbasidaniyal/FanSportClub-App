@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fsc/models/fsc_tournament.dart';
 import 'package:fsc/models/itf_tournament.dart';
 import '../pages/fsc_tournament_info_page.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FSCCardRender extends StatelessWidget {
   String name;
@@ -46,11 +47,12 @@ class FSCCardRender extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(3.0),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.grey,
                     blurRadius: 3.0,
-                    offset: Offset(2.0, 2.0),
+                    offset: Offset(0.0, 0.0),
                   ),
                 ],
               ),
@@ -83,7 +85,9 @@ class FSCCardRender extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 18.0),
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color.fromRGBO(120, 120, 120, 1)),
                       ),
                     ),
                     SizedBox(
@@ -93,7 +97,7 @@ class FSCCardRender extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Icon(
-                          Icons.calendar_today,
+                          MdiIcons.calendarClock,
                           size: 20.0,
                         ),
                         SizedBox(
@@ -103,6 +107,8 @@ class FSCCardRender extends StatelessWidget {
                             width: 100.0,
                             child: Text(
                               date.toString(),
+                              style: TextStyle(
+                                  color: Color.fromRGBO(120, 120, 120, 1)),
                               maxLines: 1,
                               overflow: TextOverflow.clip,
                               textScaleFactor: 1.1,
@@ -111,21 +117,22 @@ class FSCCardRender extends StatelessWidget {
                           width: 5.0,
                         ),
                         Icon(
-                          Icons.navigation,
+                          MdiIcons.mapMarker,
                           size: 20.0,
                         ),
                         SizedBox(
                           width: 3.0,
                         ),
                         Container(
-                          width: 80.0,
+                            width: 80.0,
                             child: Text(
-                              
-                          venue,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          textScaleFactor: 1.1,
-                        )),
+                              venue,
+                              style: TextStyle(
+                                  color: Color.fromRGBO(120, 120, 120, 1)),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textScaleFactor: 1.1,
+                            )),
                       ],
                     )
                   ],
@@ -133,7 +140,7 @@ class FSCCardRender extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 40.0),
+              margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 24.0),
               child: Image(
                 image: AssetImage(imageUrl),
                 height: 178.0,

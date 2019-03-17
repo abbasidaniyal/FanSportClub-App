@@ -32,10 +32,10 @@ class CalendarPage extends StatelessWidget {
           ],
           title: Text(
             "Fan Sports Club",
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             textScaleFactor: 1.2,
           ),
-          centerTitle: true,
+          centerTitle: false,
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
