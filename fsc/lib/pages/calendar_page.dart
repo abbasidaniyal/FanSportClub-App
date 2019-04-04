@@ -45,7 +45,7 @@ class CalendarPage extends StatelessWidget {
               ),
               Tab(
                 child: Text(
-                  "ITF Event",
+                  "ITF Calendar",
                 ),
               )
             ],

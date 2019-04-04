@@ -74,8 +74,8 @@ class _ItfPage extends State<ItfPage>
     if (isDateChanged) {
       for (int i = 0; i < array.length; i++) {
         d = array[i].startDate;
-
-        if (d.isAfter(selectedDate) || d == selectedDate) {
+      
+        if (d.isAfter(selectedDate) || d.isAtSameMomentAs(selectedDate) ) {
           _scrollController.animateTo(i * elementHeight,
               duration: Duration(milliseconds: 1000), curve: Curves.ease);
           break;

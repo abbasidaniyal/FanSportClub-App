@@ -28,8 +28,8 @@ mixin TournamentModel on Model {
             name: event["name"],
             grade: event["grade"],
             venue: event["venue"],
-            startDate: DateTime.parse(event["start_date"].toString()),
-            endDate: DateTime.parse(event["end_date"].toString()),
+            startDate: DateTime.parse(event["start_date"].toString()+" 12:00:00z"),
+            endDate: DateTime.parse(event["end_date"].toString()+" 12:00:00z"),
             link: event["link"],
             website: event["website"],
             surface: event["surface"],
@@ -59,7 +59,7 @@ mixin TournamentModel on Model {
               tournamentName: event["name"],
               ageGroup: event["age_group"],
               venue: event["venue"],
-              date: DateTime.parse(event["date"]),
+              date: DateTime.parse(event["date"]+" 12:00:00z"),
               description: event["description"]);
           // print(temp.description);
           fscTournaments.add(temp);

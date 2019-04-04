@@ -81,7 +81,7 @@ class FSCCardRender extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        "Grade : " + age_group,
+                        "Age Group : " + age_group,
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,

@@ -71,7 +71,7 @@ class _CIENPage extends State<CIENPage> {
                   top: 10.0, left: 10.0, right: 10.0, bottom: 2.0),
               padding: EdgeInsets.only(top: 5.0),
               child: Text(
-                "Please fill all the details to renew your CIEN number.",
+                "Please fill all the details to register your CIEN number.",
                 textScaleFactor: 1.2,
                 textAlign: TextAlign.left,
               ),

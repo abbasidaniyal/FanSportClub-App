@@ -16,7 +16,6 @@ class FscPage extends StatefulWidget {
 
 class _FscPage extends State<FscPage>
     with AutomaticKeepAliveClientMixin<FscPage> {
-
   bool isLoading = false;
   List<FSCTournament> array = [];
   DateTime selectedDate;
@@ -24,7 +23,7 @@ class _FscPage extends State<FscPage>
 
   ScrollController _scrollController;
   final double elementHeight = 140.0;
-  final String imageUrl = 'assets/logo.jpg';
+  final String imageUrl = 'assets/logo.png';
   bool get wantKeepAlive => true;
 
   @override
@@ -32,8 +31,8 @@ class _FscPage extends State<FscPage>
     print("Working");
     super.initState();
     MainModel model = ScopedModel.of(context);
-    print(model.isFSCLoaded);
-    print(model.fscTournaments);
+    // print(model.isFSCLoaded);
+    // print(model.fscTournaments);
     if (!model.isFSCLoaded) {
       model.initFscData().then((s) {
         if (model.isFSCLoaded) {
@@ -75,13 +74,18 @@ class _FscPage extends State<FscPage>
   void checkDateChange() {
     DateTime d;
     if (isDateChanged) {
-      for (int i = 0; i < array.length; i++) {
-        d = array[i].date;
-
-        if (d.isAfter(selectedDate) || d == selectedDate) {
-          _scrollController.animateTo(i * elementHeight,
-              duration: Duration(milliseconds: 1000), curve: Curves.ease);
-          break;
+      if (array.last.date.isBefore(selectedDate)) {
+        _scrollController.animateTo(array.length * elementHeight,
+            duration: Duration(milliseconds: 1000), curve: Curves.ease);
+      } else {
+        for (int i = 0; i < array.length; i++) {
+          d = array[i].date;
+          // print(d.toString() + "   " + selectedDate .toString());
+          if (d.isAfter(selectedDate) || d == selectedDate) {
+            _scrollController.animateTo(i * elementHeight,
+                duration: Duration(milliseconds: 1000), curve: Curves.ease);
+            break;
+          }
         }
       }
       isDateChanged = false;
@@ -105,7 +109,6 @@ class _FscPage extends State<FscPage>
             child: Calendar(
               onDateSelected: (a) => setSelectedDate(a),
               isExpandable: true,
-
             ),
           ),
           Expanded(

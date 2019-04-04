@@ -7,6 +7,7 @@ import '../pages/ipin_page.dart';
 import '../pages/calendar_page.dart';
 import '../pages/cien_form_page.dart';
 import '../pages/itf_ranking_page.dart';
+import '../pages/player_profile_search_page.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -19,18 +20,6 @@ class MyDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // AppBar(
-
-            //   automaticallyImplyLeading: false,
-            //   title: Container(
-            //     margin: EdgeInsets.all(3.0),
-            //     child: Image.asset("assets/logo.png"),
-            //   ),
-
-            //   backgroundColor: Theme.of(context).accentColor,
-            //   textTheme: Theme.of(context).textTheme,
-            // ),
-
             Container(
               margin: EdgeInsets.all(3.0),
               padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
@@ -41,7 +30,7 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20.0,right: 20.0,bottom: 20.0),
+              padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
               child: Divider(
                 color: Color.fromRGBO(120, 120, 120, 1),
                 height: 1.0,
@@ -59,6 +48,22 @@ class MyDrawer extends StatelessWidget {
                   context,
                   CupertinoPageRoute(
                     builder: (context) => CalendarPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Player Profile',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => PlayerProfileSearch(),
                   ),
                 );
               },
@@ -93,22 +98,22 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Text(
-            //     'ITF Ranking',
-            //     style: TextStyle(
-            //       color: Theme.of(context).textTheme.title.color,
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     Navigator.pushReplacement(
-            //       context,
-            //       CupertinoPageRoute(
-            //         builder: (context) => ItfRankingPage(),
-            //       ),
-            //     );
-            //   },
-            // ),
+            ListTile(
+              title: Text(
+                'ITF Ranking',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => ItfRankingPage(),
+                  ),
+                );
+              },
+            ),
             // ListTile(
             //   title: Text(
             //     'Gallery',

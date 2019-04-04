@@ -4,8 +4,21 @@ import 'package:flutter/material.dart';
 import '../widget/ranking_card.dart';
 import '../widget/drawer.dart';
 
+import 'package:scoped_model/scoped_model.dart';
+import '../scoped_model/itf_player_ranking.dart';
 
-class ItfRankingPage extends StatelessWidget {
+
+
+
+class ItfRankingPage extends StatefulWidget {
+  @override
+  _ItfRankingPageState createState() => _ItfRankingPageState();
+}
+
+class _ItfRankingPageState extends State<ItfRankingPage> {
+
+  
+
   @override
   Widget build(BuildContext context) {
     String dobb = "20171010";
