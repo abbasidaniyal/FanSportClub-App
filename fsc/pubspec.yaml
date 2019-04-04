@@ -57,6 +57,7 @@ flutter:
   # - assets/logo.jpg
   - assets/logo.png
   - assets/logoITF.jpg
+  - assets/indiaFlag.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

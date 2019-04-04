@@ -5,10 +5,7 @@ import '../widget/ranking_card.dart';
 import '../widget/drawer.dart';
 
 import 'package:scoped_model/scoped_model.dart';
-import '../scoped_model/itf_player_ranking.dart';
-
-
-
+import '../scoped_model/main.dart';
 
 class ItfRankingPage extends StatefulWidget {
   @override
@@ -16,13 +13,10 @@ class ItfRankingPage extends StatefulWidget {
 }
 
 class _ItfRankingPageState extends State<ItfRankingPage> {
-
-  
-
   @override
   Widget build(BuildContext context) {
-    String dobb = "20171010";
-    DateTime dob = DateTime.parse(dobb);
+    MainModel model = ScopedModel.of(context);
+    model.getRankingData();
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
@@ -32,7 +26,21 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
       ),
       body: Container(
         margin: EdgeInsets.all(2.0),
-        child: RankingCard("Rohan Sharma", 04, "assets/logo.jpg", dob, 102, 1),
+        child: ListView.builder(
+          itemCount: model.itfRanking.length,
+          itemBuilder: (context, int index) {
+            return Column(
+              children: <Widget>[
+                RankingCard(
+                  player: model.itfRanking[index],
+                ),
+                Divider(
+                  color: Colors.black,
+                )
+              ],
+            );
+          },
+        ),
       ),
     );
   }
