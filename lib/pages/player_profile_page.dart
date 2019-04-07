@@ -11,7 +11,7 @@ class PlayerProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text(
             "Player Profile",
             style: TextStyle(fontWeight: FontWeight.values[6]),

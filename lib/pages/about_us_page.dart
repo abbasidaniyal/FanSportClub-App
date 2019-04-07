@@ -9,7 +9,7 @@ class AboutUsPage extends StatelessWidget {
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Text("Fan Sport Club"),
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Column(
         children: <Widget>[
@@ -31,17 +31,18 @@ class AboutUsPage extends StatelessWidget {
               controller: ScrollController(initialScrollOffset: 0.0),
               children: <Widget>[
                 Text(
-                  """Sportsmen with interest in Tennis,Badminton, Squash,T.T. & those eager to participate in tournaments, club events & sports as well can be a part of us.\n\n
+                  """Sportsmen with interest in Tennis,Badminton, Squash,T.T. & those eager to participate in tournaments, club events & sports as well can be a part of us.
                   
-                  FSC can facilitate in the following manner during the tournaments :- \n\n
-                  1. Accommodation facility \n
-                  2. Coaching facility \n
-                  3. Racquet gutting facility \n
-                  4. Sports accessories \n
-                  5. Transportation facility \n
-                  6. Jain meal or Pure veg meals \n
-                  7. Swimming in expert trainer's assistance\n
-                  8. Player's onsite Still or Videography by Hi resolution DSLR """,
+                  
+FSC can facilitate in the following manner during the tournaments :- \n\n
+1. Accommodation facility \n
+2. Coaching facility \n
+3. Racquet gutting facility \n
+4. Sports accessories \n
+5. Transportation facility \n
+6. Jain meal or Pure veg meals \n
+7. Swimming in expert trainer's assistance\n
+8. Player's onsite Still or Videography by Hi resolution DSLR """,
                   textScaleFactor: 1.2,
                 )
               ],

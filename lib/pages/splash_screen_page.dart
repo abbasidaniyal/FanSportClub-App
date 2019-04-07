@@ -16,7 +16,7 @@ class WelcomePage extends StatelessWidget {
           seconds: 3,
           image: Image.asset("assets/logo.png",fit: BoxFit.cover),
           photoSize: 60.0,
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).primaryColor,
           navigateAfterSeconds: CalendarPage(),
           loadingText: Text("Welcome",style: TextStyle(color: Colors.white),),
           loaderColor: Colors.white,

@@ -15,7 +15,7 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
       child: Container(
         padding: EdgeInsets.only(left: 20.0),
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

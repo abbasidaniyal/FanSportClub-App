@@ -100,7 +100,7 @@ class _FscPage extends State<FscPage>
     if (isLoading == true || array.length <= 0) {
       return Container(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(backgroundColor: Theme.of(context).primaryColor,),
         ),
       );
     } else {

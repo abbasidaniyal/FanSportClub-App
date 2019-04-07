@@ -6,7 +6,7 @@ class GalleryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
-      appBar: AppBar(title: Text("Fan Sport Club"),backgroundColor:Theme.of(context).accentColor,
+      appBar: AppBar(title: Text("Fan Sport Club"),backgroundColor:Theme.of(context).primaryColor,
           ),
       body: Column(
         children: <Widget>[

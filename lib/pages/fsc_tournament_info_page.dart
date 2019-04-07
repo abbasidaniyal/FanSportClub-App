@@ -12,81 +12,154 @@ class FSCInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text(
-          tournamentData.tournamentName,
+          "Fan Sports Club",
+          style: TextStyle(fontWeight: FontWeight.bold),
           overflow: TextOverflow.fade,
-          textScaleFactor: 0.9,
+          textScaleFactor: 1.2,
         ),
       ),
       body: Container(
         constraints: BoxConstraints.expand(),
-        margin:
-            EdgeInsets.only(top: 16.0, bottom: 16.0, left: 24.0, right: 24.0),
+        // margin:
+        // EdgeInsets.only(top: 16.0, bottom: 16.0, left: 24.0, right: 24.0),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          padding: EdgeInsets.all(10.0),
+          // margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+          // padding: EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  tournamentData.tournamentName,
-                  textAlign: TextAlign.center,
-                  textScaleFactor: 1.8,
-                ),
+              Image(
+                image: AssetImage("assets/tournamentInfo.jpg"),
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "Date : " + tournamentData.date.toString(),
-                  textScaleFactor: 1.2,
+                margin: EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        tournamentData.tournamentName,
+                        textScaleFactor: 1.3,
+                        style: TextStyle(fontWeight: FontWeight.values[5]),
+                      ),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text(
+                            "Date : ",
+                            textScaleFactor: 1.1,
+                            style: TextStyle(fontWeight: FontWeight.values[5]),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text(
+                            tournamentData.date.toString().split(" ")[0],
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text(
+                            "Venue : ",
+                            textScaleFactor: 1.1,
+                            style: TextStyle(fontWeight: FontWeight.values[5]),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text(
+                            tournamentData.venue.toString(),
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text(
+                            "Age Group : ",
+                            textScaleFactor: 1.1,
+                            style: TextStyle(fontWeight: FontWeight.values[5]),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text(
+                            tournamentData.ageGroup.toString(),
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 10.0),
+
+                          child: Text(
+                            "About: ",
+                            textScaleFactor: 1.1,
+                            style: TextStyle(fontWeight: FontWeight.values[5]),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 1.0),
+                          child: Text(
+                            tournamentData.description.toString(),
+                            textScaleFactor: 1.1,
+                          ),
+                        ),
+                      ],
+                    ),
+
+          
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
+                    //   child: Text(
+                    //     "Description : " + tournamentData.description,
+                    //     textScaleFactor: 1.1,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
+                    //   child: Text(
+                    //     "Website : (To be added)",
+                    //     textScaleFactor: 1.2,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
+                    //   child: Text(
+                    //     "Court Type : (To be added)",
+                    //     textScaleFactor: 1.2,
+                    //   ),
+                    // ),
+                    // Container(
+                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
+                    //   child: Text(
+                    //     "Other2 : (To be added)",
+                    //     textScaleFactor: 1.2,
+                    //   ),
+                    // ),
+                  ],
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "Grade : " + tournamentData.ageGroup,
-                  textScaleFactor: 1.2,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "Place : " + tournamentData.venue,
-                  textScaleFactor: 1.2,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                child: Text(
-                  "Description : " + tournamentData.description,
-                  textScaleFactor: 1.2,
-                ),
-              ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: 10.0),
-              //   child: Text(
-              //     "Website : (To be added)",
-              //     textScaleFactor: 1.2,
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: 10.0),
-              //   child: Text(
-              //     "Court Type : (To be added)",
-              //     textScaleFactor: 1.2,
-              //   ),
-              // ),
-              // Container(
-              //   margin: EdgeInsets.symmetric(vertical: 10.0),
-              //   child: Text(
-              //     "Other2 : (To be added)",
-              //     textScaleFactor: 1.2,
-              //   ),
-              // ),
+              )
             ],
           ),
         ),

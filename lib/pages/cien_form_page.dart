@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widget/drawer.dart';
 import '../widget/button.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../pages/calendar_page.dart';
+import '../scoped_model/main.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class CIENPage extends StatefulWidget {
   @override
@@ -16,41 +15,49 @@ class _CIENPage extends State<CIENPage> {
   final _formKey = GlobalKey<FormState>();
   String name, emailID;
   Map<String, String> userData;
-  int age, contactNumber;
+  int contactNumber;
   DateTime dob;
 
-  void submitForm() {
+  void submitForm(context) {
     if (_formKey.currentState.validate()) {
       userData = {
-        "name": name,
-        "age": age.toString(),
-        "contact": contactNumber.toString(),
-        "emailid": emailID
+        "Name ": name,
+        "Contact Number ": contactNumber.toString(),
+        "Email ID ": emailID,
+        "Date Of Birth": dob.toString().split(" ")[0],
       };
-
-      http
-          .post("http://13.127.130.195:8000/cienregistration/",
-              body: json.encode(userData))
-          .then((response) {
-        if (response.statusCode != 200) {
-          print("ERROR");
-          return Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return CalendarPage();
+      print(userData);
+      MainModel model = ScopedModel.of(context);
+      model.mail(userData).then(
+        (status) async {
+          status = true;
+          if (!status) {
+            print("ERROR");
+            // show
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                duration: Duration(seconds: 5),
+                content: Text("Something went wrong :("),
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+            );
+          } else {
+            setState(
+              () {
+                _formKey.currentState.reset();
+                dob = null;
               },
-            ),
-          );
-        } else {
-          return Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return CalendarPage();
-              },
-            ),
-          );
-        }
-      });
+            );
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                duration: Duration(seconds: 5),
+                content: Text("Thank you! We will get back to you soon!"),
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+            );
+          }
+        },
+      );
     }
   }
 
@@ -60,7 +67,7 @@ class _CIENPage extends State<CIENPage> {
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Text("CIEN Registration"),
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Form(
         key: _formKey,
@@ -102,23 +109,6 @@ class _CIENPage extends State<CIENPage> {
               margin: EdgeInsets.all(10.0),
               child: TextFormField(
                 validator: (value) {
-                  age = int.parse(value);
-
-                  if (age.isNaN || age < 0 || age > 110) {
-                    return "Please enter a valid age";
-                  }
-                },
-                decoration: InputDecoration(
-                  labelText: "Age*",
-                  border: UnderlineInputBorder(),
-                  contentPadding: EdgeInsets.all(5.0),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: TextFormField(
-                validator: (value) {
                   emailID = value;
                   bool emailValid =
                       RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -139,6 +129,8 @@ class _CIENPage extends State<CIENPage> {
               margin: EdgeInsets.all(10.0),
               child: TextFormField(
                 validator: (value) {
+                  if (value.isEmpty) return "Please enter a valid number";
+
                   contactNumber = int.parse(value);
                   if (contactNumber.isNaN ||
                       contactNumber > 9999999999 ||
@@ -153,16 +145,66 @@ class _CIENPage extends State<CIENPage> {
                 ),
               ),
             ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                      top: 5.0, right: 10.0, bottom: 10.0, left: 10.0),
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    "Date of Birth*",
+                    textScaleFactor: 1.1,
+                    style: TextStyle(color: Colors.grey.shade700),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.zero,
+                  alignment: Alignment.centerLeft,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    textColor: Theme.of(context).accentColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    child: dob == null
+                        ? Text("Select Date of Birth")
+                        : Text(dob.toString().split(" ")[0]),
+                    onPressed: () async {
+                      FocusManager().rootScope.detach();
+                      DateTime d = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1940),
+                        lastDate: DateTime(2030),
+                      );
+
+                      setState(
+                        () {
+                          dob = d;
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               height: 50.0,
             ),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              padding: EdgeInsets.all(5.0),
-              child: Center(
-                child: MyButton("Submit", submitForm),
-              ),
-            ),
+            Builder(
+              builder: (context) {
+                return Container(
+                  margin: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(5.0),
+                  child: Center(
+                    child: MyButton(
+                      "Submit",
+                      submitForm,
+                      args: context,
+                    ),
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),

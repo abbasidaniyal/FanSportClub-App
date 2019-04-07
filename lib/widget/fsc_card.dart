@@ -140,11 +140,11 @@ class FSCCardRender extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 24.0),
+              margin: EdgeInsets.only(top: 30.0, bottom: 15.0, left: 40.0),
               child: Image(
                 image: AssetImage(imageUrl),
-                height: 178.0,
-                width: 100.0,
+                // height: 150.0,
+                width: 80.0,
               ),
             ),
           ],

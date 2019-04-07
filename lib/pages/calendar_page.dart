@@ -14,6 +14,7 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   String nameToBeSearched;
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -28,9 +29,10 @@ class _CalendarPageState extends State<CalendarPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        key: scaffoldKey,
         drawer: MyDrawer(),
         appBar: AppBar(
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).primaryColor,
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),

@@ -160,7 +160,7 @@ class _PlayerProfileSearchState extends State<PlayerProfileSearch> {
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Text("Search Player Data"),
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),

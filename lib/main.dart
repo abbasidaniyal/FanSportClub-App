@@ -13,12 +13,14 @@ class MyApp extends StatelessWidget {
       model: MainModel(),
       child: MaterialApp(
         theme: ThemeData(
-          buttonTheme: ButtonThemeData(
-
-          ),
-            primaryColor: Color.fromRGBO(120, 171, 9, 1), //green
+            buttonTheme: ButtonThemeData(),
+            primaryColor: Color.fromRGBO(33, 33, 33, 1),
             textSelectionColor: Color.fromRGBO(120, 171, 9, 1),
-            accentColor: Color.fromRGBO(33, 33, 33, 1),//black
+            accentColor: Color.fromRGBO(120, 171, 9, 1), //black
+            secondaryHeaderColor: Color.fromRGBO(33, 33, 33, 1),
+
+            
+            
             fontFamily: 'Roboto',
             textTheme: TextTheme(
               headline: TextStyle(
@@ -37,7 +39,6 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (BuildContext context) {
             return WelcomePage();
-            
           }
         },
       ),

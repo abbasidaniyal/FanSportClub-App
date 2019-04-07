@@ -12,7 +12,7 @@ class IPINPage extends StatelessWidget {
         drawer: MyDrawer(),
         appBar: AppBar(
           title: Text("Renew IPIN"),
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Column(
           children: <Widget>[

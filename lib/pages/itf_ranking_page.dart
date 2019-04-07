@@ -22,7 +22,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
       appBar: AppBar(
         title: Text("ITF Ranking"),
         actions: <Widget>[Icon(Icons.sort)],
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Container(
         margin: EdgeInsets.all(2.0),
