@@ -154,10 +154,6 @@ class _PlayerProfileSearchState extends State<PlayerProfileSearch> {
     model.intiProfileData();
   }
 
-  void search() {
-    //search name
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

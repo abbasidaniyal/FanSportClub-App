@@ -32,7 +32,7 @@ class _ItfPage extends State<ItfPage>
     super.initState();
     MainModel model = ScopedModel.of(context);
     if (!model.isITFLoaded) {
-      model.initItfData().then((s) {
+      model.initItfData(model.token).then((s) {
         if (model.isITFLoaded) {
           setState(() {
             array = model.itfTournaments;

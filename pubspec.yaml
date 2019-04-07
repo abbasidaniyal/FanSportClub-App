@@ -57,7 +57,10 @@ flutter:
   # - assets/logo.jpg
   - assets/logo.png
   - assets/logoITF.jpg
+  - assets/player-profile.jpg
   - assets/indiaFlag.png
+  - assets/playerBackground.png
+  
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
@@ -76,7 +79,7 @@ flutter:
   
     - family: Roboto
       fonts:
-        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Black.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -9,17 +9,21 @@ mixin UserProfileModel on Model {
 
     UserProfile a = UserProfile(
         city: "Noida",
-        dob: "17-00-1998",
+        dob: "17/00/1998",
         firstName: "Daniyal",
         lastName: "Abbasi",
-        playStyle: "Right",
-        state: "UP");
+        backhandStyle: "Single",
+        strongHand: "Right",
+        
+        state: "UP",
+        );
     UserProfile b = UserProfile(
         city: "Noida",
-        dob: "17-00-1998",
+        dob: "17/00/1998",
+        backhandStyle: "Double",
         firstName: "Omair",
         lastName: "Khan",
-        playStyle: "Right",
+        strongHand: "Right",
         state: "UP");
 
     playerProfiles.add(a);

@@ -52,22 +52,22 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Text(
-                'Player Profile',
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
-                ),
-              ),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => PlayerProfileSearch(),
-                  ),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: Text(
+            //     'Player Profile',
+            //     style: TextStyle(
+            //       color: Theme.of(context).textTheme.title.color,
+            //     ),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pushReplacement(
+            //       context,
+            //       CupertinoPageRoute(
+            //         builder: (context) => PlayerProfileSearch(),
+            //       ),
+            //     );
+            //   },
+            // ),
             ListTile(
               title: Text('IPIN Renewal',
                   style: TextStyle(

@@ -34,7 +34,7 @@ class _FscPage extends State<FscPage>
     // print(model.isFSCLoaded);
     // print(model.fscTournaments);
     if (!model.isFSCLoaded) {
-      model.initFscData().then((s) {
+      model.initFscData(model.token).then((s) {
         if (model.isFSCLoaded) {
           setState(() {
             array = model.fscTournaments;

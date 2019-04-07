@@ -80,7 +80,7 @@ class ITFCardRender extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        "Grade : " + grade,
+                          grade,
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,

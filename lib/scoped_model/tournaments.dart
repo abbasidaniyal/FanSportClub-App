@@ -16,11 +16,10 @@ mixin TournamentModel on Model {
   bool isITFLoaded = false;
   bool isFSCLoaded = false;
 
-  Future<void> initItfData() async {
+  Future<void> initItfData(String token) async {
     print("Reaching");
-    await http
-        .get("http://13.127.130.195:8000/tournaments/itf/")
-        .then((http.Response res) {
+    await http.get("http://13.127.130.195:8000/tournaments/tournaments-itf/",
+        headers: {'Authorization': 'Token $token'}).then((http.Response res) {
       if (res.statusCode == 200) {
         fsc = json.decode(res.body);
         for (var event in fsc) {
@@ -28,8 +27,10 @@ mixin TournamentModel on Model {
             name: event["name"],
             grade: event["grade"],
             venue: event["venue"],
-            startDate: DateTime.parse(event["start_date"].toString()+" 12:00:00z"),
-            endDate: DateTime.parse(event["end_date"].toString()+" 12:00:00z"),
+            startDate:
+                DateTime.parse(event["start_date"].toString() + " 12:00:00z"),
+            endDate:
+                DateTime.parse(event["end_date"].toString() + " 12:00:00z"),
             link: event["link"],
             website: event["website"],
             surface: event["surface"],
@@ -46,11 +47,11 @@ mixin TournamentModel on Model {
     });
   }
 
-  Future<void> initFscData() async {
+  Future<void> initFscData(String token) async {
     print("Reaching");
-    await http
-        .get("http://13.127.130.195:8000/tournaments/fsc/")
-        .then((http.Response res) {
+    print('Authorization: Token $token');
+    await http.get("http://13.127.130.195:8000/tournaments/tournaments-fsc/",
+        headers: {'Authorization': 'Token $token'}).then((http.Response res) {
       if (res.statusCode == 200) {
         //print(res.body);
         fsc = json.decode(res.body);
@@ -59,7 +60,7 @@ mixin TournamentModel on Model {
               tournamentName: event["name"],
               ageGroup: event["age_group"],
               venue: event["venue"],
-              date: DateTime.parse(event["date"]+" 12:00:00z"),
+              date: DateTime.parse(event["date"] + " 12:00:00z"),
               description: event["description"]);
           // print(temp.description);
           fscTournaments.add(temp);
