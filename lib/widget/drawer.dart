@@ -44,7 +44,8 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.of(context).pop();
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => CalendarPage(),
@@ -52,29 +53,15 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Text(
-            //     'Player Profile',
-            //     style: TextStyle(
-            //       color: Theme.of(context).textTheme.title.color,
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     Navigator.pushReplacement(
-            //       context,
-            //       CupertinoPageRoute(
-            //         builder: (context) => PlayerProfileSearch(),
-            //       ),
-            //     );
-            //   },
-            // ),
+
             ListTile(
               title: Text('IPIN Renewal',
                   style: TextStyle(
                     color: Theme.of(context).textTheme.title.color,
                   )),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.of(context).pop();
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => IPINPage(),
@@ -90,7 +77,8 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.of(context).pop();
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => CIENPage(),
@@ -106,10 +94,26 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.of(context).pop();
+                Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (context) => ItfRankingPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('About us',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.title.color,
+                  )),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => AboutUsPage(),
                   ),
                 );
               },
@@ -122,7 +126,7 @@ class MyDrawer extends StatelessWidget {
             //     ),
             //   ),
             //   onTap: () {
-            //     Navigator.pushReplacement(
+            //     Navigator.push(
             //       context,
             //       CupertinoPageRoute(
             //         builder: (context) => GalleryPage(),
@@ -130,20 +134,22 @@ class MyDrawer extends StatelessWidget {
             //     );
             //   },
             // ),
-            ListTile(
-              title: Text('About us',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.title.color,
-                  )),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => AboutUsPage(),
-                  ),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: Text(
+            //     'Player Profile',
+            //     style: TextStyle(
+            //       color: Theme.of(context).textTheme.title.color,
+            //     ),
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       CupertinoPageRoute(
+            //         builder: (context) => PlayerProfileSearch(),
+            //       ),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

@@ -31,6 +31,8 @@ class _FscPage extends State<FscPage>
     print("Working");
     super.initState();
     MainModel model = ScopedModel.of(context);
+
+    // model.getToken();
     // print(model.isFSCLoaded);
     // print(model.fscTournaments);
     if (!model.isFSCLoaded) {

@@ -14,8 +14,10 @@ mixin UserProfileModel on Model {
         lastName: "Abbasi",
         backhandStyle: "Single",
         strongHand: "Right",
-        
+        roleModel: "Roger Federer",
+        homeClub: "Noida Tennis Club",
         state: "UP",
+        achievements: "Winner at Noida Open 2019"
         );
     UserProfile b = UserProfile(
         city: "Noida",
@@ -23,7 +25,10 @@ mixin UserProfileModel on Model {
         backhandStyle: "Double",
         firstName: "Omair",
         lastName: "Khan",
+        roleModel: "Rafa Nadal",
         strongHand: "Right",
+        homeClub: "Noida Tennis Club",
+        achievements: "Loser at Noida Open 2019",
         state: "UP");
 
     playerProfiles.add(a);
