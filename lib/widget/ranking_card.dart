@@ -13,6 +13,9 @@ class RankingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
       height: 120.0,
       child: Stack(
         children: <Widget>[
@@ -71,13 +74,18 @@ class RankingCard extends StatelessWidget {
                         width: 20.0,
                       ),
                       Text(
-                        "DOB: ",
+                        "Born: ",
                       ),
                       SizedBox(
                         width: 3.0,
                       ),
-                      Text(player.dateOfBirth.toString().replaceRange(
-                          10, player.dateOfBirth.toString().length, ""))
+                      Text(player.dateOfBirth),
+                      // Text(player.ageGroup.toString()),
+
+                      // Text(
+                      //   player.dateOfBirth.toString().replaceRange(
+                      //       10, player.dateOfBirth.toString().length, ""),
+                      // )
                     ],
                   )
                 ],
@@ -88,7 +96,6 @@ class RankingCard extends StatelessWidget {
             height: 120.0,
             width: 100.0,
             margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 44.0),
-            
             decoration: BoxDecoration(
               // shape: BoxShape.circle,
               boxShadow: [
@@ -103,12 +110,14 @@ class RankingCard extends StatelessWidget {
                 image: AssetImage(flagImageUrl),
               ),
             ),
-            
           ),
           Container(
-            width: MediaQuery.of(context).size.width * 0.05,
-            margin: EdgeInsets.only(left:10.0,top: 50.0,bottom: 50.0),
-            child: Text(player.rank.toString()+".",textScaleFactor: 1.5,),
+            width: MediaQuery.of(context).size.width * 0.1,
+            margin: EdgeInsets.only(left: 10.0, top: 50.0, bottom: 50.0),
+            child: Text(
+              player.rank.toString() + ".",
+              textScaleFactor: 1.5,
+            ),
           )
         ],
       ),

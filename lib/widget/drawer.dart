@@ -55,10 +55,12 @@ class MyDrawer extends StatelessWidget {
             ),
 
             ListTile(
-              title: Text('IPIN Renewal',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.title.color,
-                  )),
+              title: Text(
+                'IPIN Renewal',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
+              ),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(
