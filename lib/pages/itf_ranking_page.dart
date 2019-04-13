@@ -21,11 +21,10 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
   int selectedCategoryIndex = 0;
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     MainModel model = ScopedModel.of(context);
-    model.getRankingData(model.token); //UNCOMMENTED
-    // model.temp();
+    model.getRankingData(model.token);
   }
 
   Widget filter() {
@@ -114,12 +113,21 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
             ),
           );
         } else {
-          return Container(
-            color: Colors.white,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          if (model.rankingError == true) {
+            
+            return AlertDialog(
+              content: Text("Server did not respond"),
+              title: Text("ERROR"),
+              
+            );
+          } else {
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
         }
       },
     );

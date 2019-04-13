@@ -15,6 +15,8 @@ mixin TournamentModel on Model {
   List<dynamic> itf;
   bool isITFLoaded = false;
   bool isFSCLoaded = false;
+  bool fscError = false;
+  bool itfError = false;
 
   Future<void> initItfData(String token) async {
     print("Reaching");
@@ -42,6 +44,7 @@ mixin TournamentModel on Model {
         } else {
           print("ERROR");
           print(res.statusCode);
+          itfError = true;
           isITFLoaded = false;
         }
         notifyListeners();
@@ -73,6 +76,8 @@ mixin TournamentModel on Model {
         print("ERROR");
         print(res.statusCode);
         isFSCLoaded = false;
+        fscError = true;
+        notifyListeners();
       }
     });
 

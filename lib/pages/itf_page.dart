@@ -88,9 +88,21 @@ class _ItfPage extends State<ItfPage>
   @override
   Widget build(BuildContext context) {
     if (isLoading == true || array.length <= 0) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
+      MainModel model = ScopedModel.of(context);
+      if (model.itfError == true) {
+        return AlertDialog(
+          content: Text("Server did not respond"),
+          title: Text("ERROR"),
+        );
+      } else {
+        return Container(
+          child: Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
+          ),
+        );
+      }
     } else {
       return Container(
         color: Color.fromRGBO(245, 245, 245, 0.8),

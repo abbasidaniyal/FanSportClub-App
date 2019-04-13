@@ -14,23 +14,23 @@ class AboutUsPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.all(5.0),
-            padding: EdgeInsets.all(2.0),
+            margin: EdgeInsets.only(top: 30.0),
             child: Center(
-                child: Text(
-              "About us",
-              textScaleFactor: 1.7,
-            )),
+              child: Text(
+                "About us",
+                textScaleFactor: 1.7,
+              ),
+            ),
           ),
           SizedBox(
             height: 10.0,
           ),
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(10.0),
-              controller: ScrollController(initialScrollOffset: 0.0),
-              children: <Widget>[
-                Text(
+            child: SingleChildScrollView(
+                padding: EdgeInsets.all(15.0),
+                scrollDirection: Axis.vertical,
+                controller: ScrollController(initialScrollOffset: 0.0),
+                child: Text(
                   """Sportsmen with interest in Tennis,Badminton, Squash,T.T. & those eager to participate in tournaments, club events & sports as well can be a part of us.
                   
                   
@@ -43,10 +43,8 @@ FSC can facilitate in the following manner during the tournaments :- \n\n
 6. Jain meal or Pure veg meals \n
 7. Swimming in expert trainer's assistance\n
 8. Player's onsite Still or Videography by Hi resolution DSLR """,
-                  textScaleFactor: 1.2,
-                )
-              ],
-            ),
+                  textScaleFactor: 1,
+                )),
           )
         ],
       ),

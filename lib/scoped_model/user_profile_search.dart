@@ -9,6 +9,7 @@ mixin UserProfileModel on Model {
   List<UserProfile> playerProfiles = [];
   bool isProfileDataLoaded = false;
   List<dynamic> profiles = [];
+  bool profileError = false;
 
   Future<Null> intiProfileData(String token) {
 
@@ -37,7 +38,10 @@ mixin UserProfileModel on Model {
             notifyListeners();
           }
         } else {
+          profileError = true;
+
           print("ERROR");
+          notifyListeners();
         }
       },
     );

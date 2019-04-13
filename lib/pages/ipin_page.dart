@@ -20,13 +20,14 @@ class IPINPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                  margin: EdgeInsets.all(10.0),
-                  child: Center(
-                    child: Text(
-                      "IPIN",
-                      textScaleFactor: 1.7,
-                    ),
-                  )),
+                margin: EdgeInsets.all(10.0),
+                child: Center(
+                  child: Text(
+                    "IPIN",
+                    textScaleFactor: 1.7,
+                  ),
+                ),
+              ),
               Container(
                 margin: EdgeInsets.all(10.0),
                 padding: EdgeInsets.all(5.0),

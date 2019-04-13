@@ -97,14 +97,23 @@ class _FscPage extends State<FscPage>
   @override
   Widget build(BuildContext context) {
     // print("BEFORE BUILD"+isLoading + array.length);
+
     if (isLoading == true || array.length <= 0) {
-      return Container(
-        child: Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Theme.of(context).primaryColor,
+      MainModel model = ScopedModel.of(context);
+      if (model.fscError == true) {
+        return AlertDialog(
+          content: Text("Server did not respond"),
+          title: Text("ERROR"),
+        );
+      } else {
+        return Container(
+          child: Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
           ),
-        ),
-      );
+        );
+      }
     } else {
       return Container(
         color: Color.fromRGBO(245, 245, 245, 0.8),

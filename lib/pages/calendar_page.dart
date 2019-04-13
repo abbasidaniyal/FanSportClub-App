@@ -37,10 +37,22 @@ class _CalendarPageState extends State<CalendarPage> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(),
-                );
+                MainModel model = ScopedModel.of(context);
+                if (model.profileError == true) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text("Server did not respond"),
+                          title: Text("ERROR"),
+                        );
+                      });
+                } else {
+                  showSearch(
+                    context: context,
+                    delegate: CustomSearchDelegate(),
+                  );
+                }
               },
             ),
           ],
@@ -93,7 +105,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
@@ -125,7 +136,7 @@ class CustomSearchDelegate extends SearchDelegate {
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.width * 0.05,
                     child: Image(
-                      image: results.toList()[index].profilePhotoUrl!=null
+                      image: results.toList()[index].profilePhotoUrl != null
                           ? NetworkImage(
                               results.toList()[index].profilePhotoUrl)
                           : AssetImage("assets/profilePicture.jpeg"),
@@ -180,7 +191,7 @@ class CustomSearchDelegate extends SearchDelegate {
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.width * 0.05,
                     child: Image(
-                      image: results.toList()[index].profilePhotoUrl!=null
+                      image: results.toList()[index].profilePhotoUrl != null
                           ? NetworkImage(
                               results.toList()[index].profilePhotoUrl)
                           : AssetImage("assets/profilePicture.jpeg"),

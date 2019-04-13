@@ -9,6 +9,7 @@ mixin ITFPlayerRankingModel on Model {
   List<ITFRanking> itfRanking = [];
   List<dynamic> ranking;
   bool isRankingLoaded = false;
+  bool rankingError = false;
 
   Future<Null> getRankingData(String token) {
     http.get("http://13.127.130.195:8000/tournaments/player-ranking-itf/",
@@ -36,6 +37,8 @@ mixin ITFPlayerRankingModel on Model {
           }
         } else {
           print("ERROR");
+          rankingError =true;
+          notifyListeners();
         }
       },
     );
