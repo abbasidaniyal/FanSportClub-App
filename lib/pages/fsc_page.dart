@@ -100,31 +100,36 @@ class _FscPage extends State<FscPage>
     if (isLoading == true || array.length <= 0) {
       return Container(
         child: Center(
-          child: CircularProgressIndicator(backgroundColor: Theme.of(context).primaryColor,),
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
         ),
       );
     } else {
-      return Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(left: 5.0),
-            child: Calendar(
-              onDateSelected: (a) => setSelectedDate(a),
-              isExpandable: true,
+      return Container(
+        color: Color.fromRGBO(245, 245, 245, 0.8),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 5.0),
+              child: Calendar(
+                onDateSelected: (a) => setSelectedDate(a),
+                isExpandable: true,
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              controller: _scrollController,
-              itemCount: array.length,
-              itemBuilder: (BuildContext context, int index) {
-                checkDateChange();
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: array.length,
+                itemBuilder: (BuildContext context, int index) {
+                  checkDateChange();
 
-                return FSCCardRender(array[index], imageUrl);
-              },
+                  return FSCCardRender(array[index], imageUrl);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     }
   }

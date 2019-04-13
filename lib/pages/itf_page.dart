@@ -74,8 +74,8 @@ class _ItfPage extends State<ItfPage>
     if (isDateChanged) {
       for (int i = 0; i < array.length; i++) {
         d = array[i].startDate;
-      
-        if (d.isAfter(selectedDate) || d.isAtSameMomentAs(selectedDate) ) {
+
+        if (d.isAfter(selectedDate) || d.isAtSameMomentAs(selectedDate)) {
           _scrollController.animateTo(i * elementHeight,
               duration: Duration(milliseconds: 1000), curve: Curves.ease);
           break;
@@ -92,25 +92,30 @@ class _ItfPage extends State<ItfPage>
         child: CircularProgressIndicator(),
       );
     } else {
-      return Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(left: 5.0),
-            child: Calendar(
-              onDateSelected: (a) => setSelectedDate(a),
-              isExpandable: true,
+      return Container(
+        color: Color.fromRGBO(245, 245, 245, 0.8),
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Color.fromRGBO(245, 245, 245, 0.8),
+              padding: EdgeInsets.only(left: 5.0),
+              child: Calendar(
+                onDateSelected: (a) => setSelectedDate(a),
+                isExpandable: true,
+              ),
             ),
-          ),
-          Expanded(
+            Expanded(
               child: ListView.builder(
-            controller: _scrollController,
-            itemCount: array.length,
-            itemBuilder: (BuildContext context, int index) {
-              checkDateChange();
-              return ITFCardRender(array[index], imageUrl);
-            },
-          ))
-        ],
+                controller: _scrollController,
+                itemCount: array.length,
+                itemBuilder: (BuildContext context, int index) {
+                  checkDateChange();
+                  return ITFCardRender(array[index], imageUrl);
+                },
+              ),
+            )
+          ],
+        ),
       );
     }
   }

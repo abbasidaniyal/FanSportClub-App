@@ -24,7 +24,63 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
   void initState() {
     super.initState();
     MainModel model = ScopedModel.of(context);
-    model.getRankingData(model.token);
+    model.getRankingData(model.token); //UNCOMMENTED
+    // model.temp();
+  }
+
+  Widget filter() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Age Group"),
+              DropdownButton<int>(
+                hint: Text(ageGroup[selectedAgeIndex].toString()),
+                items: ageGroup.map((int value) {
+                  return new DropdownMenuItem<int>(
+                    value: value,
+                    child: new Text("+" + value.toString()),
+                  );
+                }).toList(),
+                onChanged: (int a) {
+                  print(a);
+                  setState(() {
+                    selectedAgeIndex = ageGroup.indexOf(a);
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Category"),
+              DropdownButton<String>(
+                hint: Text(category[selectedCategoryIndex].toString()),
+                items: category.map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(value),
+                  );
+                }).toList(),
+                onChanged: (String a) {
+                  print(a);
+                  setState(() {
+                    selectedCategoryIndex = category.indexOf(a);
+                  });
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Widget buildBody() {
@@ -82,59 +138,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return Container(
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Age Group"),
-                            DropdownButton<int>(
-                              hint: Text(ageGroup[selectedAgeIndex].toString()),
-                              items: ageGroup.map((int value) {
-                                return new DropdownMenuItem<int>(
-                                  value: value,
-                                  child: new Text("+" + value.toString()),
-                                );
-                              }).toList(),
-                              onChanged: (int a) {
-                                print(a);
-                                setState(() {
-                                  selectedAgeIndex = ageGroup.indexOf(a);
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Category"),
-                            DropdownButton<String>(
-                              hint: Text(
-                                  category[selectedCategoryIndex].toString()),
-                              items: category.map((String value) {
-                                return new DropdownMenuItem<String>(
-                                  value: value,
-                                  child: new Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (String a) {
-                                print(a);
-                                setState(() {
-                                  selectedCategoryIndex = category.indexOf(a);
-                                });
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
+                  return filter();
                 },
               );
             },

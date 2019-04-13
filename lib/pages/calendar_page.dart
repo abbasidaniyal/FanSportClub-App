@@ -20,7 +20,7 @@ class _CalendarPageState extends State<CalendarPage> {
   void initState() {
     super.initState();
     MainModel model = ScopedModel.of(context);
-    model.intiProfileData();
+    model.intiProfileData(model.token);
   }
 
   @override
@@ -107,7 +107,7 @@ class CustomSearchDelegate extends SearchDelegate {
     MainModel model = ScopedModel.of(context);
 
     final results = model.playerProfiles
-        .where((a) => a.fullname().toLowerCase().contains(query.toLowerCase()));
+        .where((a) => a.name.toLowerCase().contains(query.toLowerCase()));
 
     return ListView.builder(
       padding: EdgeInsets.all(0),
@@ -123,16 +123,18 @@ class CustomSearchDelegate extends SearchDelegate {
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
-                    child: Icon(
-                      Icons.account_circle,
+                    height: MediaQuery.of(context).size.width * 0.05,
+                    child: Image(
+                      image: results.toList()[index].profilePhotoUrl!=null
+                          ? NetworkImage(
+                              results.toList()[index].profilePhotoUrl)
+                          : AssetImage("assets/profilePicture.jpeg"),
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                      results.toList()[index].firstName +
-                          " " +
-                          results.toList()[index].lastName,
+                      results.toList()[index].name,
                       textScaleFactor: 1.3,
                     ),
                   )
@@ -160,7 +162,7 @@ class CustomSearchDelegate extends SearchDelegate {
     MainModel model = ScopedModel.of(context);
 
     final results = model.playerProfiles
-        .where((a) => a.fullname().toLowerCase().contains(query.toLowerCase()));
+        .where((a) => a.name.toLowerCase().contains(query.toLowerCase()));
 
     return ListView.builder(
       padding: EdgeInsets.all(0),
@@ -176,23 +178,25 @@ class CustomSearchDelegate extends SearchDelegate {
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
-                    child: Icon(
-                      Icons.account_circle,
+                    height: MediaQuery.of(context).size.width * 0.05,
+                    child: Image(
+                      image: results.toList()[index].profilePhotoUrl!=null
+                          ? NetworkImage(
+                              results.toList()[index].profilePhotoUrl)
+                          : AssetImage("assets/profilePicture.jpeg"),
                     ),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Text(
-                      results.toList()[index].firstName +
-                          " " +
-                          results.toList()[index].lastName,
+                      results.toList()[index].name,
                       textScaleFactor: 1.3,
                     ),
                   )
                 ],
               ),
               onTap: () {
-                close(context, results.toList()[index].firstName);
+                close(context, results.toList()[index].name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
@@ -209,4 +213,3 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 }
-

@@ -12,19 +12,16 @@ class WelcomePage extends StatelessWidget {
       builder: (BuildContext context, Widget child, MainModel model) {
         model.getToken();
         return SplashScreen(
-          
           seconds: 3,
-          image: Image.asset("assets/logo.png",fit: BoxFit.cover),
-          photoSize: 60.0,
-          backgroundColor: Theme.of(context).primaryColor,
-          navigateAfterSeconds: CalendarPage(),
-          loadingText: Text("Welcome",style: TextStyle(color: Colors.white),),
-          loaderColor: Colors.white,
-          title: Text(
-            "Fan Sports Club",
-            style: TextStyle(color: Colors.white),
-            textScaleFactor: 2,
+          image: Image.asset(
+            "assets/logo.png",
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width * 0.80,
           ),
+          photoSize: 80.0,
+          imageBackground: AssetImage("assets/splashScreen.jpg"),
+          navigateAfterSeconds: CalendarPage(),
+          loaderColor: Colors.white,
         );
       },
     );

@@ -18,7 +18,7 @@ mixin ITFPlayerRankingModel on Model {
           ranking = json.decode(res.body);
           for (var players in ranking) {
             ITFRanking temp = ITFRanking(
-              ageGroup: int.parse(players["agegroup"]),
+              ageGroup: int.parse(players["age_group"]),
               category: players["category"],
               dateOfBirth: players["dob"].toString(),
               events: players["events"],
@@ -31,6 +31,7 @@ mixin ITFPlayerRankingModel on Model {
 
             isRankingLoaded = true;
             print("RANKING DATA LOADED");
+
             notifyListeners();
           }
         } else {
@@ -39,4 +40,33 @@ mixin ITFPlayerRankingModel on Model {
       },
     );
   }
+//    * MOCK DATA *
+//   void temp() {
+//     ITFRanking temp;
+//     temp = ITFRanking(
+//       ageGroup: 35,
+//       category: "D",
+//       dateOfBirth: "1998",
+//       events: 5,
+//       movement: -3,
+//       name: "Rahul Singh",
+//       points: 1019,
+//       rank: 35,
+//     );
+//     itfRanking.add(temp);
+
+//     temp = ITFRanking(
+//       ageGroup: 35,
+//       category: "D",
+//       dateOfBirth: "1998",
+//       events: 5,
+//       movement: -3,
+//       name: "Mukul Singh",
+//       points: 1019,
+//       rank: 35,
+//     );
+//     itfRanking.add(temp);
+
+//     isRankingLoaded = true;
+//   }
 }

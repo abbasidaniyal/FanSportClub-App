@@ -19,7 +19,7 @@ class AboutUsPage extends StatelessWidget {
             child: Center(
                 child: Text(
               "About us",
-              textScaleFactor: 2.5,
+              textScaleFactor: 1.7,
             )),
           ),
           SizedBox(

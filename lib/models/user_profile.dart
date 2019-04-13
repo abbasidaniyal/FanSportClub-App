@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class UserProfile {
-  String firstName;
-  String lastName;
+  String name;
   String backhandStyle;
   String strongHand;
   String city;
   String homeClub;
-  String contactNumber;
   String profession;
   String email;
   String roleModel;
@@ -17,9 +15,6 @@ class UserProfile {
   String dob;
   String profilePhotoUrl;
 
-  String fullname() {
-    return firstName + " " + lastName;
-  }
 
   String age() {
     return (DateTime.parse(dob.split("/").toString())
@@ -28,8 +23,7 @@ class UserProfile {
   }
 
   UserProfile(
-      {@required this.firstName,
-      @required this.lastName,
+      {@required this.name,
       @required this.dob,
       @required this.strongHand,
       @required this.backhandStyle,
@@ -37,5 +31,6 @@ class UserProfile {
       this.state,
       this.homeClub,
       this.roleModel,
-      this.achievements});
+      this.achievements,
+      this.profilePhotoUrl});
 }

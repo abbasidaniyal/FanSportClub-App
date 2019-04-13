@@ -25,7 +25,7 @@ mixin TournamentModel on Model {
           fsc = json.decode(res.body);
           for (var event in fsc) {
             ITFTournament temp = ITFTournament(
-              name: event["name"],
+              name: event["tournament_name"],
               grade: event["grade"],
               venue: event["venue"],
               startDate:
@@ -59,11 +59,11 @@ mixin TournamentModel on Model {
         fsc = json.decode(res.body);
         for (var event in fsc) {
           FSCTournament temp = FSCTournament(
-              tournamentName: event["name"],
+              tournamentName: event["tournament_name"],
               ageGroup: event["age_group"],
-              venue: event["venue"],
+              venue: event["tournament_venue"],
               date: DateTime.parse(event["date"] + " 12:00:00z"),
-              description: event["description"]);
+              description: event["tournament_description"]);
           // print(temp.description);
           fscTournaments.add(temp);
         }

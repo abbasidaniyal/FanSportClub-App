@@ -111,7 +111,6 @@ class FSCInfoPage extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(top: 10.0),
-
                           child: Text(
                             "About: ",
                             textScaleFactor: 1.1,
@@ -128,7 +127,6 @@ class FSCInfoPage extends StatelessWidget {
                       ],
                     ),
 
-          
                     // Container(
                     //   margin: EdgeInsets.symmetric(vertical: 10.0),
                     //   child: Text(

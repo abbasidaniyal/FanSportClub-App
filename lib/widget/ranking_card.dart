@@ -16,107 +16,95 @@ class RankingCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
       ),
-      height: 120.0,
-      child: Stack(
+      height: MediaQuery.of(context).size.height * 0.15,
+      margin: EdgeInsets.only(left: 20.0, top: 15.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            height: 142.0,
-            margin: EdgeInsets.only(top: 3.0, bottom: 3.0),
-            child: Container(
-              margin: EdgeInsets.only(top: 5.0, left: 170.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(),
+                child: Text(
+                  player.name,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  softWrap: true,
+                  textScaleFactor: 1,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15.0),
+                child: Text(
+                  "Points : " + player.points.toString(),
+                  maxLines: 1,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  SizedBox(
-                    height: 10.0,
-                  ),
                   Container(
-                    margin: EdgeInsets.only(right: 5.0),
+                    margin: EdgeInsets.only(top: 15.0),
                     child: Text(
-                      player.name,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: 18.0, fontWeight: FontWeight.bold),
-                      softWrap: true,
-                      textScaleFactor: 1,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Container(
-                    child: Text(
-                      "Points : " + player.points.toString(),
-                      maxLines: 1,
-                      textAlign: TextAlign.left,
+                      "Events: " + player.events.toString(),
                       style: TextStyle(fontSize: 18.0),
                     ),
                   ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                        child: Text("Events: "),
-                      ),
-                      SizedBox(
-                        width: 3.0,
-                      ),
-                      Container(
-                        child: Text(
-                          player.events.toString(),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Text(
-                        "Born: ",
-                      ),
-                      SizedBox(
-                        width: 3.0,
-                      ),
-                      Text(player.dateOfBirth),
-                      // Text(player.ageGroup.toString()),
-
-                      // Text(
-                      //   player.dateOfBirth.toString().replaceRange(
-                      //       10, player.dateOfBirth.toString().length, ""),
-                      // )
-                    ],
+                  Container(
+                    margin: EdgeInsets.only(top: 15.0, left: 20.0),
+                    child: Text(
+                      "Born: " + player.dateOfBirth,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
                   )
                 ],
-              ),
+              )
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 80.0),
+            child: VerticalDivider(
+              color: Colors.grey,
+              width: 10.0,
+              // indent: 80.0,
             ),
           ),
           Container(
-            height: 120.0,
-            width: 100.0,
-            margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 44.0),
-            decoration: BoxDecoration(
-              // shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 1.0,
-                  color: Theme.of(context).accentColor,
+            margin: EdgeInsets.only(left: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(),
+                  child: Text(
+                    "ITF Rank",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    softWrap: true,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20.0),
+                  child: Text(
+                    player.rank.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style:
+                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold,color: Colors.grey),
+                    softWrap: true,
+                    textScaleFactor: 1,
+                  ),
                 )
               ],
-              borderRadius: BorderRadius.all(Radius.circular(1000.0)),
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(flagImageUrl),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.1,
-            margin: EdgeInsets.only(left: 10.0, top: 50.0, bottom: 50.0),
-            child: Text(
-              player.rank.toString() + ".",
-              textScaleFactor: 1.5,
             ),
           )
         ],
@@ -124,3 +112,19 @@ class RankingCard extends StatelessWidget {
     );
   }
 }
+
+/*     Container(
+            width: MediaQuery.of(context).size.width * 0.25,
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.75,),
+            child: Text("ITF Rank " ,
+              
+              textScaleFactor: 1.5,
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.25,
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.75, ),
+            child: Text(player.rank.toString(),
+              textScaleFactor: 1.5,
+            ),,
+      )*/

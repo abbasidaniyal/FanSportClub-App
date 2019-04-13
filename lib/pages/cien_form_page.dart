@@ -3,6 +3,7 @@ import '../widget/drawer.dart';
 import '../widget/button.dart';
 import '../scoped_model/main.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class CIENPage extends StatefulWidget {
   @override
@@ -64,150 +65,180 @@ class _CIENPage extends State<CIENPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text("CIEN Registration"),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: Form(
-        key: _formKey,
-        child: ListView(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(
-                  top: 10.0, left: 10.0, right: 10.0, bottom: 2.0),
-              padding: EdgeInsets.only(top: 5.0),
-              child: Text(
-                "Please fill all the details to register your CIEN number.",
-                textScaleFactor: 1.2,
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Container(
-              child: Text(
-                "   (All fields are mandatory*)",
-                textScaleFactor: 0.9,
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: TextFormField(
-                validator: (value) {
-                  name = value;
-                  return name.isEmpty ? "Please enter a valid value" : null;
-                },
-                decoration: InputDecoration(
-                  disabledBorder: InputBorder.none,
-                  labelText: "Full Name*",
-                  border: UnderlineInputBorder(),
-                  contentPadding: EdgeInsets.all(5.0),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: TextFormField(
-                validator: (value) {
-                  emailID = value;
-                  bool emailValid =
-                      RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(emailID);
-
-                  if (!emailValid) {
-                    return "Invalid Email ID";
-                  }
-                },
-                decoration: InputDecoration(
-                  labelText: "Email ID*",
-                  border: UnderlineInputBorder(),
-                  contentPadding: EdgeInsets.all(5.0),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: TextFormField(
-                validator: (value) {
-                  if (value.isEmpty) return "Please enter a valid number";
-
-                  contactNumber = int.parse(value);
-                  if (contactNumber.isNaN ||
-                      contactNumber > 9999999999 ||
-                      contactNumber < 6000000000) {
-                    return "Please enter a valid number";
-                  }
-                },
-                decoration: InputDecoration(
-                  labelText: "Contact Number*",
-                  border: UnderlineInputBorder(),
-                  contentPadding: EdgeInsets.all(5.0),
-                ),
-              ),
-            ),
-            Row(
+        drawer: MyDrawer(),
+        appBar: AppBar(
+          title: Text("CIEN Registration"),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        body: Container(
+          margin: EdgeInsets.only(left: 8.0, right: 8.0),
+          child: Form(
+            key: _formKey,
+            child: ListView(
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(
-                      top: 5.0, right: 10.0, bottom: 10.0, left: 10.0),
-                  padding: EdgeInsets.all(5.0),
+                      top: 10.0, left: 10.0, right: 10.0, bottom: 2.0),
+                  padding: EdgeInsets.only(top: 5.0),
                   child: Text(
-                    "Date of Birth*",
-                    textScaleFactor: 1.1,
-                    style: TextStyle(color: Colors.grey.shade700),
+                    "Please fill all the details to register your CIEN number.",
+                    textScaleFactor: 1.2,
+                    textAlign: TextAlign.left,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.zero,
-                  alignment: Alignment.centerLeft,
-                  child: RaisedButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Theme.of(context).accentColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                    child: dob == null
-                        ? Text("Select Date of Birth")
-                        : Text(dob.toString().split(" ")[0]),
-                    onPressed: () async {
-                      FocusManager().rootScope.detach();
-                      DateTime d = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(1940),
-                        lastDate: DateTime(2030),
-                      );
+                  child: Text(
+                    "   (All fields are mandatory*)",
+                    textScaleFactor: 0.9,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    validator: (value) {
+                      name = value;
+                      return name.isEmpty ? "Please enter a valid value" : null;
+                    },
+                    decoration: InputDecoration(
+                      disabledBorder: InputBorder.none,
+                      labelText: "Full Name*",
+                      border: UnderlineInputBorder(),
+                      contentPadding: EdgeInsets.all(5.0),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    validator: (value) {
+                      emailID = value;
+                      bool emailValid =
+                          RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(emailID);
 
-                      setState(
-                        () {
-                          dob = d;
-                        },
-                      );
+                      if (!emailValid) {
+                        return "Invalid Email ID";
+                      }
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Email ID*",
+                      border: UnderlineInputBorder(),
+                      contentPadding: EdgeInsets.all(5.0),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) return "Please enter a valid number";
+
+                      contactNumber = int.parse(value);
+                      if (contactNumber.isNaN ||
+                          contactNumber > 9999999999 ||
+                          contactNumber < 6000000000) {
+                        return "Please enter a valid number";
+                      }
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Contact Number*",
+                      border: UnderlineInputBorder(),
+                      contentPadding: EdgeInsets.all(5.0),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: GestureDetector(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          margin: EdgeInsets.only(
+                              top: 15.0, right: 10.0, bottom: 10.0, left: 10.0),
+                          padding: EdgeInsets.all(5.0),
+                          child: Text(
+                            "Date of Birth*",
+                            textScaleFactor: 1.1,
+                            style: TextStyle(color: Colors.grey.shade700),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          margin: EdgeInsets.zero,
+                          alignment: Alignment.centerLeft,
+
+                          // color: Theme.of(context).primaryColor,
+                          // textColor: Theme.of(context).accentColor,
+                          // shape: RoundedRectangleBorder(
+                          //   borderRadius: BorderRadius.circular(5.0),
+                          // ),
+                          child: dob == null
+                              ? Text("")
+                              : Text(
+                                  dob.toString().split(" ")[0],
+                                  style: TextStyle(
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
+                    onTap: () async {
+                      // FocusManager().rootScope.detach();
+                      // DateTime d = await showDatePicker(
+                      //   context: context,
+                      //   initialDate: DateTime.now(),
+                      //   firstDate: DateTime(1940),
+                      //   lastDate: DateTime(2030),
+                      // );
+
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(1940, 1, 1),
+                          maxTime: DateTime.now(), onChanged: (date) {
+                        // print('change $date');
+                      }, onConfirm: (date) {
+                        print('confirm $date');
+                        setState(
+                          () {
+                            dob = date;
+                          },
+                        );
+                      }, currentTime: DateTime.now(), locale: LocaleType.en);
                     },
                   ),
                 ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 7.0,
+
+                  ),
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Builder(
+                  builder: (context) {
+                    return Container(
+                      margin: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(5.0),
+                      child: Center(
+                        child: MyButton(
+                          "Submit",
+                          submitForm,
+                          args: context,
+                        ),
+                      ),
+                    );
+                  },
+                )
               ],
             ),
-            SizedBox(
-              height: 50.0,
-            ),
-            Builder(
-              builder: (context) {
-                return Container(
-                  margin: EdgeInsets.all(10.0),
-                  padding: EdgeInsets.all(5.0),
-                  child: Center(
-                    child: MyButton(
-                      "Submit",
-                      submitForm,
-                      args: context,
-                    ),
-                  ),
-                );
-              },
-            )
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

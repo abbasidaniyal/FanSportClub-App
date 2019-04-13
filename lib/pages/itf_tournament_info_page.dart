@@ -181,7 +181,7 @@ class ITFInfoPage extends StatelessWidget {
                                         ? "Not Available"
                                         : "https://" +
                                             tournamentData.website
-                                                .split(" ")[1],
+                                                .split(" ")[0],//change to 1
                                     onOpen: (url) {
                                       launch(url);
                                     },
