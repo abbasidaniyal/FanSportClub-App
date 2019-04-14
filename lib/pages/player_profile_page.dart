@@ -116,7 +116,12 @@ class PlayerProfilePage extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(left: 80.0, top: 5.0),
                             child: Text(
-                              "21",
+                              ((DateTime.now()
+                                          .difference(DateTime.parse(user.dob))
+                                          .inDays) /
+                                      365)
+                                  .floor()
+                                   .toString(),
                               // textScaleFactor: 1.3,
                               style: TextStyle(
                                   color: Colors.white, fontSize: contentSize),
@@ -184,7 +189,7 @@ class PlayerProfilePage extends StatelessWidget {
                     border: Border.all(color: Colors.white, width: 3.0),
                     borderRadius: BorderRadius.circular(100.0),
                     image: DecorationImage(
-                      image: user.profilePhotoUrl!=null
+                      image: user.profilePhotoUrl != ""
                           ? NetworkImage(user.profilePhotoUrl)
                           : AssetImage("assets/profilePicture.jpeg"),
                     ),

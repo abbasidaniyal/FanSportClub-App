@@ -136,10 +136,14 @@ class CustomSearchDelegate extends SearchDelegate {
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.width * 0.05,
                     child: Image(
-                      image: results.toList()[index].profilePhotoUrl != null
+                      image: results.toList()[index].profilePhotoUrl != ""
                           ? NetworkImage(
-                              results.toList()[index].profilePhotoUrl)
-                          : AssetImage("assets/profilePicture.jpeg"),
+                              results.toList()[index].profilePhotoUrl,
+                            )
+                          : AssetImage(
+                              "assets/profilePicture.jpeg",
+                            ),
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                   Container(
@@ -189,16 +193,21 @@ class CustomSearchDelegate extends SearchDelegate {
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
-                    height: MediaQuery.of(context).size.width * 0.05,
-                    child: Image(
-                      image: results.toList()[index].profilePhotoUrl != null
-                          ? NetworkImage(
-                              results.toList()[index].profilePhotoUrl)
-                          : AssetImage("assets/profilePicture.jpeg"),
+                    height: MediaQuery.of(context).size.width * 0.1,
+                    margin: EdgeInsets.only(left: 10.0, right: 20.0),
+                    foregroundDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.0),
+                      border: Border.all(width: 0.1, color: Colors.white),
+                      image: DecorationImage(
+                        image: results.toList()[index].profilePhotoUrl != ""
+                            ? NetworkImage(
+                                results.toList()[index].profilePhotoUrl)
+                            : AssetImage("assets/profilePicture.jpeg"),
+                      ),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       results.toList()[index].name,
                       textScaleFactor: 1.3,

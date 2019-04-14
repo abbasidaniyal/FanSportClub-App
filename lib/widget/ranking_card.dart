@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-import '../scoped_model/main.dart';
 import '../models/itf_ranking.dart';
 
 class RankingCard extends StatelessWidget {
@@ -27,6 +25,7 @@ class RankingCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
+                width: MediaQuery.of(context).size.width * 0.60,
                 margin: EdgeInsets.only(),
                 child: Text(
                   player.name,
@@ -68,7 +67,6 @@ class RankingCard extends StatelessWidget {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 80.0),
             child: VerticalDivider(
               color: Colors.grey,
               width: 10.0,
@@ -98,8 +96,10 @@ class RankingCard extends StatelessWidget {
                     player.rank.toString(),
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
-                    style:
-                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold,color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
                     softWrap: true,
                     textScaleFactor: 1,
                   ),
@@ -113,18 +113,3 @@ class RankingCard extends StatelessWidget {
   }
 }
 
-/*     Container(
-            width: MediaQuery.of(context).size.width * 0.25,
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.75,),
-            child: Text("ITF Rank " ,
-              
-              textScaleFactor: 1.5,
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.25,
-            margin: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.75, ),
-            child: Text(player.rank.toString(),
-              textScaleFactor: 1.5,
-            ),,
-      )*/

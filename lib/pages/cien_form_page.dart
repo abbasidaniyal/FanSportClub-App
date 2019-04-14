@@ -20,8 +20,11 @@ class _CIENPage extends State<CIENPage> {
   DateTime dob;
 
   void submitForm(context) {
-    
-    if (_formKey.currentState.validate()) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 3),
+      content: Text("Processing..."),
+    ));
+    if (_formKey.currentState.validate() && dob != null) {
       userData = {
         "Name ": name,
         "Contact Number ": contactNumber.toString(),
@@ -29,7 +32,7 @@ class _CIENPage extends State<CIENPage> {
         "Date Of Birth": dob.toString().split(" ")[0],
       };
       MainModel model = ScopedModel.of(context);
-      model.mail(userData,model.token ).then(
+      model.mail(userData, model.token).then(
         (status) async {
           if (!status) {
             Scaffold.of(context).showSnackBar(
@@ -56,6 +59,12 @@ class _CIENPage extends State<CIENPage> {
           }
         },
       );
+    } else {
+      Scaffold.of(context).removeCurrentSnackBar();
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text("Date of Birth can not be empty"),
+        duration: Duration(seconds: 3),
+      ));
     }
   }
 

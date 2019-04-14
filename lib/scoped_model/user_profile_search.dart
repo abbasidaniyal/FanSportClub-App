@@ -32,7 +32,7 @@ mixin UserProfileModel on Model {
               // state: players["city"]
             );
             playerProfiles.add(temp);
-
+            print(temp.profilePhotoUrl);
             isProfileDataLoaded = true;
             print("PROFILE DATA LOADED");
             notifyListeners();

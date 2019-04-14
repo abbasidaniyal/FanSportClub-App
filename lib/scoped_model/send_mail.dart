@@ -8,10 +8,16 @@ mixin SendCIENMail on Model {
     await http
         .post(
       "http://13.127.130.195:8000/form/",
-      headers: {'Authorization': 'Token $token'},
+      headers: {
+        'Authorization': 'Token $token',
+        "Content-Type": "application/json"
+      },
       body: json.encode(data),
     )
         .then((res) {
+      print(json.encode(data));
+      print(res.statusCode);
+      print(res.body);
       if (res.statusCode != 200) {
         response = false;
       } else {
