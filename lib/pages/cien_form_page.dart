@@ -29,7 +29,7 @@ class _CIENPage extends State<CIENPage> {
         "Date Of Birth": dob.toString().split(" ")[0],
       };
       MainModel model = ScopedModel.of(context);
-      model.mail(userData).then(
+      model.mail(userData,model.token ).then(
         (status) async {
           if (!status) {
             Scaffold.of(context).showSnackBar(
