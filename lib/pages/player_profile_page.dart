@@ -29,190 +29,194 @@ class PlayerProfilePage extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(0),
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.topCenter,
-                  height: MediaQuery.of(context).size.height * 0.40,
-                  child: Image(
-                    image: AssetImage("assets/playerBackground.png"),
+            Container(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(0),
                     width: MediaQuery.of(context).size.width,
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  // height: MediaQuery.of(context).size.height*0.55,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.50,
-                            top: 35.0),
-                        child: Text(
-                          user.name,
-                          // textScaleFactor: 1.6,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: nameSize),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.50,
-                            top: 10.0),
-                        child: Text(
-                          user.dob,
-                          style:
-                              TextStyle(color: Colors.white, fontSize: dobSize),
-                          // textScaleFactor: 1.2,
-                        ),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.50,
-                                top: 20.0),
-                            child: Text(
-                              "GENDER",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: headingSize),
-                              // textScaleFactor: 1.3,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 50.0, top: 20.0),
-                            child: Text(
-                              "AGE",
-                              // textScaleFactor: 1.3,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: headingSize),
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.50,
-                                top: 5.0),
-                            child: Text(
-                              "Male",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: contentSize),
-                              // textScaleFactor: 1.3,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 80.0, top: 5.0),
-                            child: Text(
-                              ((DateTime.now()
-                                          .difference(DateTime.parse(user.dob))
-                                          .inDays) /
-                                      365)
-                                  .floor()
-                                   .toString(),
-                              // textScaleFactor: 1.3,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: contentSize),
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(left: 20, top: 30),
-                            child: Text(
-                              "BACKHAND STYLE",
-                              // textScaleFactor: 1.3,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: headingSize),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 50, top: 30),
-                            child: Text(
-                              "STRONG HAND",
-                              // textScaleFactor: 1.3,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: headingSize),
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(left: 20, top: 5.0),
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            child: Text(
-                              user.backhandStyle,
-                              // textScaleFactor: 1.3,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: contentSize),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 120, top: 5.0),
-                            child: Text(
-                              user.strongHand,
-                              // textScaleFactor: 1.3,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: contentSize),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  height: MediaQuery.of(context).size.width * 0.35,
-                  margin: EdgeInsets.only(top: 25, left: 20.0),
-                  foregroundDecoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 3.0),
-                    borderRadius: BorderRadius.circular(100.0),
-                    image: DecorationImage(
-                      image: user.profilePhotoUrl != ""
-                          ? NetworkImage(user.profilePhotoUrl)
-                          : AssetImage("assets/profilePicture.jpeg"),
+                    alignment: Alignment.topCenter,
+                    height: MediaQuery.of(context).size.height * 0.40,
+                    child: Image(
+                      image: AssetImage("assets/playerBackground.png"),
+                      width: MediaQuery.of(context).size.width,
                     ),
                   ),
-                )
-              ],
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    // height: MediaQuery.of(context).size.height*0.55,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.50,
+                              top: 35.0),
+                          child: Text(
+                            user.name,
+                            maxLines: 1,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: nameSize),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.50,
+                              top: 10.0),
+                          child: Text(
+                            user.dob,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: dobSize),
+                          ),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              margin: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.50,
+                                  top: 20.0),
+                              child: Text(
+                                "GENDER",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: headingSize),
+                                // textScaleFactor: 1.3,
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              margin: EdgeInsets.only(left: 30.0, top: 20.0),
+                              child: Text(
+                                "AGE",
+                                // textScaleFactor: 1.3,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: headingSize),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              margin: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.50,
+                                  top: 5.0),
+                              child: Text(
+                                "Male",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: contentSize),
+                                // textScaleFactor: 1.3,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 30.0, top: 5.0),
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              child: Text(
+                                ((DateTime.now()
+                                            .difference(
+                                                DateTime.parse(user.dob))
+                                            .inDays) /
+                                        365)
+                                    .floor()
+                                    .toString(),
+                                // textScaleFactor: 1.3,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: contentSize),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.only(left: 20, top: 30),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                "BACKHAND STYLE",
+                                // textScaleFactor: 1.3,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: headingSize),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 50, top: 30),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                "STRONG HAND",
+                                // textScaleFactor: 1.3,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: headingSize),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.only(left: 20, top: 5.0),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                user.backhandStyle,
+                                // textScaleFactor: 1.3,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: contentSize),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 50, top: 5.0),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                user.strongHand,
+                                // textScaleFactor: 1.3,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: contentSize),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: MediaQuery.of(context).size.width * 0.35,
+                    margin: EdgeInsets.only(top: 25, left: 20.0),
+                    foregroundDecoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 3.0),
+                      borderRadius: BorderRadius.circular(100.0),
+                      image: DecorationImage(
+                        image: user.profilePhotoUrl != ""
+                            ? NetworkImage(user.profilePhotoUrl)
+                            : AssetImage("assets/profilePicture.jpeg"),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
             Container(
               color: Colors.white,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.45,
+                height: MediaQuery.of(context).size.height * 0.40,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(2.0),
-                    // border: Border.all(color: Colors.grey[400], width: 1.5),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 3.0,
-                        offset: Offset(0.0, 0.0),
-                      ),
-                    ]),
-                margin: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                margin: EdgeInsets.symmetric(vertical:10.0, horizontal: 5.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

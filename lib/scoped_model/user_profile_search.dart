@@ -1,7 +1,6 @@
 import 'package:scoped_model/scoped_model.dart';
 
 import '../models/user_profile.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -12,12 +11,15 @@ mixin UserProfileModel on Model {
   bool profileError = false;
 
   Future<Null> intiProfileData(String token) {
-
+    
+    playerProfiles = [];
+    profiles = [];
     http.get("http://13.127.130.195:8000/users/user-profile-list/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
           profiles = json.decode(res.body);
+
           for (var players in profiles) {
             UserProfile temp = UserProfile(
               city: players["city"],

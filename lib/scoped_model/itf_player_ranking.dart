@@ -16,6 +16,7 @@ mixin ITFPlayerRankingModel on Model {
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
+          itfRanking = [];
           ranking = json.decode(res.body);
           for (var players in ranking) {
             ITFRanking temp = ITFRanking(

@@ -127,27 +127,29 @@ class CustomSearchDelegate extends SearchDelegate {
         if (model.playerProfiles.length > 0) {
           return Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.symmetric(vertical: 20.0),
+            margin: EdgeInsets.symmetric(vertical: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 10.0),
             child: GestureDetector(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
-                    height: MediaQuery.of(context).size.width * 0.05,
-                    child: Image(
-                      image: results.toList()[index].profilePhotoUrl != ""
-                          ? NetworkImage(
-                              results.toList()[index].profilePhotoUrl,
-                            )
-                          : AssetImage(
-                              "assets/profilePicture.jpeg",
-                            ),
-                      fit: BoxFit.fitHeight,
+                    height: MediaQuery.of(context).size.width * 0.1,
+                    margin: EdgeInsets.only(left: 10.0, right: 20.0),
+                    foregroundDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.0),
+                      border: Border.all(width: 0.1, color: Colors.white),
+                      image: DecorationImage(
+                        image: results.toList()[index].profilePhotoUrl != ""
+                            ? NetworkImage(
+                                results.toList()[index].profilePhotoUrl)
+                            : AssetImage("assets/profilePicture.jpeg"),
+                      ),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       results.toList()[index].name,
                       textScaleFactor: 1.3,
@@ -156,6 +158,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 ],
               ),
               onTap: () {
+                close(context, results.toList()[index].name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
@@ -186,7 +189,8 @@ class CustomSearchDelegate extends SearchDelegate {
         if (model.playerProfiles.length > 0) {
           return Container(
             width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.symmetric(vertical: 20.0),
+            margin: EdgeInsets.symmetric(vertical: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 10.0),
             child: GestureDetector(
               child: Row(
                 mainAxisSize: MainAxisSize.max,

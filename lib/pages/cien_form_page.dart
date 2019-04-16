@@ -3,6 +3,7 @@ import '../widget/drawer.dart';
 import '../widget/button.dart';
 import '../scoped_model/main.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter_picker/flutter_picker.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class CIENPage extends StatefulWidget {
@@ -14,22 +15,27 @@ class CIENPage extends StatefulWidget {
 
 class _CIENPage extends State<CIENPage> {
   final _formKey = GlobalKey<FormState>();
-  String name, emailID;
+  String name, emailID, ipin, city, state;
   Map<String, String> userData;
   int contactNumber;
   DateTime dob;
 
   void submitForm(context) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-      duration: Duration(seconds: 3),
-      content: Text("Processing..."),
-    ));
-    if (_formKey.currentState.validate() && dob != null) {
+    if (_formKey.currentState.validate() && dob != null && state != null) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          duration: Duration(seconds: 3),
+          content: Text("Processing..."),
+        ),
+      );
       userData = {
         "Name ": name,
         "Contact Number ": contactNumber.toString(),
         "Email ID ": emailID,
         "Date Of Birth": dob.toString().split(" ")[0],
+        "IPIN": ipin,
+        "City": city,
+        "State": state,
       };
       MainModel model = ScopedModel.of(context);
       model.mail(userData, model.token).then(
@@ -47,6 +53,7 @@ class _CIENPage extends State<CIENPage> {
               () {
                 _formKey.currentState.reset();
                 dob = null;
+                state = null;
               },
             );
             Scaffold.of(context).showSnackBar(
@@ -59,12 +66,30 @@ class _CIENPage extends State<CIENPage> {
           }
         },
       );
-    } else {
+    } else if (dob == null && state == null) {
       Scaffold.of(context).removeCurrentSnackBar();
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("Date of Birth can not be empty"),
-        duration: Duration(seconds: 3),
-      ));
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Date of Birth and State can not be empty"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (dob == null) {
+      Scaffold.of(context).removeCurrentSnackBar();
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Date of Birth can not be empty"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else if (state == null) {
+      Scaffold.of(context).removeCurrentSnackBar();
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text("State can not be empty"),
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 
@@ -94,7 +119,7 @@ class _CIENPage extends State<CIENPage> {
               ),
               Container(
                 child: Text(
-                  "   (All fields are mandatory*)",
+                  "   (All * fields are mandatory)",
                   textScaleFactor: 0.9,
                   textAlign: TextAlign.left,
                 ),
@@ -102,6 +127,7 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.text,
                   validator: (value) {
                     name = value;
                     return name.isEmpty ? "Please enter a valid value" : null;
@@ -117,6 +143,7 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     emailID = value;
                     bool emailValid =
@@ -137,13 +164,17 @@ class _CIENPage extends State<CIENPage> {
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.phone,
                   validator: (value) {
-                    if (value.isEmpty) return "Please enter a valid number";
+                    if (value.isEmpty) {
+                      return "Please enter your number";
+                    }
 
-                    contactNumber = int.parse(value);
-                    if (contactNumber.isNaN ||
-                        contactNumber > 9999999999 ||
-                        contactNumber < 6000000000) {
+                    contactNumber = int.parse(value, onError: (error) {
+                      return 0;
+                    });
+                    if (contactNumber > 9999999999 ||
+                        contactNumber < 3000000000) {
                       return "Please enter a valid number";
                     }
                   },
@@ -167,8 +198,8 @@ class _CIENPage extends State<CIENPage> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.4,
                           margin: EdgeInsets.only(
-                              top: 15.0, right: 10.0, bottom: 10.0, left: 10.0),
-                          padding: EdgeInsets.all(10.0),
+                              top: 20.0, right: 10.0, bottom: 10.0, left: 10.0),
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: Text(
                             "Date of Birth*",
                             textScaleFactor: 1.1,
@@ -223,8 +254,158 @@ class _CIENPage extends State<CIENPage> {
                   height: 7.0,
                 ),
               ),
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    
+                  },
+                  decoration: InputDecoration(
+                    disabledBorder: InputBorder.none,
+                    labelText: "IPIN",
+                    border: UnderlineInputBorder(),
+                    contentPadding: EdgeInsets.all(5.0),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  enableInteractiveSelection: true,
+                  // inputFormatters: TextInputFormatter(),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    city = value;
+                    return city.isEmpty ? "Please enter a valid value" : null;
+                  },
+                  decoration: InputDecoration(
+                    disabledBorder: InputBorder.none,
+                    labelText: "City*",
+                    border: UnderlineInputBorder(),
+                    contentPadding: EdgeInsets.all(5.0),
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+
+                    // height: 100.0,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          margin: EdgeInsets.only(
+                              top: 20.0, right: 10.0, bottom: 10.0, left: 10.0),
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Text(
+                            "State*",
+                            textScaleFactor: 1.1,
+                            style: TextStyle(color: Colors.grey.shade700),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          margin: EdgeInsets.zero,
+                          alignment: Alignment.centerLeft,
+
+                          // color: Theme.of(context).primaryColor,
+                          // textColor: Theme.of(context).accentColor,
+                          // shape: RoundedRectangleBorder(
+                          //   borderRadius: BorderRadius.circular(5.0),
+                          // ),
+                          child: state == null
+                              ? Text("")
+                              : Text(
+                                  state.toString(),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () async {
+                    Picker picker = Picker(
+                      hideHeader: true,
+                      title: Text("State"),
+                      onConfirm: (Picker p, List l) {
+                        setState(() {
+                          state = p.getSelectedValues().join().toString();
+                        });
+                      },
+                      adapter: PickerDataAdapter<String>(
+                        pickerdata: [
+                          'Andhra Pradesh',
+                          'Andaman and Nicobar Islands',
+                          'Arunachal Pradesh',
+                          'Assam',
+                          'Bihar',
+                          'Chandigarh',
+                          'Chhattisgarh',
+                          'Dadra and Nagar Haveli',
+                          'Daman and Diu',
+                          'Delhi',
+                          'Goa',
+                          'Gujarat',
+                          'Haryana',
+                          'Himachal Pradesh',
+                          'Jammu and Kashmir',
+                          'Jharkhand',
+                          'Karnataka',
+                          'Kerala',
+                          'Lakshadweep',
+                          'Madhya Pradesh',
+                          'Maharashtra',
+                          'Manipur',
+                          'Meghalaya',
+                          'Mizoram',
+                          'Nagaland',
+                          'Odisha',
+                          'Puducherry',
+                          'Punjab',
+                          'Rajasthan',
+                          'Sikkim',
+                          'Tamil Nadu',
+                          'Telangana',
+                          'Tripura',
+                          'Uttarakhand',
+                          'Uttar Pradesh',
+                          'West Bengal',
+                        ],
+                      ),
+                    );
+                    picker.showDialog(context);
+                  },
+                ),
+                // child: TextFormField(
+                //   keyboardType: TextInputType.text,
+                //   validator: (value) {
+                //     state = value;
+                //     return state.isEmpty ? "Please enter a valid value" : null;
+                //   },
+                //   decoration: InputDecoration(
+                //     disabledBorder: InputBorder.none,
+                //     labelText: "State*",
+                //     border: UnderlineInputBorder(),
+                //     contentPadding: EdgeInsets.all(5.0),
+                //   ),
+                // ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Divider(
+                  color: Colors.black,
+                  height: 7.0,
+                ),
+              ),
               SizedBox(
-                height: 50.0,
+                height: 10.0,
               ),
               Builder(
                 builder: (context) {

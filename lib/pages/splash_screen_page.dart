@@ -20,7 +20,7 @@ class WelcomePage extends StatelessWidget {
           ),
           photoSize: 80.0,
           imageBackground: AssetImage("assets/splashScreen.jpg"),
-          navigateAfterSeconds: CalendarPage(),
+          navigateAfterSeconds: CalendarPage(), 
           loaderColor: Colors.white,
         );
       },

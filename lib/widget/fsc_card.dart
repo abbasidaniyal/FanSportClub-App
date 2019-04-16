@@ -144,7 +144,7 @@ class FSCCardRender extends StatelessWidget {
               child: Image(
                 image: AssetImage(imageUrl),
                 // height: 150.0,
-                width: 80.0,
+                width: 70.0,
               ),
             ),
           ],

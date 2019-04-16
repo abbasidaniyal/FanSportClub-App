@@ -24,6 +24,7 @@ mixin TournamentModel on Model {
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
+          itfTournaments = [];
           fsc = json.decode(res.body);
           for (var event in fsc) {
             ITFTournament temp = ITFTournament(
@@ -59,6 +60,7 @@ mixin TournamentModel on Model {
         headers: {'Authorization': 'Token $token'}).then((http.Response res) {
       if (res.statusCode == 200) {
         //print(res.body);
+        fscTournaments = [];
         fsc = json.decode(res.body);
         for (var event in fsc) {
           FSCTournament temp = FSCTournament(
@@ -82,10 +84,10 @@ mixin TournamentModel on Model {
     });
 
     //SORTING THE INCOMING ARRAY
-    fscTournaments.sort(
-      (a, b) {
-        return a.date.compareTo(b.date);
-      },
-    );
+    // fscTournaments.sort(
+    //   (a, b) {
+    //     return a.date.compareTo(b.date);
+    //   },
+    // );
   }
 }

@@ -20,13 +20,26 @@ class MyDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(3.0),
-              padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
-              child: Image.asset(
-                "assets/logo.png",
-                alignment: Alignment.topLeft,
-                width: 110,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (BuildContext context) {
+                      return CalendarPage();
+                    },
+                  ),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.all(3.0),
+                padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
+                child: Image.asset(
+                  "assets/logo.png",
+                  alignment: Alignment.topLeft,
+                  width: 110,
+                ),
               ),
             ),
             Container(
@@ -45,10 +58,12 @@ class MyDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
-                    builder: (context) => CalendarPage(),
+                    builder: (BuildContext context) {
+                      return CalendarPage();
+                    },
                   ),
                 );
               },
@@ -62,7 +77,8 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
+
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
@@ -79,7 +95,8 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
+
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
@@ -96,7 +113,8 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
+
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
@@ -111,7 +129,8 @@ class MyDrawer extends StatelessWidget {
                     color: Theme.of(context).textTheme.title.color,
                   )),
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
+
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
