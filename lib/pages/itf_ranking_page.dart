@@ -6,6 +6,7 @@ import '../widget/drawer.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model/main.dart';
 import '../widget/button.dart';
+import '../models/itf_ranking.dart';
 
 class ItfRankingPage extends StatefulWidget {
   @override
@@ -19,12 +20,27 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
   List<String> category = ['Doubles', 'Singles'];
   int selectedCategoryIndex = 0;
   int flag = 0;
+  List<ITFRanking> array = [];
 
   @override
   void initState() {
     super.initState();
+    getData();
+  }
+
+  void getData() async {
     MainModel model = ScopedModel.of(context);
-    model.getRankingData(model.token);
+
+    model.getRankingData(model.token).then((onValue) {
+      setState(() {
+        array = model.itfRanking.where((test) {
+          return (test.ageGroup == ageGroup[selectedAgeIndex]) &&
+                  (test.category == category[selectedCategoryIndex][0])
+              ? true
+              : false;
+        }).toList();
+      });
+    });
   }
 
   Widget filter() {
@@ -54,7 +70,6 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
             margin: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.1, top: 10.0),
             child: Row(
-              // mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -79,12 +94,10 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
                       setState(
                         () {
                           selectedAgeIndex = ageGroup.indexOf(a);
-                          flag = 0;
                         },
                       );
-                      Navigator.pop(context);
-                      setState(() {});
 
+                      Navigator.pop(context);
                       showModalBottomSheet(
                         context: context,
                         builder: (context) => filter(),
@@ -111,23 +124,25 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: DropdownButton<String>(
-                    // isDense: ,
                     isExpanded: true,
                     style: TextStyle(fontSize: 20, color: Colors.grey),
                     hint: Text(category[selectedCategoryIndex].toString()),
-                    items: category.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                    items: category.map(
+                      (String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
                     onChanged: (String a) {
                       print(a);
                       setState(() {
                         selectedCategoryIndex = category.indexOf(a);
                       });
+
                       Navigator.pop(context);
-                      setState(() {});
+
                       showModalBottomSheet(
                         context: context,
                         builder: (context) => filter(),
@@ -141,7 +156,16 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
           Container(
             margin: EdgeInsets.only(top: 10.0),
             child: MyButton("Apply", () {
-              setState(() {});
+              setState(() {
+                MainModel model = ScopedModel.of(context);
+
+                array = model.itfRanking.where((test) {
+                  return (test.ageGroup == ageGroup[selectedAgeIndex]) &&
+                          (test.category == category[selectedCategoryIndex][0])
+                      ? true
+                      : false;
+                }).toList();
+              });
               Navigator.pop(context);
             }),
           )
@@ -154,16 +178,16 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
         if (model.isRankingLoaded == true) {
+          // setState(() {
+          //  array =  ;
+          // });
+
           return Container(
-            // color: Colors.white,
             margin: EdgeInsets.all(2.0),
             child: ListView.builder(
-              itemCount: model.itfRanking.length,
+              itemCount: array.length,
               itemBuilder: (BuildContext context, int index) {
-                if ((model.itfRanking[index].ageGroup ==
-                        ageGroup[selectedAgeIndex]) &&
-                    model.itfRanking[index].category ==
-                        category[selectedCategoryIndex][0]) {
+                if (true) {
                   flag++;
                   print(flag);
                   return Container(
@@ -171,7 +195,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
                     child: Column(
                       children: <Widget>[
                         RankingCard(
-                          player: model.itfRanking[index],
+                          player: array[index],
                         ),
                         Divider(
                           color: Colors.black,
@@ -206,34 +230,36 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(flag);
     return Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        title: Text("ITF Ranking"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.filter_list),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => filter(),
-              );
-            },
-          )
-        ],
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: Stack(
-        children: <Widget>[
-          flag == 0
-              ? Center(
-                  child: Text("Nothing to Display"),
-                )
-              : Container(),
-          buildBody(),
-        ],
-      ),
-    );
+        drawer: MyDrawer(),
+        appBar: AppBar(
+          title: Text("ITF Ranking"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.filter_list),
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => filter(),
+                );
+              },
+            )
+          ],
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        body: ScopedModelDescendant<MainModel>(
+          builder: (context, child, model) {
+            return Stack(
+              children: <Widget>[
+                array.length == 0
+                    ? Center(
+                        child: Text("Nothing to Display"),
+                      )
+                    : Container(),
+                buildBody(),
+              ],
+            );
+          },
+        ));
   }
 }

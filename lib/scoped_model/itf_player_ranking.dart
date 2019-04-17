@@ -11,8 +11,8 @@ mixin ITFPlayerRankingModel on Model {
   bool isRankingLoaded = false;
   bool rankingError = false;
 
-  Future<Null> getRankingData(String token) {
-    http.get("http://13.127.130.195:8000/tournaments/player-ranking-itf/",
+  Future<bool> getRankingData(String token) async {
+ await   http.get("http://13.127.130.195:8000/tournaments/player-ranking-itf/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
