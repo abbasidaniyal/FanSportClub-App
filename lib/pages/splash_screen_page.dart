@@ -14,7 +14,7 @@ class WelcomePage extends StatelessWidget {
         return SplashScreen(
           seconds: 3,
           image: Image.asset(
-            "assets/logo.png",
+            "assets/logo-fansport.png",
             fit: BoxFit.cover,
             width: MediaQuery.of(context).size.width * 0.80,
           ),

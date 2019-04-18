@@ -21,9 +21,7 @@ class ITFInfoPage extends StatelessWidget {
         ),
       ),
       body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: <Widget>[
             Image(
               image: AssetImage("assets/tournamentInfo.jpg"),
@@ -181,7 +179,7 @@ class ITFInfoPage extends StatelessWidget {
                                         ? "Not Available"
                                         : "https://" +
                                             tournamentData.website
-                                                .split(" ")[0],//change to 1
+                                                .split(" ")[0], //change to 1
                                     onOpen: (url) {
                                       launch(url);
                                     },

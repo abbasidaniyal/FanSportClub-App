@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../pages/about_us_page.dart';
-import '../pages/gallery_page.dart';
+
 import '../pages/ipin_page.dart';
 import '../pages/calendar_page.dart';
 import '../pages/cien_form_page.dart';
 import '../pages/itf_ranking_page.dart';
-import '../pages/player_profile_search_page.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -36,7 +35,7 @@ class MyDrawer extends StatelessWidget {
                 margin: EdgeInsets.all(3.0),
                 padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
                 child: Image.asset(
-                  "assets/logo.png",
+                  "assets/logo-FSC.png",
                   alignment: Alignment.topLeft,
                   width: 110,
                 ),

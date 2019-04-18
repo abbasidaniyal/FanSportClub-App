@@ -23,7 +23,7 @@ class _FscPage extends State<FscPage>
 
   ScrollController _scrollController;
   final double elementHeight = 140.0;
-  final String imageUrl = 'assets/logo.png';
+  final String imageUrl = 'assets/logo-FSC.png';
   bool get wantKeepAlive => true;
 
   @override
@@ -123,11 +123,15 @@ class _FscPage extends State<FscPage>
               padding: EdgeInsets.only(left: 5.0),
               child: Calendar(
                 onDateSelected: (a) => setSelectedDate(a),
-                isExpandable: true,
+                isExpandable: false,
+                showTodayAction: false,
               ),
             ),
             Expanded(
-              child: ListView.builder(
+              child: Container(
+                margin: EdgeInsets.only(top: 10.0),
+                child: ListView.builder(
+                
                 controller: _scrollController,
                 itemCount: array.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -136,6 +140,7 @@ class _FscPage extends State<FscPage>
                   return FSCCardRender(array[index], imageUrl);
                 },
               ),
+              )
             ),
           ],
         ),

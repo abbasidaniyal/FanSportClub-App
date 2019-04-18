@@ -74,7 +74,8 @@ class RankingCard extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 20.0),
+            margin: EdgeInsets.only(left: 5.0),
+            width: MediaQuery.of(context).size.width*0.30,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,

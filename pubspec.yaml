@@ -1,5 +1,5 @@
-name: fsc
-description: A new Flutter project.
+name: Fan_Sports_Club
+description: FSC is an icon of Fan Sports Club where players participate in different type of games like Tennis, Badminton, Table tennis, Squash from distant places. Using the FSC app players will be updated about national, international, club level tournaments with more number of players as participants performing on the grounds and simultaneously involving the senior players of the nation who sometimes think of their retirement from the sports. Using the FSC app we facilitate people to easily login for the tournaments, know the whereabouts of the events happening in India and abroad with a single click on their Andriod or iOS devices. A player can have the entire information about his individual profile, national and international rank, events being held globally and the destination tourneys  organized time to time by the tennis fraternity. A player looking for a doubles partner, information about the tournaments held nearby, the fee structure and facilities provided, all this can be visualized by a single click at FSC.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -54,8 +54,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  # - assets/logo.jpg
-  - assets/logo.png
+  - assets/logo-fansport.png
+  - assets/logo-FSC.png
   - assets/logoITF.jpg
   - assets/player-profile.jpg
   - assets/indiaFlag.png
@@ -63,6 +63,7 @@ flutter:
   - assets/tournamentInfo.jpg
   - assets/profilePicture.jpeg
   - assets/splashScreen.jpg
+
   
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg

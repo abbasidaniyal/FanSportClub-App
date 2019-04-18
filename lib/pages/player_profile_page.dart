@@ -68,6 +68,7 @@ class PlayerProfilePage extends StatelessWidget {
                               top: 10.0),
                           child: Text(
                             user.dob,
+                            maxLines: 1,
                             style: TextStyle(
                                 color: Colors.white, fontSize: dobSize),
                           ),
@@ -82,6 +83,7 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 20.0),
                               child: Text(
                                 "GENDER",
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -95,6 +97,7 @@ class PlayerProfilePage extends StatelessWidget {
                               child: Text(
                                 "AGE",
                                 // textScaleFactor: 1.3,
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -113,6 +116,7 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 5.0),
                               child: Text(
                                 "Male",
+                                maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
                                 // textScaleFactor: 1.3,
@@ -143,6 +147,7 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 "BACKHAND STYLE",
+                                maxLines: 1,
                                 // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -155,6 +160,7 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 "STRONG HAND",
+                                maxLines: 1,
                                 // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -171,6 +177,7 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.backhandStyle,
+                                maxLines: 1,
                                 // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
@@ -181,6 +188,7 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.strongHand,
+                                maxLines: 1,
                                 // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
@@ -211,18 +219,18 @@ class PlayerProfilePage extends StatelessWidget {
             Container(
               color: Colors.white,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.40,
+                height: MediaQuery.of(context).size.height * 0.45,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(2.0),
                 ),
-                margin: EdgeInsets.symmetric(vertical:10.0, horizontal: 5.0),
+                margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(left: 15.0, top: 15.0),
+                      margin: EdgeInsets.only(left: 15.0, top: 5.0),
                       child: Text(
                         "Player Info",
                         // textScaleFactor: 1.2,

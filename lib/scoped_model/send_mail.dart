@@ -7,7 +7,7 @@ mixin SendCIENMail on Model {
     bool response;
     await http
         .post(
-      "http://13.127.130.195:8000/form/",
+      "http://api.fansportsclub.com/form/",
       headers: {
         'Authorization': 'Token $token',
         "Content-Type": "application/json"

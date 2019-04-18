@@ -1,4 +1,4 @@
-package com.example.fsc;
+package com.fansportsclub.fansportsclub;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

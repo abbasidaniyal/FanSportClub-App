@@ -20,7 +20,7 @@ mixin TournamentModel on Model {
 
   Future<void> initItfData(String token) async {
     print("Reaching");
-    await http.get("http://13.127.130.195:8000/tournaments/tournaments-itf/",
+    await http.get("http://api.fansportsclub.com/tournaments/tournaments-itf/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
@@ -56,7 +56,7 @@ mixin TournamentModel on Model {
   Future<void> initFscData(String token) async {
     print("Reaching");
     print('Authorization: Token $token');
-    await http.get("http://13.127.130.195:8000/tournaments/tournaments-fsc/",
+    await http.get("http://api.fansportsclub.com/tournaments/tournaments-fsc/",
         headers: {'Authorization': 'Token $token'}).then((http.Response res) {
       if (res.statusCode == 200) {
         //print(res.body);
@@ -84,10 +84,10 @@ mixin TournamentModel on Model {
     });
 
     //SORTING THE INCOMING ARRAY
-    // fscTournaments.sort(
-    //   (a, b) {
-    //     return a.date.compareTo(b.date);
-    //   },
-    // );
+    fscTournaments.sort(
+      (a, b) {
+        return a.date.compareTo(b.date);
+      },
+    );
   }
 }

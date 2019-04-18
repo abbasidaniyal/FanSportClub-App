@@ -7,7 +7,7 @@ mixin TokenAuth on Model {
   void getToken() {
 
     http.post(
-      "http://13.127.130.195:8000/api-token-auth/",
+      "http://api.fansportsclub.com/api-token-auth/",
       body: {'username': 'appuser', 'password': 'fansportsclubapp'},
     ).then((http.Response res) {
       print(res.body);

@@ -14,7 +14,7 @@ mixin UserProfileModel on Model {
     
     playerProfiles = [];
     profiles = [];
-    http.get("http://13.127.130.195:8000/users/user-profile-list/",
+    http.get("http://api.fansportsclub.com/users/user-profile-list/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {

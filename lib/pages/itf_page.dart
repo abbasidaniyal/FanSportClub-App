@@ -113,10 +113,12 @@ class _ItfPage extends State<ItfPage>
               padding: EdgeInsets.only(left: 5.0),
               child: Calendar(
                 onDateSelected: (a) => setSelectedDate(a),
-                isExpandable: true,
+                isExpandable: false,
+                showTodayAction: false,
               ),
             ),
             Expanded(
+                child: Container(
               child: ListView.builder(
                 controller: _scrollController,
                 itemCount: array.length,
@@ -125,7 +127,7 @@ class _ItfPage extends State<ItfPage>
                   return ITFCardRender(array[index], imageUrl);
                 },
               ),
-            )
+            ))
           ],
         ),
       );

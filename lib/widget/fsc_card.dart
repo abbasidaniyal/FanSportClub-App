@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:fsc/models/fsc_tournament.dart';
-import 'package:fsc/models/itf_tournament.dart';
+import '../models/fsc_tournament.dart';
 import '../pages/fsc_tournament_info_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

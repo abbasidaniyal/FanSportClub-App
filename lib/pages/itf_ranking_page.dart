@@ -19,7 +19,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
   int selectedAgeIndex = 0;
   List<String> category = ['Doubles', 'Singles'];
   int selectedCategoryIndex = 0;
-  int flag = 0;
+
   List<ITFRanking> array = [];
 
   @override
@@ -178,34 +178,24 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
         if (model.isRankingLoaded == true) {
-          // setState(() {
-          //  array =  ;
-          // });
-
           return Container(
             margin: EdgeInsets.all(2.0),
             child: ListView.builder(
               itemCount: array.length,
               itemBuilder: (BuildContext context, int index) {
-                if (true) {
-                  flag++;
-                  print(flag);
-                  return Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: <Widget>[
-                        RankingCard(
-                          player: array[index],
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        )
-                      ],
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
+                return Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      RankingCard(
+                        player: array[index],
+                      ),
+                      Divider(
+                        color: Colors.black,
+                      )
+                    ],
+                  ),
+                );
               },
             ),
           );

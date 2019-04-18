@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:fsc/models/fsc_tournament.dart';
-import 'package:fsc/models/itf_tournament.dart';
+import '../models/itf_tournament.dart';
 import '../pages/itf_tournament_info_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -23,7 +21,6 @@ class ITFCardRender extends StatelessWidget {
     grade = tournamentData.grade;
     venue = tournamentData.venue;
     startDate = tournamentData.startDate;
-    
   }
 
   @override
@@ -80,11 +77,13 @@ class ITFCardRender extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                          grade,
+                        grade,
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 16.0,color: Color.fromRGBO(120, 120, 120, 1)),
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color.fromRGBO(120, 120, 120, 1)),
                       ),
                     ),
                     SizedBox(
@@ -106,7 +105,8 @@ class ITFCardRender extends StatelessWidget {
                               startDate.toString(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Color.fromRGBO(120, 120, 120, 1)),
+                              style: TextStyle(
+                                  color: Color.fromRGBO(120, 120, 120, 1)),
                               textScaleFactor: 1.1,
                             )),
                         SizedBox(
@@ -120,15 +120,15 @@ class ITFCardRender extends StatelessWidget {
                           width: 3.0,
                         ),
                         Container(
-                          width: 80.0,
+                            width: 80.0,
                             child: Text(
-                              
-                          venue,
-                          style: TextStyle(color: Color.fromRGBO(120, 120, 120, 1)),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textScaleFactor: 1.1,
-                        )),
+                              venue,
+                              style: TextStyle(
+                                  color: Color.fromRGBO(120, 120, 120, 1)),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textScaleFactor: 1.1,
+                            )),
                       ],
                     )
                   ],
