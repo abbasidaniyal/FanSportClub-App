@@ -1,11 +1,16 @@
-# FanSportClub App
-This is the repo for the front end of the FSC Mobile app.The app is made using Flutter framework.
+# fsc
 
-##Installation
+A new Flutter project.
 
-1. Install Flutter from https://flutter.io/docs/get-started/install
-2. Run the command flutter doctor
+## Getting Started
 
+This project is a starting point for a Flutter application.
 
-##Running
--Type the command flutter run
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+
+For help getting started with Flutter, view our 
+[online documentation](https://flutter.io/docs), which offers tutorials, 
+samples, guidance on mobile development, and a full API reference.
