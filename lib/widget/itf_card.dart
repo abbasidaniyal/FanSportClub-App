@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/itf_tournament.dart';
 import '../pages/itf_tournament_info_page.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ITFCardRender extends StatelessWidget {
@@ -102,7 +103,7 @@ class ITFCardRender extends StatelessWidget {
                         Container(
                             width: 100.0,
                             child: Text(
-                              startDate.toString(),
+                              DateFormat("dd/MM/yyy").format(startDate).toString(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

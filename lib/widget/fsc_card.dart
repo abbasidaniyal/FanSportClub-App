@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import '../models/fsc_tournament.dart';
 import '../pages/fsc_tournament_info_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -105,7 +105,7 @@ class FSCCardRender extends StatelessWidget {
                         Container(
                             width: 100.0,
                             child: Text(
-                              date.toString(),
+                              DateFormat("dd/MM/yyy").format(date).toString(),
                               style: TextStyle(
                                   color: Color.fromRGBO(120, 120, 120, 1)),
                               maxLines: 1,
