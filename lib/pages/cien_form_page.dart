@@ -108,6 +108,15 @@ class _CIENPage extends State<CIENPage> {
           child: ListView(
             children: <Widget>[
               Container(
+                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width*0.03,horizontal: MediaQuery.of(context).size.width*0.03),
+                child: Text(
+                    """The CIEN (Contestant Individual Enrollment Number) is brought to you by FSC. All players who wish to compete in club tournaments, destination tourneys are required to have a CIEN. 
+                    
+CIEN provides access to tournament entries and keeps you up to date at all times. You can enter for tournaments by your CIEN online. 
+
+To obtain CIEN you need to register online. """,textScaleFactor: 1.2,),
+              ),
+              Container(
                 margin: EdgeInsets.only(
                     top: 10.0, left: 10.0, right: 10.0, bottom: 2.0),
                 padding: EdgeInsets.only(top: 5.0),
@@ -258,9 +267,7 @@ class _CIENPage extends State<CIENPage> {
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
                   keyboardType: TextInputType.text,
-                  validator: (value) {
-                    
-                  },
+                  validator: (value) {},
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
                     labelText: "IPIN",
