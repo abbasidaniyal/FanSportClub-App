@@ -143,7 +143,10 @@ class PlayerProfilePage extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             Container(
-                              margin: EdgeInsets.only(left: 20, top: 30),
+                              margin: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  top: 30),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 "BACKHAND STYLE",
@@ -156,7 +159,10 @@ class PlayerProfilePage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 50, top: 30),
+                              margin: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  top: 30),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 "STRONG HAND",
@@ -173,7 +179,10 @@ class PlayerProfilePage extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             Container(
-                              margin: EdgeInsets.only(left: 20, top: 5.0),
+                              margin: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  top: 5),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.backhandStyle,
@@ -184,7 +193,10 @@ class PlayerProfilePage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 50, top: 5.0),
+                              margin: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  top: 5),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.strongHand,
