@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../models/user_profile.dart';
 
+import 'package:intl/intl.dart';
+
+
+
 class PlayerProfilePage extends StatelessWidget {
   UserProfile user;
 
@@ -67,7 +71,7 @@ class PlayerProfilePage extends StatelessWidget {
                               left: MediaQuery.of(context).size.width * 0.50,
                               top: 10.0),
                           child: Text(
-                            user.dob,
+                            DateFormat("dd/MM/yyy").format(DateTime.parse(user.dob)),
                             maxLines: 1,
                             style: TextStyle(
                                 color: Colors.white, fontSize: dobSize),
