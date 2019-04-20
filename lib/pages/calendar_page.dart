@@ -43,7 +43,7 @@ class _CalendarPageState extends State<CalendarPage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          content: Text("Server did not respond"),
+                          content: Text("Server did not respond. \nPlease check your internet connection"),
                           title: Text("ERROR"),
                         );
                       });
@@ -203,7 +203,7 @@ class CustomSearchDelegate extends SearchDelegate {
                       borderRadius: BorderRadius.circular(100.0),
                       border: Border.all(width: 0.1, color: Colors.white),
                       image: DecorationImage(
-                        image: results.toList()[index].profilePhotoUrl != ""
+                        image: results.toList()[index].profilePhotoUrl != null
                             ? NetworkImage(
                                 results.toList()[index].profilePhotoUrl)
                             : AssetImage("assets/profilePicture.jpeg"),
