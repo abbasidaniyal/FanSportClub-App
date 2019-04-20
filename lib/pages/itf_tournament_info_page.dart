@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import '../models/itf_tournament.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ITFInfoPage extends StatelessWidget {
@@ -57,9 +58,7 @@ class ITFInfoPage extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
-                                tournamentData.startDate
-                                    .toString()
-                                    .split(" ")[0],
+                                DateFormat("dd/MM/yyy").format(tournamentData.startDate).toString(),
                                 textScaleFactor: 1.1,
                               ),
                             ),
