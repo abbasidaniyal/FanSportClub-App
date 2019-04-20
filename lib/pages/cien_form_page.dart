@@ -4,6 +4,7 @@ import '../widget/button.dart';
 import '../scoped_model/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_picker/flutter_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class CIENPage extends StatefulWidget {
@@ -108,20 +109,21 @@ class _CIENPage extends State<CIENPage> {
           child: ListView(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width*0.03,horizontal: MediaQuery.of(context).size.width*0.03),
+                margin: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.width * 0.03,
+                    horizontal: MediaQuery.of(context).size.width * 0.03),
                 child: Text(
-                    """The CIEN (Contestant Individual Enrollment Number) is brought to you by FSC. All players who wish to compete in club tournaments, destination tourneys are required to have a CIEN. 
-                    
-CIEN provides access to tournament entries and keeps you up to date at all times. You can enter for tournaments by your CIEN online. 
-
-To obtain CIEN you need to register online. """,textScaleFactor: 1.2,),
+                  """The CIEN (Contestant Individual Enrollment Number) is brought to you by FSC. All players who wish to compete in club tournaments, destination tourneys are required to have a CIEN. 
+CIEN provides access to tournament entries and keeps you up to date at all times. You can enter for tournaments by your CIEN online""",
+                  textScaleFactor: 1.2,
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(
                     top: 10.0, left: 10.0, right: 10.0, bottom: 2.0),
                 padding: EdgeInsets.only(top: 5.0),
                 child: Text(
-                  "Please fill all the details to register your CIEN number.",
+                  "Please fill all the details to register for your CIEN number.",
                   textScaleFactor: 1.2,
                   textAlign: TextAlign.left,
                 ),
@@ -211,7 +213,7 @@ To obtain CIEN you need to register online. """,textScaleFactor: 1.2,),
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: Text(
                             "Date of Birth*",
-                            textScaleFactor: 1.1,
+                            textScaleFactor: 1.15,
                             style: TextStyle(color: Colors.grey.shade700),
                           ),
                         ),
@@ -228,7 +230,7 @@ To obtain CIEN you need to register online. """,textScaleFactor: 1.2,),
                           child: dob == null
                               ? Text("")
                               : Text(
-                                  dob.toString().split(" ")[0],
+                                  DateFormat("dd/MM/yyy").format(dob).toString().split(" ")[0],
                                   style: TextStyle(
                                     color: Colors.black,
                                   ),
@@ -311,7 +313,7 @@ To obtain CIEN you need to register online. """,textScaleFactor: 1.2,),
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: Text(
                             "State*",
-                            textScaleFactor: 1.1,
+                            textScaleFactor: 1.15,
                             style: TextStyle(color: Colors.grey.shade700),
                           ),
                         ),
@@ -340,7 +342,11 @@ To obtain CIEN you need to register online. """,textScaleFactor: 1.2,),
                   onTap: () async {
                     Picker picker = Picker(
                       hideHeader: true,
-                      title: Text("State"),
+                      title: Text(
+                        "State",
+                        textScaleFactor: 1.1,
+                        style: TextStyle(color: Colors.grey.shade700),
+                      ),
                       onConfirm: (Picker p, List l) {
                         setState(() {
                           state = p.getSelectedValues().join().toString();

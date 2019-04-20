@@ -102,7 +102,7 @@ class _FscPage extends State<FscPage>
       MainModel model = ScopedModel.of(context);
       if (model.fscError == true) {
         return AlertDialog(
-          content: Text("Server did not respond"),
+          content: Text("Server did not respond. \nPlease check your internet connection"),
           title: Text("ERROR"),
         );
       } else {

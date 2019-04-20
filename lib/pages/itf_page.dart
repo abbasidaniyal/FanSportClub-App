@@ -91,7 +91,7 @@ class _ItfPage extends State<ItfPage>
       MainModel model = ScopedModel.of(context);
       if (model.itfError == true) {
         return AlertDialog(
-          content: Text("Server did not respond"),
+          content: Text("Server did not respond. \nPlease check your internet connection"),
           title: Text("ERROR"),
         );
       } else {

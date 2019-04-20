@@ -202,7 +202,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
         } else {
           if (model.rankingError == true) {
             return AlertDialog(
-              content: Text("Server did not respond"),
+              content: Text("Server did not respond. \nPlease check your internet connection"),
               title: Text("ERROR"),
             );
           } else {
