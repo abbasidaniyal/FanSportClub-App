@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/fsc_tournament.dart';
-import '../models/itf_tournament.dart';
+import 'package:intl/intl.dart';
 
 class FSCInfoPage extends StatelessWidget {
   final FSCTournament tournamentData;
@@ -55,7 +55,9 @@ class FSCInfoPage extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 2.0),
                           child: Text(
-                            tournamentData.date.toString().split(" ")[0],
+                            DateFormat("dd/MM/yyy").format(tournamentData.date).toString(),
+                              
+                            
                             textScaleFactor: 1.1,
                           ),
                         ),
