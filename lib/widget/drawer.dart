@@ -35,7 +35,7 @@ class MyDrawer extends StatelessWidget {
                 margin: EdgeInsets.all(3.0),
                 padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
                 child: Image.asset(
-                  "assets/logo-FSC.png",
+                  "assets/logo-fsc.png",
                   alignment: Alignment.topLeft,
                   width: 110,
                 ),
