@@ -23,7 +23,7 @@ class _FscPage extends State<FscPage>
 
   ScrollController _scrollController;
   final double elementHeight = 140.0;
-  final String imageUrl = 'assets/logo-FSC.png';
+  final String imageUrl = 'assets/logo-fsc.png';
   bool get wantKeepAlive => true;
 
   @override
