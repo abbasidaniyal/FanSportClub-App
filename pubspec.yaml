@@ -55,7 +55,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/logo-fansport.png
-  - assets/logo-FSC.png
+  - assets/logo-fsc.png
   - assets/logoITF.jpg
   - assets/playerBackground.png
   - assets/tournamentInfo.jpg

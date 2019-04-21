@@ -4,8 +4,14 @@ import 'package:scoped_model/scoped_model.dart';
 import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
 import './pages/calendar_page.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((onValue){
+    runApp(MyApp());
+  });
+  
+}
 
 class MyApp extends StatelessWidget {
   @override
