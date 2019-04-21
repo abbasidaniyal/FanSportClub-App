@@ -113,21 +113,11 @@ class _CIENPage extends State<CIENPage> {
                     vertical: MediaQuery.of(context).size.width * 0.03,
                     horizontal: MediaQuery.of(context).size.width * 0.03),
                 child: Text(
-                  """The CIEN (Contestant Individual Enrollment Number) is brought to you by FSC. All players who wish to compete in club tournaments, destination tourneys are required to have a CIEN. 
-CIEN provides access to tournament entries and keeps you up to date at all times. You can enter for tournaments by your CIEN online""",
+                  "The CIEN (Contestant Individual Enrollment Number) is brought to you by FSC. All players who wish to compete in club tournaments, destination tourneys are required to have a CIEN. It provides access to tournament entries and keeps you up to date at all times. You can enter for tournaments by your CIEN online.\nPlease fill all the details to register for your CIEN number.",
                   textScaleFactor: 1.2,
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(
-                    top: 10.0, left: 10.0, right: 10.0, bottom: 2.0),
-                padding: EdgeInsets.only(top: 5.0),
-                child: Text(
-                  "Please fill all the details to register for your CIEN number.",
-                  textScaleFactor: 1.2,
-                  textAlign: TextAlign.left,
-                ),
-              ),
+              
               Container(
                 child: Text(
                   "   (All * fields are mandatory)",
