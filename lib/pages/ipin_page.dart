@@ -38,9 +38,7 @@ All players who wish to compete in ITF Junior Circuit, ITF Pro Circuit, ITF Seni
 
 As well as allowing players to play in ITF tournaments, IPIN Membership provides access to the IPIN Online Service which helps you to manage your tennis career and keeps you up-to-date at all times! Pro Circuit players can also use the service to manage their tournament entries online.
 
-You can obtain your IPIN Membership by paying the annual registration fee.
-
-Please make sure you understand when your IPIN """),
+You can obtain your IPIN Membership by paying the annual registration fee."""),
               ),
               SizedBox(
                 height: 50,
