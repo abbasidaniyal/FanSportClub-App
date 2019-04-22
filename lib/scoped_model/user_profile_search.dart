@@ -31,7 +31,6 @@ mixin UserProfileModel on Model {
               homeClub: players["home_club"],
               achievements: players["achievements"],
               profilePhotoUrl: players["profile_photo"],
-              // state: players["city"]
             );
             playerProfiles.add(temp);
             print(temp.profilePhotoUrl);

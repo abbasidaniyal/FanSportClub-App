@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ITFRanking {
   String name;
   int rank;
-  int movement;
+  String movement;
   String dateOfBirth;
   int events;
   double points;
