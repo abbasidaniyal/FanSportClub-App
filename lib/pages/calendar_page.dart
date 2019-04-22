@@ -20,7 +20,9 @@ class _CalendarPageState extends State<CalendarPage> {
   void initState() {
     super.initState();
     MainModel model = ScopedModel.of(context);
-    model.intiProfileData(model.token);
+    if (model.playerProfiles.isEmpty) {
+      model.intiProfileData(model.token);
+    }
   }
 
   @override
@@ -43,7 +45,8 @@ class _CalendarPageState extends State<CalendarPage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          content: Text("Server did not respond. \nPlease check your internet connection"),
+                          content: Text(
+                              "Server did not respond. \nPlease check your internet connection"),
                           title: Text("ERROR"),
                         );
                       });

@@ -117,10 +117,11 @@ class _CIENPage extends State<CIENPage> {
                   textScaleFactor: 1.2,
                 ),
               ),
-              
               Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.03),
                 child: Text(
-                  "   (All * fields are mandatory)",
+                  "(All * fields are mandatory)",
                   textScaleFactor: 0.9,
                   textAlign: TextAlign.left,
                 ),
@@ -136,6 +137,8 @@ class _CIENPage extends State<CIENPage> {
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
                     labelText: "Full Name*",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
@@ -157,6 +160,8 @@ class _CIENPage extends State<CIENPage> {
                   },
                   decoration: InputDecoration(
                     labelText: "Email ID*",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
@@ -181,6 +186,8 @@ class _CIENPage extends State<CIENPage> {
                   },
                   decoration: InputDecoration(
                     labelText: "Contact Number*",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
@@ -203,8 +210,8 @@ class _CIENPage extends State<CIENPage> {
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: Text(
                             "Date of Birth*",
-                            textScaleFactor: 1.15,
-                            style: TextStyle(color: Colors.grey.shade700),
+                            style: TextStyle(
+                                color: Colors.grey.shade700, fontSize: 15),
                           ),
                         ),
                         Container(
@@ -220,7 +227,10 @@ class _CIENPage extends State<CIENPage> {
                           child: dob == null
                               ? Text("")
                               : Text(
-                                  DateFormat("dd/MM/yyy").format(dob).toString().split(" ")[0],
+                                  DateFormat("dd/MM/yyy")
+                                      .format(dob)
+                                      .toString()
+                                      .split(" ")[0],
                                   style: TextStyle(
                                     color: Colors.black,
                                   ),
@@ -263,6 +273,8 @@ class _CIENPage extends State<CIENPage> {
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
                     labelText: "IPIN",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
@@ -281,6 +293,8 @@ class _CIENPage extends State<CIENPage> {
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
                     labelText: "City*",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
@@ -303,8 +317,8 @@ class _CIENPage extends State<CIENPage> {
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           child: Text(
                             "State*",
-                            textScaleFactor: 1.15,
-                            style: TextStyle(color: Colors.grey.shade700),
+                            style: TextStyle(
+                                color: Colors.grey.shade700, fontSize: 15),
                           ),
                         ),
                         Container(
@@ -334,8 +348,8 @@ class _CIENPage extends State<CIENPage> {
                       hideHeader: true,
                       title: Text(
                         "State",
-                        textScaleFactor: 1.1,
-                        style: TextStyle(color: Colors.grey.shade700),
+                        style: TextStyle(
+                            color: Colors.grey.shade700, fontSize: 15),
                       ),
                       onConfirm: (Picker p, List l) {
                         setState(() {
@@ -395,7 +409,6 @@ class _CIENPage extends State<CIENPage> {
                 //   decoration: InputDecoration(
                 //     disabledBorder: InputBorder.none,
                 //     labelText: "State*",
-                //     border: UnderlineInputBorder(),
                 //     contentPadding: EdgeInsets.all(5.0),
                 //   ),
                 // ),
