@@ -12,7 +12,8 @@ mixin ITFPlayerRankingModel on Model {
   bool rankingError = false;
 
   Future<bool> getRankingData(String token) async {
- await   http.get("http://api.fansportsclub.com/tournaments/player-ranking-itf/",
+    await http.get(
+        "http://api.fansportsclub.com/tournaments/player-ranking-itf/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
@@ -38,7 +39,7 @@ mixin ITFPlayerRankingModel on Model {
           }
         } else {
           print("ERROR");
-          rankingError =true;
+          rankingError = true;
           notifyListeners();
         }
       },
