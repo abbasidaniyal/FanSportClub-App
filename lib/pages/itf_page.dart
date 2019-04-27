@@ -22,7 +22,7 @@ class _ItfPage extends State<ItfPage>
   bool isDateChanged = false;
 
   ScrollController _scrollController;
-  final double elementHeight = 140.0;
+  final double elementHeight = 150.0;
   final String imageUrl = 'assets/logoITF.jpg';
   List<ITFTournament> array = [];
   bool get wantKeepAlive => true;

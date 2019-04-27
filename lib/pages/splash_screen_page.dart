@@ -17,7 +17,7 @@ class WelcomePage extends StatelessWidget {
             fit: BoxFit.cover,
             width: MediaQuery.of(context).size.width * 0.80,
           ),
-          photoSize: MediaQuery.of(context).size.shortestSide*0.30,
+          photoSize: MediaQuery.of(context).size.shortestSide*0.22,
           imageBackground: AssetImage("assets/splashScreen.jpg"),
           navigateAfterSeconds: CalendarPage(), 
           loaderColor: Colors.white,

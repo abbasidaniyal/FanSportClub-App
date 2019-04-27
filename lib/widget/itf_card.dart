@@ -9,6 +9,7 @@ class ITFCardRender extends StatelessWidget {
   String grade;
   DateTime startDate;
   String venue;
+  DateTime endDate;
 
   final ITFTournament tournamentData;
   final imageUrl;
@@ -22,6 +23,7 @@ class ITFCardRender extends StatelessWidget {
     grade = tournamentData.grade;
     venue = tournamentData.venue;
     startDate = tournamentData.startDate;
+    endDate = tournamentData.endDate;
   }
 
   @override
@@ -35,11 +37,11 @@ class ITFCardRender extends StatelessWidget {
                 builder: (context) => ITFInfoPage(tournamentData)));
       },
       child: Container(
-        height: 140.0,
+        height: 150.0,
         child: Stack(
           children: <Widget>[
             Container(
-              height: 140.0,
+              height: 150.0,
               margin: EdgeInsets.only(
                   top: 10.0, bottom: 10.0, left: 24.0, right: 24.0),
               decoration: BoxDecoration(
@@ -54,12 +56,12 @@ class ITFCardRender extends StatelessWidget {
                 ],
               ),
               child: Container(
-                margin: EdgeInsets.only(top: 5.0, left: 130.0),
+                margin: EdgeInsets.only(top: 5.0, left: 100.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      height: 10.0,
+                      height: 8.0,
                     ),
                     Container(
                       margin: EdgeInsets.only(right: 5.0),
@@ -68,13 +70,13 @@ class ITFCardRender extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.bold),
+                            fontSize: 14.0, fontWeight: FontWeight.bold),
                         softWrap: true,
                         textScaleFactor: 1,
                       ),
                     ),
                     SizedBox(
-                      height: 10.0,
+                      height: 8.0,
                     ),
                     Container(
                       child: Text(
@@ -83,12 +85,12 @@ class ITFCardRender extends StatelessWidget {
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             color: Color.fromRGBO(120, 120, 120, 1)),
                       ),
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 8.0,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -101,18 +103,39 @@ class ITFCardRender extends StatelessWidget {
                           width: 3.0,
                         ),
                         Container(
-                            width: 100.0,
                             child: Text(
-                              DateFormat("dd/MM/yyy").format(startDate).toString(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Color.fromRGBO(120, 120, 120, 1)),
-                              textScaleFactor: 1.1,
-                            )),
+                          DateFormat("dd/MM/yyy").format(startDate).toString(),
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Color.fromRGBO(120, 120, 120, 1)),
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                          // textScaleFactor: 1.1,
+                        )),
+                        SizedBox(
+                          width: 3.0,
+                        ),
+                        Container(
+                            // width: MediaQuery.of(context).size.width*0.50,
+                            child: Text(
+                          DateFormat("- dd/MM/yyy").format(endDate).toString(),
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Color.fromRGBO(120, 120, 120, 1)),
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                          // textScaleFactor: 1.1,
+                        )),
                         SizedBox(
                           width: 5.0,
                         ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Row(
+                      children: <Widget>[
                         Icon(
                           MdiIcons.mapMarker,
                           size: 20.0,
@@ -121,14 +144,15 @@ class ITFCardRender extends StatelessWidget {
                           width: 3.0,
                         ),
                         Container(
-                            width: 80.0,
+                            width: 120.0,
                             child: Text(
                               venue,
                               style: TextStyle(
+                                  fontSize: 14.0,
                                   color: Color.fromRGBO(120, 120, 120, 1)),
                               maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textScaleFactor: 1.1,
+                              overflow: TextOverflow.clip,
+                              // textScaleFactor: 1.1,
                             )),
                       ],
                     )
@@ -137,13 +161,12 @@ class ITFCardRender extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 40.0),
-              child: Image(
-                image: AssetImage(imageUrl),
-                height: 178.0,
-                width: 100.0,
-              ),
-            ),
+                margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 35.0),
+                child: Image.asset(
+                  imageUrl,
+                  height: 178.0,
+                  width: 80.0,
+                )),
           ],
         ),
       ),

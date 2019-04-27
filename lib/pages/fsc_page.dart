@@ -22,8 +22,8 @@ class _FscPage extends State<FscPage>
   bool isDateChanged = false;
 
   ScrollController _scrollController;
-  final double elementHeight = 140.0;
-  final String imageUrl = 'assets/logo-fsc.png';
+  final double elementHeight = 150.0;
+  String imageUrl = 'assets/logo-fsc.png';
   bool get wantKeepAlive => true;
 
   @override
