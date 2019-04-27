@@ -48,7 +48,7 @@ class PlayerProfilePage extends StatelessWidget {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    // height: MediaQuery.of(context).size.height*0.55,
+                    height: MediaQuery.of(context).size.height*0.40,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
