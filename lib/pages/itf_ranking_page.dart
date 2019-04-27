@@ -202,7 +202,8 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
         } else {
           if (model.rankingError == true) {
             return AlertDialog(
-              content: Text("Server did not respond. \nPlease check your internet connection"),
+              content: Text(
+                  "Server did not respond. \nPlease check your internet connection"),
               title: Text("ERROR"),
             );
           } else {
@@ -223,7 +224,11 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
-          title: Text("ITF Ranking"),
+          title: Text(
+            "ITF Ranking",
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+            textAlign: TextAlign.left,
+          ),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.filter_list),

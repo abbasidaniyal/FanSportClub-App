@@ -9,7 +9,12 @@ class AboutUsPage extends StatelessWidget {
     return Scaffold(
         drawer: MyDrawer(),
         appBar: AppBar(
-          title: Text("Fan Sport Club"),
+          title: Text(
+            "Fan Sports Club",
+            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
+            textAlign: TextAlign.left,
+            
+          ),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Container(

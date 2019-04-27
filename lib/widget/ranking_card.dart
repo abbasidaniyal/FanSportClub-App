@@ -14,8 +14,8 @@ class RankingCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
       ),
-      height: MediaQuery.of(context).size.height * 0.15,
-      margin: EdgeInsets.only(left: 20.0, top: 15.0),
+      height: MediaQuery.of(context).size.height * 0.08,
+      margin: EdgeInsets.only(left: 20.0, top: 15.0,bottom: 15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,35 +31,35 @@ class RankingCard extends StatelessWidget {
                   player.name,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
                   softWrap: true,
                   textScaleFactor: 1,
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 15.0),
+                margin: EdgeInsets.only(top: 8.0),
                 child: Text(
                   "Points : " + player.points.toString(),
                   maxLines: 1,
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 18.0),
+                  style: TextStyle(fontSize: 14.0),
                 ),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 15.0),
+                    margin: EdgeInsets.only(top: 8.0),
                     child: Text(
                       "Events: " + player.events.toString(),
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 14.0),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15.0, left: 20.0),
+                    margin: EdgeInsets.only(top: 8.0, left: 20.0),
                     child: Text(
                       "Born: " + player.dateOfBirth,
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 14.0),
                     ),
                   )
                 ],
@@ -81,18 +81,17 @@ class RankingCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(),
                   child: Text(
                     "ITF Rank",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
                     softWrap: true,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20.0),
+                  margin: EdgeInsets.only(top: 12.0),
                   child: Text(
                     player.rank.toString(),
                     overflow: TextOverflow.ellipsis,

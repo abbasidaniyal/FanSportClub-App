@@ -99,7 +99,11 @@ class _CIENPage extends State<CIENPage> {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text("CIEN Registration"),
+        title: Text(
+          "CIEN Registration",
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+          textAlign: TextAlign.left,
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Container(

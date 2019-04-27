@@ -63,7 +63,7 @@ class _CalendarPageState extends State<CalendarPage> {
             "Fan Sports Club",
             style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
             textAlign: TextAlign.left,
-            // textScaleFactor: 1.2,
+            
           ),
           centerTitle: false,
           bottom: TabBar(

@@ -28,9 +28,10 @@ class ITFInfoPage extends StatelessWidget {
               image: AssetImage("assets/itf-card.jpg"),
             ),
             Container(
+              padding: EdgeInsets.only(top: 5.0,left: 10.0),
               child:Text(
                 "John Walton/PA Images via Getty Images",
-                style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12,color: Color.fromRGBO(206, 206, 206, 0)),
+                style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12,color: Color.fromRGBO(206, 206, 206, 1)),
                 )
               ),
             Container(
