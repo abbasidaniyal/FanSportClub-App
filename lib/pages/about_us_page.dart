@@ -12,6 +12,7 @@ class AboutUsPage extends StatelessWidget {
           title: Text(
             "Fan Sports Club",
             style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
+            textScaleFactor: 1,
             textAlign: TextAlign.left,
             
           ),
@@ -34,7 +35,8 @@ class AboutUsPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           "About us",
-                          textScaleFactor: 1.7,
+                          style: TextStyle(fontSize: 20),
+                          textScaleFactor: 1,
                         ),
                       ),
                     ),
@@ -51,7 +53,8 @@ Using the FSC app players will be updated about national, international, club le
 Using the FSC app we facilitate people to easily login for the tournaments, know the whereabouts of the events happening in India and abroad with a single click on their Andriod or iOS devices. A player can have the entire information about his individual profile, national and international rank, events being held globally and the destination tourneys  organized time to time by the tennis fraternity. 
 
 A player looking for a doubles partner, information about the tournaments held nearby, the fee structure and facilities provided, all this can be visualized by a single click at FSC.""",
-                        textScaleFactor: 1.2,
+                        textScaleFactor: 1,
+                        style: TextStyle(fontSize: 17),
                       ),
                     ),
                     SizedBox(
@@ -61,7 +64,8 @@ A player looking for a doubles partner, information about the tournaments held n
                       padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
                         "For more information, mail us at :  ",
-                        textScaleFactor: 1.1,
+                        textScaleFactor: 1,
+                        style: TextStyle(fontSize: 15),
                         textAlign: TextAlign.left,
                       ),
                     ),
@@ -72,9 +76,9 @@ A player looking for a doubles partner, information about the tournaments held n
                         child: Container(
                           child: Text(
                             "avnish@fansportsclub.com",
-                            style: TextStyle(color: Colors.blue[700]),
+                            style: TextStyle(color: Colors.blue[700],fontSize: 15),
                             overflow: TextOverflow.clip,
-                            textScaleFactor: 1.1,
+                            textScaleFactor: 1,
                           ),
                         ),
                         onTap: () {

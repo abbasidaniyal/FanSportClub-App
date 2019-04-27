@@ -4,8 +4,6 @@ import '../models/user_profile.dart';
 
 import 'package:intl/intl.dart';
 
-
-
 class PlayerProfilePage extends StatelessWidget {
   UserProfile user;
 
@@ -25,10 +23,10 @@ class PlayerProfilePage extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
             "Player Profile",
+            textScaleFactor: 1,
             style: TextStyle(
               fontWeight: FontWeight.values[6],
             ),
-            // textScaleFactor: 1.2,
           ),
         ),
         body: ListView(
@@ -48,7 +46,7 @@ class PlayerProfilePage extends StatelessWidget {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height*0.40,
+                    height: MediaQuery.of(context).size.height * 0.40,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,6 +57,7 @@ class PlayerProfilePage extends StatelessWidget {
                               top: 35.0),
                           child: Text(
                             user.name,
+                            textScaleFactor: 1,
                             maxLines: 1,
                             style: TextStyle(
                                 color: Colors.white,
@@ -71,8 +70,10 @@ class PlayerProfilePage extends StatelessWidget {
                               left: MediaQuery.of(context).size.width * 0.50,
                               top: 10.0),
                           child: Text(
-                            DateFormat("dd/MM/yyy").format(DateTime.parse(user.dob)),
+                            DateFormat("dd/MM/yyy")
+                                .format(DateTime.parse(user.dob)),
                             maxLines: 1,
+                            textScaleFactor: 1,
                             style: TextStyle(
                                 color: Colors.white, fontSize: dobSize),
                           ),
@@ -87,12 +88,12 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 20.0),
                               child: Text(
                                 "GENDER",
+                                textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: headingSize),
-                                // textScaleFactor: 1.3,
                               ),
                             ),
                             Container(
@@ -100,7 +101,7 @@ class PlayerProfilePage extends StatelessWidget {
                               margin: EdgeInsets.only(left: 30.0, top: 20.0),
                               child: Text(
                                 "AGE",
-                                // textScaleFactor: 1.3,
+                                textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white,
@@ -120,10 +121,10 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 5.0),
                               child: Text(
                                 "Male",
+                                textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
-                                // textScaleFactor: 1.3,
                               ),
                             ),
                             Container(
@@ -137,7 +138,7 @@ class PlayerProfilePage extends StatelessWidget {
                                         365)
                                     .floor()
                                     .toString(),
-                                // textScaleFactor: 1.3,
+                                textScaleFactor: 1,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
                               ),
@@ -154,8 +155,8 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 "BACKHAND STYLE",
+                                textScaleFactor: 1,
                                 maxLines: 1,
-                                // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -171,7 +172,7 @@ class PlayerProfilePage extends StatelessWidget {
                               child: Text(
                                 "STRONG HAND",
                                 maxLines: 1,
-                                // textScaleFactor: 1.3,
+                                textScaleFactor: 1,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -190,8 +191,8 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.backhandStyle,
+                                textScaleFactor: 1,
                                 maxLines: 1,
-                                // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
                               ),
@@ -204,8 +205,8 @@ class PlayerProfilePage extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.strongHand,
+                                textScaleFactor: 1,
                                 maxLines: 1,
-                                // textScaleFactor: 1.3,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: contentSize),
                               ),
@@ -224,7 +225,7 @@ class PlayerProfilePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100.0),
                       image: DecorationImage(
                         image: user.profilePhotoUrl != null
-                            ? NetworkImage(user.profilePhotoUrl)  
+                            ? NetworkImage(user.profilePhotoUrl)
                             : AssetImage("assets/profilePicture.jpeg"),
                       ),
                     ),
@@ -249,7 +250,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(left: 15.0, top: 5.0),
                       child: Text(
                         "Player Info",
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(fontWeight: FontWeight.values[5]),
                       ),
                     ),
@@ -257,7 +258,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 20.0, left: 15.0),
                       child: Text(
                         "City",
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(color: Colors.grey[500]),
                       ),
                     ),
@@ -265,7 +266,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 5.0, left: 15.0),
                       child: Text(
                         user.city,
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(fontWeight: FontWeight.values[0]),
                       ),
                     ),
@@ -273,7 +274,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 15.0, left: 15.0),
                       child: Text(
                         "Home ground/Club",
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(color: Colors.grey[500]),
                       ),
                     ),
@@ -281,7 +282,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 5.0, left: 15.0),
                       child: Text(
                         user.homeClub,
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(fontWeight: FontWeight.values[0]),
                       ),
                     ),
@@ -289,7 +290,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 15.0, left: 15.0),
                       child: Text(
                         "Role Model/Favorite Player",
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(color: Colors.grey[500]),
                       ),
                     ),
@@ -297,7 +298,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 5.0, left: 15.0),
                       child: Text(
                         user.roleModel,
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(fontWeight: FontWeight.values[0]),
                       ),
                     ),
@@ -305,7 +306,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 15.0, left: 15.0),
                       child: Text(
                         "Achievements",
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(color: Colors.grey[500]),
                       ),
                     ),
@@ -313,7 +314,7 @@ class PlayerProfilePage extends StatelessWidget {
                       margin: EdgeInsets.only(top: 5.0, left: 15.0),
                       child: Text(
                         user.achievements,
-                        // textScaleFactor: 1.2,
+                        textScaleFactor: 1,
                         style: TextStyle(fontWeight: FontWeight.values[0]),
                       ),
                     ),

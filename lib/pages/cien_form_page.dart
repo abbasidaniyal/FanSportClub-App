@@ -297,8 +297,10 @@ class _CIENPage extends State<CIENPage> {
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
                     labelText: "City*",
-                    labelStyle:
-                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
+                    labelStyle: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontSize: 15,
+                    ),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
