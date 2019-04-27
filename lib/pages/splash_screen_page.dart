@@ -11,7 +11,7 @@ class WelcomePage extends StatelessWidget {
       builder: (BuildContext context, Widget child, MainModel model) {
         model.getToken();
         return SplashScreen(
-          seconds: 3,
+          seconds: 2,
           image: Image.asset(
             "assets/logo-fansport.png",
             fit: BoxFit.cover,

@@ -16,9 +16,9 @@ class ITFInfoPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           "Fan Sports Club",
-          style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
           overflow: TextOverflow.fade,
-          // textScaleFactor: 1.2,
+          textScaleFactor: 1,
         ),
       ),
       body: Container(
@@ -28,12 +28,15 @@ class ITFInfoPage extends StatelessWidget {
               image: AssetImage("assets/itf-card.jpg"),
             ),
             Container(
-              padding: EdgeInsets.only(top: 5.0,left: 10.0),
-              child:Text(
-                "John Walton/PA Images via Getty Images",
-                style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12,color: Color.fromRGBO(206, 206, 206, 1)),
-                )
-              ),
+                padding: EdgeInsets.only(top: 5.0, left: 10.0),
+                child: Text(
+                  "John Walton/PA Images via Getty Images",
+                  textScaleFactor: 1,
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
+                      color: Color.fromRGBO(206, 206, 206, 1)),
+                )),
             Container(
               child: Column(
                 children: <Widget>[
@@ -47,8 +50,9 @@ class ITFInfoPage extends StatelessWidget {
                           margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
                           child: Text(
                             tournamentData.name,
-                            textScaleFactor: 1.3,
-                            style: TextStyle(fontWeight: FontWeight.values[5]),
+                            textScaleFactor: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.values[5], fontSize: 18),
                           ),
                         ),
                         Row(
@@ -65,8 +69,11 @@ class ITFInfoPage extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
-                                DateFormat("dd/MM/yyy").format(tournamentData.startDate).toString(),
-                                textScaleFactor: 1.1,
+                                DateFormat("dd/MM/yyy")
+                                    .format(tournamentData.startDate)
+                                    .toString(),
+                                textScaleFactor: 1,
+                                style: TextStyle(fontSize: 15),
                               ),
                             ),
                           ],
@@ -77,16 +84,18 @@ class ITFInfoPage extends StatelessWidget {
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 "Venue : ",
-                                textScaleFactor: 1.1,
-                                style:
-                                    TextStyle(fontWeight: FontWeight.values[5]),
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.values[5],
+                                    fontSize: 15),
                               ),
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 tournamentData.venue.toString(),
-                                textScaleFactor: 1.1,
+                                textScaleFactor: 1,
+                                style: TextStyle(fontSize: 15),
                               ),
                             ),
                           ],
@@ -97,16 +106,18 @@ class ITFInfoPage extends StatelessWidget {
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 "Grade : ",
-                                textScaleFactor: 1.1,
-                                style:
-                                    TextStyle(fontWeight: FontWeight.values[5]),
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.values[5],
+                                    fontSize: 15),
                               ),
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 tournamentData.grade.toString(),
-                                textScaleFactor: 1.1,
+                                textScaleFactor: 1,
+                                style: TextStyle(fontSize: 15),
                               ),
                             ),
                           ],
@@ -119,16 +130,18 @@ class ITFInfoPage extends StatelessWidget {
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 "Surface : ",
-                                textScaleFactor: 1.1,
-                                style:
-                                    TextStyle(fontWeight: FontWeight.values[5]),
+                                textScaleFactor: 1,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.values[5],
+                                    fontSize: 15),
                               ),
                             ),
                             Container(
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               child: Text(
                                 tournamentData.surface.toString(),
-                                textScaleFactor: 1.1,
+                                textScaleFactor: 1,
+                                style: TextStyle(fontSize: 15),
                               ),
                             ),
                           ],
@@ -143,9 +156,10 @@ class ITFInfoPage extends StatelessWidget {
                                     margin: EdgeInsets.only(top: 2.0),
                                     child: Text(
                                       "Link : ",
-                                      textScaleFactor: 1.1,
+                                      textScaleFactor: 1,
                                       style: TextStyle(
-                                          fontWeight: FontWeight.values[5]),
+                                          fontWeight: FontWeight.values[5],
+                                          fontSize: 15),
                                     ),
                                   ),
                                   Container(
@@ -172,9 +186,10 @@ class ITFInfoPage extends StatelessWidget {
                                   margin: EdgeInsets.symmetric(vertical: 10.0),
                                   child: Text(
                                     "Website : ",
-                                    textScaleFactor: 1.1,
+                                    textScaleFactor: 1,
                                     style: TextStyle(
-                                        fontWeight: FontWeight.values[5]),
+                                        fontWeight: FontWeight.values[5],
+                                        fontSize: 15),
                                   ),
                                 ),
                                 Container(

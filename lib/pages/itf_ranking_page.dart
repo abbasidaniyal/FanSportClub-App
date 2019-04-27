@@ -63,6 +63,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
                 title: Text(
                   "Filter Ranking",
                   style: TextStyle(fontSize: 20, color: Colors.white),
+                  textScaleFactor: 1,
                   textAlign: TextAlign.center,
                 ),
               )),
@@ -76,17 +77,24 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
                 Text(
                   "Age Group : ",
                   style: TextStyle(fontSize: 20),
+                  textScaleFactor: 1,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: DropdownButton<int>(
                     isExpanded: true,
                     style: TextStyle(fontSize: 20, color: Colors.grey),
-                    hint: Text(ageGroup[selectedAgeIndex].toString()),
+                    hint: Text(
+                      ageGroup[selectedAgeIndex].toString(),
+                      textScaleFactor: 1,
+                    ),
                     items: ageGroup.map((int value) {
                       return DropdownMenuItem<int>(
                         value: value,
-                        child: Text("+" + value.toString()),
+                        child: Text(
+                          "+" + value.toString(),
+                          textScaleFactor: 1,
+                        ),
                       );
                     }).toList(),
                     onChanged: (int a) {
@@ -120,18 +128,25 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
                 Text(
                   "Category    : ",
                   style: TextStyle(fontSize: 20),
+                  textScaleFactor: 1,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: DropdownButton<String>(
                     isExpanded: true,
                     style: TextStyle(fontSize: 20, color: Colors.grey),
-                    hint: Text(category[selectedCategoryIndex].toString()),
+                    hint: Text(
+                      category[selectedCategoryIndex].toString(),
+                      textScaleFactor: 1,
+                    ),
                     items: category.map(
                       (String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            textScaleFactor: 1,
+                          ),
                         );
                       },
                     ).toList(),
@@ -203,8 +218,13 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
           if (model.rankingError == true) {
             return AlertDialog(
               content: Text(
-                  "Server did not respond. \nPlease check your internet connection"),
-              title: Text("ERROR"),
+                "Server did not respond. \nPlease check your internet connection",
+                textScaleFactor: 1,
+              ),
+              title: Text(
+                "ERROR",
+                textScaleFactor: 1,
+              ),
             );
           } else {
             return Container(
@@ -226,6 +246,7 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
         appBar: AppBar(
           title: Text(
             "ITF Ranking",
+            textScaleFactor: 1,
             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
             textAlign: TextAlign.left,
           ),
@@ -248,7 +269,10 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
               children: <Widget>[
                 array.length == 0
                     ? Center(
-                        child: Text("Nothing to Display"),
+                        child: Text(
+                          "Nothing to Display",
+                          textScaleFactor: 1,
+                        ),
                       )
                     : Container(),
                 buildBody(),
