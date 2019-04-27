@@ -82,6 +82,7 @@ class ITFCardRender extends StatelessWidget {
                       child: Text(
                         grade,
                         maxLines: 1,
+                        textScaleFactor: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
                         style: TextStyle(
@@ -92,46 +93,37 @@ class ITFCardRender extends StatelessWidget {
                     SizedBox(
                       height: 8.0,
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Icon(
-                          MdiIcons.calendarClock,
-                          size: 20.0,
-                        ),
-                        SizedBox(
-                          width: 3.0,
-                        ),
-                        Container(
-                            
+                    Container(
+                      
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            MdiIcons.calendarClock,
+                            size: 20.0,
+                          ),
+                          SizedBox(
+                            width: 3.0,
+                          ),
+                          Container(
+                              child: SingleChildScrollView(
                             child: Text(
-                              DateFormat("dd/MM/yyy").format(startDate).toString(),
+                              DateFormat("dd/MM/yy")
+                                      .format(startDate)
+                                      .toString() +
+                                  DateFormat("- dd/MM/yy")
+                                      .format(endDate)
+                                      .toString(),
                               style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Color.fromRGBO(120, 120, 120, 1)),
+                                fontSize: 14.0,
+                                color: Color.fromRGBO(120, 120, 120, 1),
+                              ),
+                              textScaleFactor: 1,
                               maxLines: 1,
-                              overflow: TextOverflow.clip,
-                              // textScaleFactor: 1.1,
-                            )),
-                            SizedBox(
-                          width: 3.0,
-                        ),
-                        Container(
-                            // width: MediaQuery.of(context).size.width*0.50,
-                            child: Text(
-                              DateFormat("- dd/MM/yyy").format(endDate).toString(),
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Color.fromRGBO(120, 120, 120, 1)),
-                              maxLines: 1,
-                              overflow: TextOverflow.clip,
-                              // textScaleFactor: 1.1,
-                            )),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        
-                      ],
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 8.0,
@@ -149,12 +141,12 @@ class ITFCardRender extends StatelessWidget {
                             width: 120.0,
                             child: Text(
                               venue,
+                              textScaleFactor: 1,
                               style: TextStyle(
                                   fontSize: 14.0,
                                   color: Color.fromRGBO(120, 120, 120, 1)),
                               maxLines: 1,
                               overflow: TextOverflow.clip,
-                              // textScaleFactor: 1.1,
                             )),
                       ],
                     )
@@ -163,13 +155,12 @@ class ITFCardRender extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 35.0),
-              child: Image(
-                image: AssetImage(imageUrl),
-                height: 178.0,
-                width: 80.0,
-              ),
-            ),
+                margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 35.0),
+                child: Image.asset(
+                  imageUrl,
+                  height: 178.0,
+                  width: 80.0,
+                )),
           ],
         ),
       ),

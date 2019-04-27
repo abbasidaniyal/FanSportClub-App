@@ -61,9 +61,10 @@ class _CalendarPageState extends State<CalendarPage> {
           ],
           title: Text(
             "Fan Sports Club",
+            textScaleFactor: 1,
             style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
             textAlign: TextAlign.left,
-            // textScaleFactor: 1.2,
+            
           ),
           centerTitle: false,
           bottom: TabBar(
@@ -71,11 +72,13 @@ class _CalendarPageState extends State<CalendarPage> {
               Tab(
                 child: Text(
                   "Club Event",
+                  textScaleFactor: 1,
                 ),
               ),
               Tab(
                 child: Text(
                   "ITF Calendar",
+                  textScaleFactor: 1,
                 ),
               )
             ],
@@ -156,7 +159,8 @@ class CustomSearchDelegate extends SearchDelegate {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       results.toList()[index].name,
-                      textScaleFactor: 1.3,
+                      style: TextStyle(fontSize: 18),
+                      textScaleFactor: 1,
                     ),
                   )
                 ],
@@ -218,7 +222,8 @@ class CustomSearchDelegate extends SearchDelegate {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       results.toList()[index].name,
-                      textScaleFactor: 1.3,
+                      textScaleFactor: 1,
+                      style: TextStyle(fontSize: 18),
                     ),
                   )
                 ],

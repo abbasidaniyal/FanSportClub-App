@@ -13,7 +13,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        padding: EdgeInsets.only(left: 20.0,top: 25),
+        padding: EdgeInsets.only(left: 20.0, top: 25),
         color: Theme.of(context).primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -51,6 +51,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text(
                 'Calender',
+                textScaleFactor: 1,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.title.color,
                 ),
@@ -71,6 +72,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text(
                 'IPIN Renewal',
+                textScaleFactor: 1,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.title.color,
                 ),
@@ -89,6 +91,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text(
                 'CIEN Registration',
+                textScaleFactor: 1,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.title.color,
                 ),
@@ -107,6 +110,7 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               title: Text(
                 'ITF Ranking',
+                textScaleFactor: 1,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.title.color,
                 ),
@@ -124,6 +128,7 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               title: Text('About us',
+                  textScaleFactor: 1,
                   style: TextStyle(
                     color: Theme.of(context).textTheme.title.color,
                   )),

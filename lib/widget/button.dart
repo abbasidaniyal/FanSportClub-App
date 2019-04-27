@@ -17,7 +17,7 @@ class MyButton extends StatelessWidget {
       child: RaisedButton(
         color: Theme.of(context).primaryColor,
         textColor: Theme.of(context).accentColor,
-        child: Text(text,textScaleFactor: 1.2,),
+        child: Text(text,style: TextStyle(fontSize: 15),  textScaleFactor: 1,),
         onPressed: args==null? ()=>onPress(): ()=>onPress(args),
       ),
     );

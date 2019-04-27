@@ -22,7 +22,7 @@ class _ItfPage extends State<ItfPage>
   bool isDateChanged = false;
 
   ScrollController _scrollController;
-  final double elementHeight = 140.0;
+  final double elementHeight = 150.0;
   final String imageUrl = 'assets/logoITF.jpg';
   List<ITFTournament> array = [];
   bool get wantKeepAlive => true;
@@ -91,8 +91,14 @@ class _ItfPage extends State<ItfPage>
       MainModel model = ScopedModel.of(context);
       if (model.itfError == true) {
         return AlertDialog(
-          content: Text("Server did not respond. \nPlease check your internet connection"),
-          title: Text("ERROR"),
+          content: Text(
+            "Server did not respond. \nPlease check your internet connection",
+            textScaleFactor: 1,
+          ),
+          title: Text(
+            "ERROR",
+            textScaleFactor: 1,
+          ),
         );
       } else {
         return Container(

@@ -99,7 +99,11 @@ class _CIENPage extends State<CIENPage> {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-        title: Text("CIEN Registration"),
+        title: Text(
+          "CIEN Registration",
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+          textAlign: TextAlign.left,
+        ),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Container(
@@ -293,8 +297,10 @@ class _CIENPage extends State<CIENPage> {
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
                     labelText: "City*",
-                    labelStyle:
-                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
+                    labelStyle: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontSize: 15,
+                    ),
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),

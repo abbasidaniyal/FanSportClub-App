@@ -81,11 +81,13 @@ class FSCCardRender extends StatelessWidget {
                     Container(
                       child: Text(
                         "Age Group : " + age_group,
+                        textScaleFactor: 1,
                         maxLines: 1,
                         overflow: TextOverflow.clip,
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontSize: 14.0,
+                            
                             color: Color.fromRGBO(120, 120, 120, 1)),
                       ),
                     ),
@@ -103,9 +105,10 @@ class FSCCardRender extends StatelessWidget {
                           width: 3.0,
                         ),
                         Container(
-                            width: MediaQuery.of(context).size.width*0.50,
+                            width: MediaQuery.of(context).size.width*0.40,
                             child: Text(
                               DateFormat("EEE, dd/MM/yyy").format(date).toString(),
+                              textScaleFactor: 1,
                               style: TextStyle(
                                   fontSize: 14.0,
                                   color: Color.fromRGBO(120, 120, 120, 1)),
@@ -135,6 +138,7 @@ class FSCCardRender extends StatelessWidget {
                             width: 120.0,
                             child: Text(
                               venue,
+                              textScaleFactor: 1,
                               style: TextStyle(
                                   fontSize: 14.0,
                                   color: Color.fromRGBO(120, 120, 120, 1)),

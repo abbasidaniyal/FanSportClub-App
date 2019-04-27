@@ -22,8 +22,8 @@ class _FscPage extends State<FscPage>
   bool isDateChanged = false;
 
   ScrollController _scrollController;
-  final double elementHeight = 140.0;
-  final String imageUrl = 'assets/logo-fsc.png';
+  final double elementHeight = 150.0;
+  String imageUrl = 'assets/logo-fsc.png';
   bool get wantKeepAlive => true;
 
   @override
@@ -102,8 +102,8 @@ class _FscPage extends State<FscPage>
       MainModel model = ScopedModel.of(context);
       if (model.fscError == true) {
         return AlertDialog(
-          content: Text("Server did not respond. \nPlease check your internet connection"),
-          title: Text("ERROR"),
+          content: Text("Server did not respond. \nPlease check your internet connection",textScaleFactor: 1,),
+          title: Text("ERROR",textScaleFactor: 1,),
         );
       } else {
         return Container(
