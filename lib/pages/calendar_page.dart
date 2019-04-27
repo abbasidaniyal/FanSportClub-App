@@ -61,8 +61,9 @@ class _CalendarPageState extends State<CalendarPage> {
           ],
           title: Text(
             "Fan Sports Club",
+            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
             textAlign: TextAlign.left,
-            textScaleFactor: 1.2,
+            // textScaleFactor: 1.2,
           ),
           centerTitle: false,
           bottom: TabBar(
@@ -144,7 +145,7 @@ class CustomSearchDelegate extends SearchDelegate {
                       borderRadius: BorderRadius.circular(100.0),
                       border: Border.all(width: 0.1, color: Colors.white),
                       image: DecorationImage(
-                        image: results.toList()[index].profilePhotoUrl != ""
+                        image: results.toList()[index].profilePhotoUrl != null
                             ? NetworkImage(
                                 results.toList()[index].profilePhotoUrl)
                             : AssetImage("assets/profilePicture.jpeg"),
@@ -161,7 +162,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 ],
               ),
               onTap: () {
-                close(context, results.toList()[index].name);
+                // close(context, results.toList()[index].name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
@@ -223,7 +224,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 ],
               ),
               onTap: () {
-                close(context, results.toList()[index].name);
+                // close(context, results.toList()[index].name);
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {

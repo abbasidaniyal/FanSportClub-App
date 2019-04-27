@@ -16,17 +16,23 @@ class ITFInfoPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           "Fan Sports Club",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
           overflow: TextOverflow.fade,
-          textScaleFactor: 1.2,
+          // textScaleFactor: 1.2,
         ),
       ),
       body: Container(
         child: ListView(
           children: <Widget>[
             Image(
-              image: AssetImage("assets/tournamentInfo.jpg"),
+              image: AssetImage("assets/itf-card.jpg"),
             ),
+            Container(
+              child:Text(
+                "John Walton/PA Images via Getty Images",
+                style: TextStyle(fontWeight: FontWeight.normal,fontSize: 12,color: Color.fromRGBO(206, 206, 206, 0)),
+                )
+              ),
             Container(
               child: Column(
                 children: <Widget>[

@@ -50,7 +50,7 @@ mixin TournamentModel on Model {
         }
         notifyListeners();
       },
-    );
+    ).catchError((onError){});
   }
 
   Future<void> initFscData(String token) async {
