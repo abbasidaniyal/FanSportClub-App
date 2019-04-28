@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
             buttonTheme: ButtonThemeData(),
-            primaryColor: Color.fromRGBO(33, 33, 33, 1),
-            textSelectionColor: Color.fromRGBO(198, 237, 44, 1),
+            primaryColor: Color.fromRGBO(33, 33, 33, 1), //BLACK
+            textSelectionColor: Color.fromRGBO(198, 237, 44, 1), //GREEN
             accentColor: Color.fromRGBO(198, 237, 44, 1),
             secondaryHeaderColor: Color.fromRGBO(33, 33, 33, 1),
             fontFamily: 'Roboto',
