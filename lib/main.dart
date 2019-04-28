@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             buttonTheme: ButtonThemeData(),
             primaryColor: Color.fromRGBO(33, 33, 33, 1),
             textSelectionColor: Color.fromRGBO(198, 237, 44, 1),
-            accentColor: Color.fromRGBO(198, 237, 44, 1),//Color.fromRGBO(120, 171, 9, 1), //black
+            accentColor: Color.fromRGBO(198, 237, 44, 1),
             secondaryHeaderColor: Color.fromRGBO(33, 33, 33, 1),
             fontFamily: 'Roboto',
             textTheme: TextTheme(

@@ -102,8 +102,14 @@ class _FscPage extends State<FscPage>
       MainModel model = ScopedModel.of(context);
       if (model.fscError == true) {
         return AlertDialog(
-          content: Text("Server did not respond. \nPlease check your internet connection",textScaleFactor: 1,),
-          title: Text("ERROR",textScaleFactor: 1,),
+          content: Text(
+            "Server did not respond. \nPlease check your internet connection",
+            textScaleFactor: 1,
+          ),
+          title: Text(
+            "ERROR",
+            textScaleFactor: 1,
+          ),
         );
       } else {
         return Container(
@@ -128,10 +134,9 @@ class _FscPage extends State<FscPage>
               ),
             ),
             Expanded(
-              child: Container(
-                margin: EdgeInsets.only(top: 10.0),
-                child: ListView.builder(
-                
+                child: Container(
+              margin: EdgeInsets.only(top: 10.0),
+              child: ListView.builder(
                 controller: _scrollController,
                 itemCount: array.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -140,8 +145,7 @@ class _FscPage extends State<FscPage>
                   return FSCCardRender(array[index], imageUrl);
                 },
               ),
-              )
-            ),
+            )),
           ],
         ),
       );
