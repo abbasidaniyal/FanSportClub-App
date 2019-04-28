@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../models/fsc_tournament.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FSCInfoPage extends StatelessWidget {
   final FSCTournament tournamentData;
-
+  String website = "www.fansportsclub.com";
   FSCInfoPage(this.tournamentData);
 
   @override
@@ -15,7 +16,7 @@ class FSCInfoPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           "Fan Sports Club",
-          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
           overflow: TextOverflow.fade,
           textScaleFactor: 1,
         ),
@@ -39,7 +40,8 @@ class FSCInfoPage extends StatelessWidget {
                       child: Text(
                         tournamentData.tournamentName,
                         textScaleFactor: 1,
-                        style: TextStyle(fontWeight: FontWeight.values[5],fontSize: 18),
+                        style: TextStyle(
+                            fontWeight: FontWeight.values[5], fontSize: 18),
                       ),
                     ),
                     Row(
@@ -49,15 +51,17 @@ class FSCInfoPage extends StatelessWidget {
                           child: Text(
                             "Date : ",
                             textScaleFactor: 1.1,
-                            style: TextStyle(fontWeight: FontWeight.values[5],fontSize: 15),
+                            style: TextStyle(
+                                fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 2.0),
                           child: Text(
-                            DateFormat("dd/MM/yyy").format(tournamentData.date).toString(),
-                              style: TextStyle(fontSize: 15),
-                            
+                            DateFormat("dd/MM/yyy")
+                                .format(tournamentData.date)
+                                .toString(),
+                            style: TextStyle(fontSize: 15),
                             textScaleFactor: 1,
                           ),
                         ),
@@ -70,7 +74,8 @@ class FSCInfoPage extends StatelessWidget {
                           child: Text(
                             "Venue : ",
                             textScaleFactor: 1,
-                            style: TextStyle(fontWeight: FontWeight.values[5],fontSize: 15),
+                            style: TextStyle(
+                                fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
                         Container(
@@ -90,7 +95,8 @@ class FSCInfoPage extends StatelessWidget {
                           child: Text(
                             "Age Group : ",
                             textScaleFactor: 1,
-                            style: TextStyle(fontWeight: FontWeight.values[5],fontSize: 15),
+                            style: TextStyle(
+                                fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
                         Container(
@@ -112,7 +118,8 @@ class FSCInfoPage extends StatelessWidget {
                           child: Text(
                             "About: ",
                             textScaleFactor: 1,
-                            style: TextStyle(fontWeight: FontWeight.values[5],fontSize: 15),
+                            style: TextStyle(
+                                fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
                         Container(
@@ -125,7 +132,37 @@ class FSCInfoPage extends StatelessWidget {
                         ),
                       ],
                     ),
-
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 2.0),
+                            child: Text(
+                              "Website : ",
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.values[5],
+                                  fontSize: 15),
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Text(
+                              website,
+                              style: TextStyle(
+                                  fontSize: 15, color: Colors.lightBlue),
+                              textScaleFactor: 1,
+                            ),
+                            onTap: () {
+                              launch("http://" + website);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    )
                     // Container(
                     //   margin: EdgeInsets.symmetric(vertical: 10.0),
                     //   child: Text(

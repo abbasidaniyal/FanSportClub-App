@@ -15,8 +15,6 @@ class PlayerProfilePage extends StatelessWidget {
     double headingSize = MediaQuery.of(context).size.width * 0.04;
     double contentSize = MediaQuery.of(context).size.width * 0.04;
 
-    double aspect = MediaQuery.of(context).size.width;
-    print(aspect);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -24,9 +22,8 @@ class PlayerProfilePage extends StatelessWidget {
           title: Text(
             "Player Profile",
             textScaleFactor: 1,
-            style: TextStyle(
-              fontWeight: FontWeight.values[6],
-            ),
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+            textAlign: TextAlign.left,
           ),
         ),
         body: ListView(
@@ -36,11 +33,12 @@ class PlayerProfilePage extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(0),
+                    // color: Theme.of(context).primaryColor,
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.topCenter,
-                    height: MediaQuery.of(context).size.height * 0.40,
+                    // height: MediaQuery.of(context).size.height * 0.40,
                     child: Image(
-                      image: AssetImage("assets/playerBackground.png"),
+                      image: AssetImage("assets/playerBackground.jpg"),
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),
@@ -220,6 +218,9 @@ class PlayerProfilePage extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: MediaQuery.of(context).size.width * 0.35,
                     margin: EdgeInsets.only(top: 25, left: 20.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.0),
+                        color: Theme.of(context).primaryColor),
                     foregroundDecoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 3.0),
                       borderRadius: BorderRadius.circular(100.0),
@@ -247,11 +248,12 @@ class PlayerProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.only(left: 15.0, top: 5.0),
+                      margin: EdgeInsets.only(left: 15.0, top: 10.0),
                       child: Text(
                         "Player Info",
                         textScaleFactor: 1,
-                        style: TextStyle(fontWeight: FontWeight.values[5]),
+                        style: TextStyle(
+                            fontWeight: FontWeight.values[5], fontSize: 17),
                       ),
                     ),
                     Container(

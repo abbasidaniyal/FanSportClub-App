@@ -7,7 +7,7 @@ description: FSC is an icon of Fan Sports Club where players participate in diff
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 0.1.9+9
+version: 0.1.10+10
 
 
 environment:
@@ -52,8 +52,8 @@ flutter:
     - assets/logo-fansport.png
     - assets/logo-fsc.png
     - assets/logoITF.jpg
-    - assets/playerBackground.png
-    - assets/tournamentInfo.jpg
+    - assets/playerBackground.jpg
+    - assets/tournamentInfo.jpg 
     - assets/profilePicture.jpeg
     - assets/splashScreen.jpg
     - assets/itf-card.jpg

@@ -62,9 +62,8 @@ class _CalendarPageState extends State<CalendarPage> {
           title: Text(
             "Fan Sports Club",
             textScaleFactor: 1,
-            style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
             textAlign: TextAlign.left,
-            
           ),
           centerTitle: false,
           bottom: TabBar(
@@ -139,10 +138,14 @@ class CustomSearchDelegate extends SearchDelegate {
             child: GestureDetector(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.0),
+                        color: Colors.grey[400]),
                     margin: EdgeInsets.only(left: 10.0, right: 20.0),
                     foregroundDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.0),
@@ -157,6 +160,8 @@ class CustomSearchDelegate extends SearchDelegate {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
                       style: TextStyle(fontSize: 18),
@@ -202,10 +207,14 @@ class CustomSearchDelegate extends SearchDelegate {
             child: GestureDetector(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100.0),
+                        color: Colors.grey[400]),
                     margin: EdgeInsets.only(left: 10.0, right: 20.0),
                     foregroundDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.0),
@@ -220,10 +229,12 @@ class CustomSearchDelegate extends SearchDelegate {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
-                      textScaleFactor: 1,
                       style: TextStyle(fontSize: 18),
+                      textScaleFactor: 1,
                     ),
                   )
                 ],

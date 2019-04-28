@@ -56,17 +56,21 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
       child: Column(
         children: <Widget>[
           Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.07,
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-              child: AppBar(
-                title: Text(
-                  "Filter Ranking",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                  textScaleFactor: 1,
-                  textAlign: TextAlign.center,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+            child: AppBar(
+              title: Text(
+                "Filter Ranking",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
                 ),
-              )),
+                textScaleFactor: 1,
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ),
           Container(
             margin: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.1, top: 10.0),
@@ -76,14 +80,14 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
               children: <Widget>[
                 Text(
                   "Age Group : ",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   textScaleFactor: 1,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: DropdownButton<int>(
                     isExpanded: true,
-                    style: TextStyle(fontSize: 20, color: Colors.grey),
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
                     hint: Text(
                       ageGroup[selectedAgeIndex].toString(),
                       textScaleFactor: 1,
@@ -127,14 +131,14 @@ class _ItfRankingPageState extends State<ItfRankingPage> {
               children: <Widget>[
                 Text(
                   "Category    : ",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 18),
                   textScaleFactor: 1,
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: DropdownButton<String>(
                     isExpanded: true,
-                    style: TextStyle(fontSize: 20, color: Colors.grey),
+                    style: TextStyle(fontSize: 18, color: Colors.grey),
                     hint: Text(
                       category[selectedCategoryIndex].toString(),
                       textScaleFactor: 1,

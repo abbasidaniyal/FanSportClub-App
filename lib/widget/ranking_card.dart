@@ -4,8 +4,7 @@ import '../models/itf_ranking.dart';
 
 class RankingCard extends StatelessWidget {
   final ITFRanking player;
-  String flagImageUrl = 'assets/indiaFlag.png';
-
+  
   RankingCard({this.player});
 
   @override
@@ -28,7 +27,7 @@ class RankingCard extends StatelessWidget {
               children: <Widget>[
                 Container(
                   width: MediaQuery.of(context).size.width * 0.60,
-                  margin: EdgeInsets.only(),
+                  margin: EdgeInsets.only(top: 5.0),
                   child: Text(
                     player.name,
                     overflow: TextOverflow.ellipsis,
@@ -87,6 +86,7 @@ class RankingCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
+                  margin: EdgeInsets.only(top: 5.0),
                   child: Text(
                     "ITF Rank",
                     overflow: TextOverflow.ellipsis,
