@@ -11,7 +11,6 @@ mixin UserProfileModel on Model {
   bool profileError = false;
 
   Future<Null> intiProfileData(String token) {
-    
     playerProfiles = [];
     profiles = [];
     http.get("http://api.fansportsclub.com/users/user-profile-list/",
@@ -33,15 +32,12 @@ mixin UserProfileModel on Model {
               profilePhotoUrl: players["profile_photo"],
             );
             playerProfiles.add(temp);
-            print(temp.profilePhotoUrl);
-            isProfileDataLoaded = true;
-            print("PROFILE DATA LOADED");
-            notifyListeners();
           }
+          isProfileDataLoaded = true;
+          notifyListeners();
         } else {
           profileError = true;
 
-          print("ERROR");
           notifyListeners();
         }
       },

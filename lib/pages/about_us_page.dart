@@ -19,6 +19,7 @@ class AboutUsPage extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Container(
+          color: Color.fromRGBO(245, 245, 245, 0.8),
           child: Column(
             children: <Widget>[
               Flexible(
@@ -30,12 +31,11 @@ class AboutUsPage extends StatelessWidget {
                       image: AssetImage("assets/about-cover.jpg"),
                     ),
                     Container(
-                      padding: EdgeInsets.all(15.0),
-                      margin: EdgeInsets.only(top: 15.0),
+                      margin: EdgeInsets.only(top:15.0,bottom: 5.0),
                       child: Center(
                         child: Text(
                           "About us",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                           textScaleFactor: 1,
                         ),
                       ),
