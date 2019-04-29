@@ -155,7 +155,7 @@ class _CIENPage extends State<CIENPage> {
                   validator: (value) {
                     emailID = value;
                     bool emailValid =
-                        RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        RegExp(r"^[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+")
                             .hasMatch(emailID);
 
                     if (!emailValid) {
