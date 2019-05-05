@@ -87,7 +87,6 @@ class FSCCardRender extends StatelessWidget {
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             fontSize: 14.0,
-                            
                             color: Color.fromRGBO(120, 120, 120, 1)),
                       ),
                     ),
@@ -105,9 +104,11 @@ class FSCCardRender extends StatelessWidget {
                           width: 3.0,
                         ),
                         Container(
-                            width: MediaQuery.of(context).size.width*0.40,
+                            width: MediaQuery.of(context).size.width * 0.40,
                             child: Text(
-                              DateFormat("EEE, dd/MM/yyy").format(date).toString(),
+                              DateFormat("EEE, dd/MM/yyy")
+                                  .format(date)
+                                  .toString(),
                               textScaleFactor: 1,
                               style: TextStyle(
                                   fontSize: 14.0,
@@ -119,7 +120,6 @@ class FSCCardRender extends StatelessWidget {
                         SizedBox(
                           width: 5.0,
                         ),
-                        
                       ],
                     ),
                     SizedBox(
@@ -134,18 +134,21 @@ class FSCCardRender extends StatelessWidget {
                         SizedBox(
                           width: 3.0,
                         ),
-                        Container(
-                            width: 120.0,
-                            child: Text(
-                              venue,
-                              textScaleFactor: 1,
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Color.fromRGBO(120, 120, 120, 1)),
-                              maxLines: 1,
-                              overflow: TextOverflow.clip,
-                              // textScaleFactor: 1.1,
-                            )),
+                        Flexible(
+                          child: Container(
+                              // width: 120.0,
+                              child: Text(
+                            venue,
+                            textScaleFactor: 1,
+
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Color.fromRGBO(120, 120, 120, 1)),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            // textScaleFactor: 1.1,
+                          )),
+                        )
                       ],
                     )
                   ],
@@ -165,5 +168,4 @@ class FSCCardRender extends StatelessWidget {
       ),
     );
   }
-
 }

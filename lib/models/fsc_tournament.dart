@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class FSCTournament {
   String tournamentName;
@@ -6,11 +5,19 @@ class FSCTournament {
   String venue;
   String ageGroup;
   String description;
+  String locationURL;
+  String contactEmail;
+  int contactNumber;
+  String contactPerson;
 
   FSCTournament(
       {this.tournamentName,
       this.date,
       this.venue,
       this.ageGroup,
-      this.description});
+      this.description,
+      this.locationURL,
+      this.contactPerson,
+      this.contactNumber,
+      this.contactEmail});
 }

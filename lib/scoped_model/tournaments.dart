@@ -68,7 +68,12 @@ mixin TournamentModel on Model {
               ageGroup: event["age_group"],
               venue: event["tournament_venue"],
               date: DateTime.parse(event["date"] + " 12:00:00z"),
-              description: event["tournament_description"]);
+              description: event["tournament_description"],
+              locationURL: event["event_location_url"],
+              contactNumber: event["coordinator_contact_number"],
+              contactEmail: event["coordinator_email"],
+              contactPerson: event["coordinator_name"],);
+
           // print(temp.description);
           fscTournaments.add(temp);
         }
