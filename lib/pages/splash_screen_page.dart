@@ -9,7 +9,6 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
-        model.getToken();
         return SplashScreen(
           seconds: 2,
           image: Image.asset(

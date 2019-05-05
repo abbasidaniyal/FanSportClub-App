@@ -50,7 +50,11 @@ mixin TournamentModel on Model {
         }
         notifyListeners();
       },
-    ).catchError((onError){});
+    ).catchError((onError) {
+      print("ERROR");
+      itfError = true;
+      isITFLoaded = false;
+    });
   }
 
   Future<void> initFscData(String token) async {
@@ -64,15 +68,16 @@ mixin TournamentModel on Model {
         fsc = json.decode(res.body);
         for (var event in fsc) {
           FSCTournament temp = FSCTournament(
-              tournamentName: event["tournament_name"],
-              ageGroup: event["age_group"],
-              venue: event["tournament_venue"],
-              date: DateTime.parse(event["date"] + " 12:00:00z"),
-              description: event["tournament_description"],
-              locationURL: event["event_location_url"],
-              contactNumber: event["coordinator_contact_number"],
-              contactEmail: event["coordinator_email"],
-              contactPerson: event["coordinator_name"],);
+            tournamentName: event["tournament_name"],
+            ageGroup: event["age_group"],
+            venue: event["tournament_venue"],
+            date: DateTime.parse(event["date"] + " 12:00:00z"),
+            description: event["tournament_description"],
+            locationURL: event["event_location_url"],
+            contactNumber: event["coordinator_contact_number"],
+            contactEmail: event["coordinator_email"],
+            contactPerson: event["coordinator_name"],
+          );
 
           // print(temp.description);
           fscTournaments.add(temp);
@@ -86,6 +91,11 @@ mixin TournamentModel on Model {
         fscError = true;
         notifyListeners();
       }
+    }).catchError((onError) {
+      print("ERROR");
+      itfError = true;
+      isITFLoaded = false;
+      notifyListeners();
     });
 
     //SORTING THE INCOMING ARRAY
