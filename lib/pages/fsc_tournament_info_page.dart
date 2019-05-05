@@ -18,9 +18,10 @@ class FSCInfoPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           "Fan Sports Club",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
           overflow: TextOverflow.fade,
           textScaleFactor: 1,
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+          textAlign: TextAlign.left,
         ),
       ),
       body: Container(
@@ -212,26 +213,29 @@ class FSCInfoPage extends StatelessWidget {
                                       fontSize: 15),
                                 ),
                               ),
-                              Container(
-                                child: InkWell(
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(vertical: 5.0),
-                                    child: Text(
-                                      tournamentData.contactEmail,
-                                      style: TextStyle(
-                                          color: Colors.blue[700],
-                                          fontSize: 15),
-                                      overflow: TextOverflow.clip,
-                                      textScaleFactor: 1,
+                              Flexible(
+                                child: Container(
+                                  child: InkWell(
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 5.0),
+                                      child: Text(
+                                        tournamentData.contactEmail,
+                                        style: TextStyle(
+                                            color: Colors.blue[700],
+                                            fontSize: 15),
+                                        overflow: TextOverflow.ellipsis,
+                                        textScaleFactor: 1,
+                                      ),
                                     ),
+                                    onTap: () {
+                                      launch(
+                                        "mailto:${tournamentData.contactEmail}?subject=Tournament%20${tournamentData.tournamentName}%20Enquiry%20From%20App",
+                                      );
+                                    },
                                   ),
-                                  onTap: () {
-                                    launch(
-                                      "mailto:${tournamentData.contactEmail}?subject=Tournament%20${tournamentData.tournamentName}%20Enquiry%20From%20App",
-                                    );
-                                  },
                                 ),
-                              ),
+                              )
                             ],
                           )
                         : Container(),

@@ -32,21 +32,20 @@ class _FscPage extends State<FscPage>
     super.initState();
     MainModel model = ScopedModel.of(context);
 
-    // model.getToken();
-    // print(model.isFSCLoaded);
-    // print(model.fscTournaments);
     if (!model.isFSCLoaded) {
-      model.initFscData(model.token).then((s) {
-        if (model.isFSCLoaded) {
-          setState(() {
-            array = model.fscTournaments;
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            isLoading = true;
-          });
-        }
+      model.getToken().then((_) {
+        model.initFscData(model.token).then((s) {
+          if (model.isFSCLoaded) {
+            setState(() {
+              array = model.fscTournaments;
+              isLoading = false;
+            });
+          } else {
+            setState(() {
+              isLoading = true;
+            });
+          }
+        });
       });
     } else {
       setState(() {
