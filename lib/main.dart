@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
-import './pages/calendar_page.dart';
 import 'package:flutter/services.dart';
 
 void main(){
