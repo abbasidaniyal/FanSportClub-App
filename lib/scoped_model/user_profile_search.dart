@@ -10,10 +10,10 @@ mixin UserProfileModel on Model {
   List<dynamic> profiles = [];
   bool profileError = false;
 
-  Future<Null> intiProfileData(String token) {
+  Future<void> intiProfileData(String token) async {
     playerProfiles = [];
     profiles = [];
-    http.get("http://api.fansportsclub.com/users/user-profile-list/",
+    await http.get("http://api.fansportsclub.com/users/user-profile-list/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
@@ -37,7 +37,6 @@ mixin UserProfileModel on Model {
           notifyListeners();
         } else {
           profileError = true;
-
           notifyListeners();
         }
       },

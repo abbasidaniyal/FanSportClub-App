@@ -34,7 +34,7 @@ class _FscPage extends State<FscPage>
 
     if (!model.isFSCLoaded) {
       model.getToken().then((_) {
-        model.initFscData(model.token).then((s) {
+        model.initFscData(model.token).then((_) {
           if (model.isFSCLoaded) {
             setState(() {
               array = model.fscTournaments;
@@ -46,6 +46,9 @@ class _FscPage extends State<FscPage>
             });
           }
         });
+        print("ERROR1");
+        model.intiProfileData(model.token);
+        print("ERROR2");
       });
     } else {
       setState(() {
