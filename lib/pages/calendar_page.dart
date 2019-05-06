@@ -19,10 +19,6 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    MainModel model = ScopedModel.of(context);
-    if (model.playerProfiles.isEmpty) {
-      model.intiProfileData(model.token);
-    }
   }
 
   @override
@@ -40,6 +36,7 @@ class _CalendarPageState extends State<CalendarPage> {
               icon: Icon(Icons.search),
               onPressed: () {
                 MainModel model = ScopedModel.of(context);
+
                 if (model.profileError == true) {
                   showDialog(
                       context: context,
@@ -51,10 +48,13 @@ class _CalendarPageState extends State<CalendarPage> {
                         );
                       });
                 } else {
-                  showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                  );
+                  if (model.playerProfiles.length == 0) {
+                  } else {
+                    showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(),
+                    );
+                  }
                 }
               },
             ),
@@ -252,7 +252,7 @@ class CustomSearchDelegate extends SearchDelegate {
             ),
           );
         } else
-          return CircularProgressIndicator();
+          return buildSuggestions(context);
       },
     );
   }
