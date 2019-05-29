@@ -23,7 +23,6 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    // MaterialLocalizations.of(context).searchFieldLabel   = 'Player Profile Search';
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -94,9 +93,15 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
     );
   }
+
+
+
 }
 
 class CustomSearchDelegate extends SearchDelegate {
+
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -233,8 +238,8 @@ class CustomSearchDelegate extends SearchDelegate {
                     height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
-                      style: TextStyle(fontSize: 18),
-                      textScaleFactor: 1,
+                      
+                      textScaleFactor: 1.2,
                     ),
                   )
                 ],
@@ -257,3 +262,5 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 }
+
+
