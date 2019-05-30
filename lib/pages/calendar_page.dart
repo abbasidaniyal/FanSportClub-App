@@ -238,8 +238,8 @@ class CustomSearchDelegate extends SearchDelegate {
                     //height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
-                      
-                      textScaleFactor: 1.2,
+                      style: TextStyle(fontSize: 18),
+                      textScaleFactor: 1,
                     ),
                   )
                 ],
