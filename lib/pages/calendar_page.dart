@@ -135,7 +135,7 @@ class CustomSearchDelegate extends SearchDelegate {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(vertical: 10.0),
             padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: GestureDetector(
+            child: InkWell(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,7 +161,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     padding: EdgeInsets.symmetric(vertical: 10.0),
-                    height: MediaQuery.of(context).size.width * 0.1,
+                    //height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
                       style: TextStyle(fontSize: 18),
@@ -204,7 +204,7 @@ class CustomSearchDelegate extends SearchDelegate {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(vertical: 10.0),
             padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: GestureDetector(
+            child: InkWell(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,7 +230,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     padding: EdgeInsets.symmetric(vertical: 10.0),
-                    height: MediaQuery.of(context).size.width * 0.1,
+                    //height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
                       style: TextStyle(fontSize: 18),
