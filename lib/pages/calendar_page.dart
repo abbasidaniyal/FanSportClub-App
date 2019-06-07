@@ -19,15 +19,10 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    MainModel model = ScopedModel.of(context);
-    if (model.playerProfiles.isEmpty) {
-      model.intiProfileData(model.token);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // MaterialLocalizations.of(context).searchFieldLabel   = 'Player Profile Search';
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -40,6 +35,7 @@ class _CalendarPageState extends State<CalendarPage> {
               icon: Icon(Icons.search),
               onPressed: () {
                 MainModel model = ScopedModel.of(context);
+
                 if (model.profileError == true) {
                   showDialog(
                       context: context,
@@ -51,10 +47,13 @@ class _CalendarPageState extends State<CalendarPage> {
                         );
                       });
                 } else {
-                  showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                  );
+                  if (model.playerProfiles.length == 0) {
+                  } else {
+                    showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(),
+                    );
+                  }
                 }
               },
             ),
@@ -94,9 +93,15 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
     );
   }
+
+
+
 }
 
 class CustomSearchDelegate extends SearchDelegate {
+
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -135,7 +140,7 @@ class CustomSearchDelegate extends SearchDelegate {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(vertical: 10.0),
             padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: GestureDetector(
+            child: InkWell(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -161,7 +166,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     padding: EdgeInsets.symmetric(vertical: 10.0),
-                    height: MediaQuery.of(context).size.width * 0.1,
+                    //height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
                       style: TextStyle(fontSize: 18),
@@ -204,7 +209,7 @@ class CustomSearchDelegate extends SearchDelegate {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(vertical: 10.0),
             padding: EdgeInsets.symmetric(vertical: 10.0),
-            child: GestureDetector(
+            child: InkWell(
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,7 +235,7 @@ class CustomSearchDelegate extends SearchDelegate {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     padding: EdgeInsets.symmetric(vertical: 10.0),
-                    height: MediaQuery.of(context).size.width * 0.1,
+                    //height: MediaQuery.of(context).size.width * 0.1,
                     child: Text(
                       results.toList()[index].name,
                       style: TextStyle(fontSize: 18),
@@ -252,8 +257,10 @@ class CustomSearchDelegate extends SearchDelegate {
             ),
           );
         } else
-          return CircularProgressIndicator();
+          return buildSuggestions(context);
       },
     );
   }
 }
+
+

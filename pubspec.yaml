@@ -1,4 +1,4 @@
-name: Fan_Sports_Club
+name: Fan_Sports
 description: FSC is an icon of Fan Sports Club where players participate in different type of games like Tennis, Badminton, Table tennis, Squash from distant places. Using the FSC app players will be updated about national, international, club level tournaments with more number of players as participants performing on the grounds and simultaneously involving the senior players of the nation who sometimes think of their retirement from the sports. Using the FSC app we facilitate people to easily login for the tournaments, know the whereabouts of the events happening in India and abroad with a single click on their Andriod or iOS devices. A player can have the entire information about his individual profile, national and international rank, events being held globally and the destination tourneys  organized time to time by the tennis fraternity. A player looking for a doubles partner, information about the tournaments held nearby, the fee structure and facilities provided, all this can be visualized by a single click at FSC.
 
 # The following defines the version and build number for your application.
@@ -7,7 +7,9 @@ description: FSC is an icon of Fan Sports Club where players participate in diff
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 0.1.10+10
+version: 1.3.0+20
+
+
 
 
 environment:
@@ -19,7 +21,6 @@ dependencies:
   flutter_calendar: ^0.0.8
   flutter_signin_button: ^0.2.6
   scoped_model: ^1.0.1
-  google_sign_in: 
   http:
   flutter_datetime_picker: ^1.1.6
   splashscreen:

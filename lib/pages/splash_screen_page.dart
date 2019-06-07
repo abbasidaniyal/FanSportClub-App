@@ -7,10 +7,7 @@ import '../scoped_model/main.dart';
 
 class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
-    return ScopedModelDescendant(
-      builder: (BuildContext context, Widget child, MainModel model) {
-        model.getToken();
-        return SplashScreen(
+    return SplashScreen(
           seconds: 2,
           image: Image.asset(
             "assets/logo-fansport.png",
@@ -22,7 +19,5 @@ class WelcomePage extends StatelessWidget {
           navigateAfterSeconds: CalendarPage(), 
           loaderColor: Colors.white,
         );
-      },
-    );
   }
 }

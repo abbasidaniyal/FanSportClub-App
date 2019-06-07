@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
-import './pages/calendar_page.dart';
 import 'package:flutter/services.dart';
 
 void main(){
@@ -21,9 +20,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
             buttonTheme: ButtonThemeData(),
-            primaryColor: Color.fromRGBO(33, 33, 33, 1),
-            textSelectionColor: Color.fromRGBO(198, 237, 44, 1),
-            accentColor: Color.fromRGBO(198, 237, 44, 1),//Color.fromRGBO(120, 171, 9, 1), //black
+            primaryColor: Color.fromRGBO(33, 33, 33, 1), //BLACK
+            textSelectionColor: Color.fromRGBO(198, 237, 44, 1), //GREEN
+            accentColor: Color.fromRGBO(198, 237, 44, 1),
             secondaryHeaderColor: Color.fromRGBO(33, 33, 33, 1),
             fontFamily: 'Roboto',
             textTheme: TextTheme(

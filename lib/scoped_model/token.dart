@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 mixin TokenAuth on Model {
   String token;
 
-  void getToken() {
+  Future<void> getToken() async {
 
-    http.post(
+    await http.post(
       "http://api.fansportsclub.com/api-token-auth/",
       body: {'username': 'appuser', 'password': 'fansportsclubapp'},
     ).then((http.Response res) {

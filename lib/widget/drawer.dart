@@ -50,7 +50,7 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                'Calender',
+                'Calendar',
                 textScaleFactor: 1,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.title.color,

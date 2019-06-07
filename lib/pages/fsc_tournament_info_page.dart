@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/fsc_tournament.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../widget/button.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FSCInfoPage extends StatelessWidget {
   final FSCTournament tournamentData;
@@ -16,9 +18,10 @@ class FSCInfoPage extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           "Fan Sports Club",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
           overflow: TextOverflow.fade,
           textScaleFactor: 1,
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
+          textAlign: TextAlign.left,
         ),
       ),
       body: Container(
@@ -47,7 +50,7 @@ class FSCInfoPage extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Date : ",
                             textScaleFactor: 1.1,
@@ -56,7 +59,7 @@ class FSCInfoPage extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             DateFormat("dd/MM/yyy")
                                 .format(tournamentData.date)
@@ -68,22 +71,27 @@ class FSCInfoPage extends StatelessWidget {
                       ],
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Venue : ",
-                            textScaleFactor: 1,
+                            maxLines: 2,
+                            textScaleFactor: 1.1,
                             style: TextStyle(
                                 fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 2.0),
-                          child: Text(
-                            tournamentData.venue.toString(),
-                            textScaleFactor: 1,
-                            style: TextStyle(fontSize: 15),
+                        Flexible(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              tournamentData.venue.toString(),
+                              textScaleFactor: 1,
+                              maxLines: 5,
+                              style: TextStyle(fontSize: 15),
+                            ),
                           ),
                         ),
                       ],
@@ -91,16 +99,16 @@ class FSCInfoPage extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Age Group : ",
-                            textScaleFactor: 1,
+                            textScaleFactor: 1.1,
                             style: TextStyle(
                                 fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 2.0),
+                          margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             tournamentData.ageGroup.toString(),
                             textScaleFactor: 1,
@@ -114,16 +122,16 @@ class FSCInfoPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(top: 10.0),
+                          margin: EdgeInsets.only(top: 5.0),
                           child: Text(
                             "About: ",
-                            textScaleFactor: 1,
+                            textScaleFactor: 1.1,
                             style: TextStyle(
                                 fontWeight: FontWeight.values[5], fontSize: 15),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 1.0),
+                          margin: EdgeInsets.only(bottom: 5.0),
                           child: Text(
                             tournamentData.description.toString(),
                             textScaleFactor: 1,
@@ -132,15 +140,113 @@ class FSCInfoPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    tournamentData.contactPerson != null
+                        ? Row(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Contact Person : ",
+                                  textScaleFactor: 1.1,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.values[5],
+                                      fontSize: 15),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  tournamentData.contactPerson,
+                                  style: TextStyle(fontSize: 15),
+                                  textScaleFactor: 1,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    tournamentData.contactNumber != null
+                        ? Row(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Contact Number : ",
+                                  textScaleFactor: 1.1,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.values[5],
+                                      fontSize: 15),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5.0),
+                                child: InkWell(
+                                  child: Container(
+                                    child: Text(
+                                      tournamentData.contactNumber.toString(),
+                                      style: TextStyle(
+                                          color: Colors.blue[700],
+                                          fontSize: 15),
+                                      overflow: TextOverflow.clip,
+                                      textScaleFactor: 1,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    launch(
+                                      "tel://+91${tournamentData.contactNumber}",
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    tournamentData.contactEmail != null
+                        ? Row(
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Contact Email : ",
+                                  textScaleFactor: 1.1,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.values[5],
+                                      fontSize: 15),
+                                ),
+                              ),
+                              Flexible(
+                                child: Container(
+                                  child: InkWell(
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 5.0),
+                                      child: Text(
+                                        tournamentData.contactEmail,
+                                        style: TextStyle(
+                                            color: Colors.blue[700],
+                                            fontSize: 15),
+                                        overflow: TextOverflow.ellipsis,
+                                        textScaleFactor: 1,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      launch(
+                                        "mailto:${tournamentData.contactEmail}?subject=Tournament%20${tournamentData.tournamentName}%20Enquiry%20From%20App",
+                                      );
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        : Container(),
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 10.0),
                       child: Row(
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.symmetric(vertical: 2.0),
+                            margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: Text(
                               "Website : ",
-                              textScaleFactor: 1,
+                              textScaleFactor: 1.1,
                               style: TextStyle(
                                   fontWeight: FontWeight.values[5],
                                   fontSize: 15),
@@ -150,7 +256,7 @@ class FSCInfoPage extends StatelessWidget {
                             child: Text(
                               website,
                               style: TextStyle(
-                                  fontSize: 15, color: Colors.lightBlue),
+                                  fontSize: 15, color: Colors.blue[700]),
                               textScaleFactor: 1,
                             ),
                             onTap: () {
@@ -160,37 +266,46 @@ class FSCInfoPage extends StatelessWidget {
                         ],
                       ),
                     ),
+                    tournamentData.locationURL != null
+                        ? Container(
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.symmetric(vertical: 5.0),
+                                  child: Text(
+                                    "Navigation : ",
+                                    textScaleFactor: 1.1,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.values[5],
+                                        fontSize: 15),
+                                  ),
+                                ),
+                                Container(
+                                  height: 20.0,
+                                  child: ButtonTheme(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    child: RaisedButton(
+                                      color: Theme.of(context).primaryColor,
+                                      textColor: Theme.of(context).accentColor,
+                                      child: Icon(
+                                        MdiIcons.navigation,
+                                        size: 15,
+                                      ),
+                                      onPressed: () {
+                                        launch(tournamentData.locationURL);
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : Container(),
                     SizedBox(
-                      height: 20.0,
-                    )
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
-                    //   child: Text(
-                    //     "Description : " + tournamentData.description,
-                    //     textScaleFactor: 1.1,
-                    //   ),
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
-                    //   child: Text(
-                    //     "Website : (To be added)",
-                    //     textScaleFactor: 1.2,
-                    //   ),
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
-                    //   child: Text(
-                    //     "Court Type : (To be added)",
-                    //     textScaleFactor: 1.2,
-                    //   ),
-                    // ),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(vertical: 10.0),
-                    //   child: Text(
-                    //     "Other2 : (To be added)",
-                    //     textScaleFactor: 1.2,
-                    //   ),
-                    // ),
+                      height: 40.0,
+                    ),
                   ],
                 ),
               )

@@ -32,21 +32,23 @@ class _FscPage extends State<FscPage>
     super.initState();
     MainModel model = ScopedModel.of(context);
 
-    // model.getToken();
-    // print(model.isFSCLoaded);
-    // print(model.fscTournaments);
     if (!model.isFSCLoaded) {
-      model.initFscData(model.token).then((s) {
-        if (model.isFSCLoaded) {
-          setState(() {
-            array = model.fscTournaments;
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            isLoading = true;
-          });
-        }
+      model.getToken().then((_) {
+        model.initFscData(model.token).then((_) {
+          if (model.isFSCLoaded) {
+            setState(() {
+              array = model.fscTournaments;
+              isLoading = false;
+            });
+          } else {
+            setState(() {
+              isLoading = true;
+            });
+          }
+        });
+        print("ERROR1");
+        model.intiProfileData(model.token);
+        print("ERROR2");
       });
     } else {
       setState(() {
@@ -102,8 +104,14 @@ class _FscPage extends State<FscPage>
       MainModel model = ScopedModel.of(context);
       if (model.fscError == true) {
         return AlertDialog(
-          content: Text("Server did not respond. \nPlease check your internet connection",textScaleFactor: 1,),
-          title: Text("ERROR",textScaleFactor: 1,),
+          content: Text(
+            "Server did not respond. \nPlease check your internet connection",
+            textScaleFactor: 1,
+          ),
+          title: Text(
+            "ERROR",
+            textScaleFactor: 1,
+          ),
         );
       } else {
         return Container(
@@ -128,10 +136,9 @@ class _FscPage extends State<FscPage>
               ),
             ),
             Expanded(
-              child: Container(
-                margin: EdgeInsets.only(top: 10.0),
-                child: ListView.builder(
-                
+                child: Container(
+              margin: EdgeInsets.only(top: 10.0),
+              child: ListView.builder(
                 controller: _scrollController,
                 itemCount: array.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -140,8 +147,7 @@ class _FscPage extends State<FscPage>
                   return FSCCardRender(array[index], imageUrl);
                 },
               ),
-              )
-            ),
+            )),
           ],
         ),
       );
