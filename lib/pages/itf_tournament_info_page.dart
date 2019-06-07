@@ -7,7 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 class ITFInfoPage extends StatelessWidget {
   final ITFTournament tournamentData;
 
-  ITFInfoPage(this.tournamentData);
+  final int index;
+
+  ITFInfoPage({this.tournamentData, this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,11 @@ class ITFInfoPage extends StatelessWidget {
       body: Container(
         child: ListView(
           children: <Widget>[
-            Image(
-              image: AssetImage("assets/itf-card.jpg"),
+            Hero(
+              tag: index,
+              child: Image(
+                image: AssetImage("assets/itf-card.jpg"),
+              ),
             ),
             Container(
                 padding: EdgeInsets.only(top: 5.0, left: 10.0),

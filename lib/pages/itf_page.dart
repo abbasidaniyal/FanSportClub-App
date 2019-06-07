@@ -130,7 +130,7 @@ class _ItfPage extends State<ItfPage>
                 itemCount: array.length,
                 itemBuilder: (BuildContext context, int index) {
                   checkDateChange();
-                  return ITFCardRender(array[index], imageUrl);
+                  return ITFCardRender(array[index], imageUrl,index);
                 },
               ),
             ))

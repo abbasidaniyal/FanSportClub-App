@@ -93,15 +93,9 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
     );
   }
-
-
-
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-
-
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -145,21 +139,24 @@ class CustomSearchDelegate extends SearchDelegate {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.1,
-                    height: MediaQuery.of(context).size.width * 0.1,
-                    decoration: BoxDecoration(
+                  Hero(
+                    tag: index,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      height: MediaQuery.of(context).size.width * 0.1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.0),
+                          color: Colors.grey[400]),
+                      margin: EdgeInsets.only(left: 10.0, right: 20.0),
+                      foregroundDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Colors.grey[400]),
-                    margin: EdgeInsets.only(left: 10.0, right: 20.0),
-                    foregroundDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100.0),
-                      border: Border.all(width: 0.1, color: Colors.white),
-                      image: DecorationImage(
-                        image: results.toList()[index].profilePhotoUrl != null
-                            ? NetworkImage(
-                                results.toList()[index].profilePhotoUrl)
-                            : AssetImage("assets/profilePicture.jpeg"),
+                        border: Border.all(width: 0.1, color: Colors.white),
+                        image: DecorationImage(
+                          image: results.toList()[index].profilePhotoUrl != null
+                              ? NetworkImage(
+                                  results.toList()[index].profilePhotoUrl)
+                              : AssetImage("assets/profilePicture.jpeg"),
+                        ),
                       ),
                     ),
                   ),
@@ -180,7 +177,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return PlayerProfilePage(results.toList()[index]);
+                      return PlayerProfilePage(results.toList()[index], index);
                     },
                   ),
                 );
@@ -214,21 +211,24 @@ class CustomSearchDelegate extends SearchDelegate {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.1,
-                    height: MediaQuery.of(context).size.width * 0.1,
-                    decoration: BoxDecoration(
+                  Hero(
+                    tag: index,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.1,
+                      height: MediaQuery.of(context).size.width * 0.1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.0),
+                          color: Colors.grey[400]),
+                      margin: EdgeInsets.only(left: 10.0, right: 20.0),
+                      foregroundDecoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Colors.grey[400]),
-                    margin: EdgeInsets.only(left: 10.0, right: 20.0),
-                    foregroundDecoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100.0),
-                      border: Border.all(width: 0.1, color: Colors.white),
-                      image: DecorationImage(
-                        image: results.toList()[index].profilePhotoUrl != null
-                            ? NetworkImage(
-                                results.toList()[index].profilePhotoUrl)
-                            : AssetImage("assets/profilePicture.jpeg"),
+                        border: Border.all(width: 0.1, color: Colors.white),
+                        image: DecorationImage(
+                          image: results.toList()[index].profilePhotoUrl != null
+                              ? NetworkImage(
+                                  results.toList()[index].profilePhotoUrl)
+                              : AssetImage("assets/profilePicture.jpeg"),
+                        ),
                       ),
                     ),
                   ),
@@ -249,7 +249,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return PlayerProfilePage(results.toList()[index]);
+                      return PlayerProfilePage(results.toList()[index], index);
                     },
                   ),
                 );
@@ -262,5 +262,3 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 }
-
-

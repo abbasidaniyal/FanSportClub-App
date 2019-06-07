@@ -87,7 +87,12 @@ class _SigningPageState extends State<SigningPage> {
                       textScaleFactor: 1.3,
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CalendarPage();
+                      }));
+                    },
                   ),
                 ),
               ),

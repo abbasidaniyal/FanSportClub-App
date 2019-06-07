@@ -3,13 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
+import './pages/UnAuthorizedUser/landing_page.dart';
 import 'package:flutter/services.dart';
 
-void main(){
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((onValue){
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((onValue) {
     runApp(MyApp());
   });
-  
 }
 
 class MyApp extends StatelessWidget {

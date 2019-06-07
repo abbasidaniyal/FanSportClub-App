@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 
 class PlayerProfilePage extends StatelessWidget {
   UserProfile user;
+  int index;
 
-  PlayerProfilePage(this.user);
+  PlayerProfilePage(this.user, this.index);
   @override
   Widget build(BuildContext context) {
     double nameSize = MediaQuery.of(context).size.width * 0.05;
@@ -214,20 +215,23 @@ class PlayerProfilePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    height: MediaQuery.of(context).size.width * 0.35,
-                    margin: EdgeInsets.only(top: 25, left: 20.0),
-                    decoration: BoxDecoration(
+                  Hero(
+                    tag: index,
+                                      child: Container(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: MediaQuery.of(context).size.width * 0.35,
+                      margin: EdgeInsets.only(top: 25, left: 20.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.0),
+                          color: Theme.of(context).primaryColor),
+                      foregroundDecoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 3.0),
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Theme.of(context).primaryColor),
-                    foregroundDecoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 3.0),
-                      borderRadius: BorderRadius.circular(100.0),
-                      image: DecorationImage(
-                        image: user.profilePhotoUrl != null
-                            ? NetworkImage(user.profilePhotoUrl)
-                            : AssetImage("assets/profilePicture.jpeg"),
+                        image: DecorationImage(
+                          image: user.profilePhotoUrl != null
+                              ? NetworkImage(user.profilePhotoUrl)
+                              : AssetImage("assets/profilePicture.jpeg"),
+                        ),
                       ),
                     ),
                   )

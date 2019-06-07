@@ -8,8 +8,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class FSCInfoPage extends StatelessWidget {
   final FSCTournament tournamentData;
+  final int index;
   String website = "www.fansportsclub.com";
-  FSCInfoPage(this.tournamentData);
+  FSCInfoPage(this.tournamentData, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,11 @@ class FSCInfoPage extends StatelessWidget {
         child: Container(
           child: ListView(
             children: <Widget>[
-              Image(
-                image: AssetImage("assets/tournamentInfo.jpg"),
+              Hero(
+                tag: index,
+                child: Image(
+                  image: AssetImage("assets/tournamentInfo.jpg"),
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),

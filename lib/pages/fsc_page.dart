@@ -144,7 +144,7 @@ class _FscPage extends State<FscPage>
                 itemBuilder: (BuildContext context, int index) {
                   checkDateChange();
 
-                  return FSCCardRender(array[index], imageUrl);
+                  return FSCCardRender(array[index], imageUrl,index);
                 },
               ),
             )),
