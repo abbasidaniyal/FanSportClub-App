@@ -18,11 +18,23 @@ mixin Login on Model {
 
   Future<bool> googleSignIn() async {
     GoogleSignIn user = GoogleSignIn();
-    GoogleSignInAccount signedInUser = await user.signIn();
+    try {
+      GoogleSignInAccount signedInUser =
+          await user.signIn().catchError((onError) {
+        print("Error = $onError");
+        
 
-    GoogleSignInAuthentication gsa = await signedInUser.authentication;
-    print(signedInUser.toString());
-    print(gsa.toString());
-    return true;
+        return false;
+      });
+      
+      GoogleSignInAuthentication gsa = await signedInUser.authentication;
+      print(signedInUser.toString());
+      
+      print(gsa.toString());
+      return true;
+    } catch (error) {
+      print("Error = $error");
+      return false;
+    }
   }
 }
