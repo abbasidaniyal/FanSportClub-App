@@ -32,7 +32,7 @@ class _FscPage extends State<FscPage>
     MainModel model = ScopedModel.of(context);
 
     if (!model.isFSCLoaded) {
-      model.getToken().then((_) {
+      model.getGeneralToken().then((_) {
         model.initFscData(model.token).then((_) {
           if (model.isFSCLoaded) {
             setState(() {

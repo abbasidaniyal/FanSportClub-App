@@ -7,6 +7,8 @@ import '../models/fsc_tournament.dart';
 import 'dart:convert';
 import 'dart:core';
 import '../models/itf_tournament.dart';
+import './baseUrl.dart';
+
 
 mixin TournamentModel on Model {
   List<FSCTournament> fscTournaments = [];
@@ -19,7 +21,7 @@ mixin TournamentModel on Model {
   bool itfError = false;
 
   Future<void> initItfData(String token) async {
-    await http.get("http://api.fansportsclub.com/tournaments/tournaments-itf/",
+    await http.get("$baseUrl/tournaments/tournaments-itf/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
@@ -57,7 +59,7 @@ mixin TournamentModel on Model {
   }
 
   Future<void> initFscData(String token) async {
-    await http.get("http://api.fansportsclub.com/tournaments/tournaments-fsc/",
+    await http.get("$baseUrl/tournaments/tournaments-fsc/",
         headers: {'Authorization': 'Token $token'}).then((http.Response res) {
       if (res.statusCode == 200) {
         //print(res.body);

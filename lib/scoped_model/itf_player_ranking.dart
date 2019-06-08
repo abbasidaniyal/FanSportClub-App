@@ -4,6 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/itf_ranking.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import './baseUrl.dart';
 
 mixin ITFPlayerRankingModel on Model {
   List<ITFRanking> itfRanking = [];

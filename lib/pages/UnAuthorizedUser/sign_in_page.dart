@@ -83,7 +83,7 @@ class _SigningPageState extends State<SigningPage> {
                     right: MediaQuery.of(context).size.width * 0.1),
                 child: Hero(
                   tag: 123,
-                                  child: Container(
+                  child: Container(
                     // width: MediaQuery.of(context).size.width * 0.8 + 20,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: RaisedButton(
@@ -93,7 +93,9 @@ class _SigningPageState extends State<SigningPage> {
                         textScaleFactor: 1.3,
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        //LOGIN WITH SERVER AND GET TOKEN
+
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
                           return CalendarPage();
@@ -119,7 +121,34 @@ class _SigningPageState extends State<SigningPage> {
                           textScaleFactor: 1.3,
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          MainModel model = ScopedModel.of(context);
+                          bool success = await model.googleSignIn();
+
+                          if (success) {
+                            //LOGIN WITH SERVER AND GET TOKEN
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CalendarPage();
+                            }));
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("Google sign in failed"),
+                                    content: Text("Please try again"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  ),
+                            );
+                          }
+                        },
                       ),
                     ),
                     SizedBox(

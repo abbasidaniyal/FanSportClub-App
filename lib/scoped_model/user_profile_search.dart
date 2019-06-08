@@ -3,6 +3,8 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/user_profile.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import './baseUrl.dart';
+
 
 mixin UserProfileModel on Model {
   List<UserProfile> playerProfiles = [];
@@ -13,7 +15,7 @@ mixin UserProfileModel on Model {
   Future<void> intiProfileData(String token) async {
     playerProfiles = [];
     profiles = [];
-    await http.get("http://api.fansportsclub.com/users/user-profile-list/",
+    await http.get("$baseUrl/users/user-profile-list/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
