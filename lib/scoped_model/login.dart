@@ -26,10 +26,8 @@ mixin Login on Model {
 
         return false;
       });
-      
       GoogleSignInAuthentication gsa = await signedInUser.authentication;
       print(signedInUser.toString());
-      
       print(gsa.toString());
       return true;
     } catch (error) {
