@@ -5,5 +5,13 @@ import './tournaments.dart';
 import './user_profile_search.dart';
 import './token.dart';
 import './send_mail.dart';
+import './payment.dart';
 
-class MainModel extends Model with  ITFPlayerRankingModel, TournamentModel,UserProfileModel,TokenAuth,SendCIENMail {}
+class MainModel extends Model
+    with
+        ITFPlayerRankingModel,
+        TournamentModel,
+        UserProfileModel,
+        TokenAuth,
+        SendCIENMail,
+        PaymentModel {}

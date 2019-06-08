@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../pages/about_us_page.dart';
 
@@ -7,6 +8,7 @@ import '../pages/ipin_page.dart';
 import '../pages/calendar_page.dart';
 import '../pages/cien_form_page.dart';
 import '../pages/itf_ranking_page.dart';
+import '../scoped_model/main.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -159,22 +161,21 @@ class MyDrawer extends StatelessWidget {
             //     );
             //   },
             // ),
-            // ListTile(
-            //   title: Text(
-            //     'Player Profile',
-            //     style: TextStyle(
-            //       color: Theme.of(context).textTheme.title.color,
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       CupertinoPageRoute(
-            //         builder: (context) => PlayerProfileSearch(),
-            //       ),
-            //     );
-            //   },
-            // ),
+            ScopedModelDescendant<MainModel>(
+              builder: (context, child, model) {
+                return ListTile(
+                  title: Text(
+                    'Payment',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.title.color,
+                    ),
+                  ),
+                  onTap: () async {
+                    await model.payment();
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),

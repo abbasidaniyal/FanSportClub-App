@@ -5,7 +5,6 @@ mixin TokenAuth on Model {
   String token;
 
   Future<void> getToken() async {
-
     await http.post(
       "http://api.fansportsclub.com/api-token-auth/",
       body: {'username': 'appuser', 'password': 'fansportsclubapp'},
