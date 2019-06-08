@@ -27,6 +27,7 @@ dependencies:
   material_design_icons_flutter: ^3.2.3595
   flutter_picker: ^1.0.10
   dynamic_theme: ^1.0.0
+  razorpay_plugin: 
 
   flutter:
     sdk: flutter
