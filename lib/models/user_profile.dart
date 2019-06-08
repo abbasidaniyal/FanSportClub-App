@@ -14,7 +14,7 @@ class UserProfile {
   String state;
   String dob;
   String profilePhotoUrl;
-
+  int id;
 
   String age() {
     return (DateTime.parse(dob.split("/").toString())
@@ -30,6 +30,7 @@ class UserProfile {
       this.city,
       this.state,
       this.homeClub,
+      this.id,
       this.roleModel,
       this.achievements,
       this.profilePhotoUrl});

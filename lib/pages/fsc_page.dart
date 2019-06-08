@@ -27,8 +27,7 @@ class _FscPage extends State<FscPage>
   bool get wantKeepAlive => true;
 
   @override
-  void initState() {
-    print("Working");
+  void initState() {  
     super.initState();
     MainModel model = ScopedModel.of(context);
 
@@ -46,9 +45,7 @@ class _FscPage extends State<FscPage>
             });
           }
         });
-        print("ERROR1");
         model.intiProfileData(model.token);
-        print("ERROR2");
       });
     } else {
       setState(() {
@@ -144,7 +141,7 @@ class _FscPage extends State<FscPage>
                 itemBuilder: (BuildContext context, int index) {
                   checkDateChange();
 
-                  return FSCCardRender(array[index], imageUrl,index);
+                  return FSCCardRender(array[index], imageUrl, index);
                 },
               ),
             )),

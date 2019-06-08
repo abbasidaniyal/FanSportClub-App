@@ -156,15 +156,12 @@ class FSCCardRender extends StatelessWidget {
                 ),
               ),
             ),
-            Hero(
-              tag: index,
-              child: Container(
-                margin: EdgeInsets.only(top: 40.0, bottom: 15.0, left: 40.0),
-                child: Image(
-                  image: AssetImage(imageUrl),
-                  // height: 150.0,
-                  width: 55.0,
-                ),
+            Container(
+              margin: EdgeInsets.only(top: 40.0, bottom: 15.0, left: 40.0),
+              child: Image(
+                image: AssetImage(imageUrl),
+                // height: 150.0,
+                width: 55.0,
               ),
             ),
           ],

@@ -19,7 +19,6 @@ mixin TournamentModel on Model {
   bool itfError = false;
 
   Future<void> initItfData(String token) async {
-    print("Reaching");
     await http.get("http://api.fansportsclub.com/tournaments/tournaments-itf/",
         headers: {'Authorization': 'Token $token'}).then(
       (http.Response res) {
@@ -58,8 +57,6 @@ mixin TournamentModel on Model {
   }
 
   Future<void> initFscData(String token) async {
-    print("Reaching");
-    print('Authorization: Token $token');
     await http.get("http://api.fansportsclub.com/tournaments/tournaments-fsc/",
         headers: {'Authorization': 'Token $token'}).then((http.Response res) {
       if (res.statusCode == 200) {
@@ -79,10 +76,8 @@ mixin TournamentModel on Model {
             contactPerson: event["coordinator_name"],
           );
 
-          // print(temp.description);
           fscTournaments.add(temp);
         }
-        print(fscTournaments);
         isFSCLoaded = true;
       } else {
         print("ERROR");

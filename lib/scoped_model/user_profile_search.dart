@@ -21,16 +21,16 @@ mixin UserProfileModel on Model {
 
           for (var players in profiles) {
             UserProfile temp = UserProfile(
-              city: players["city"],
-              dob: players["date_of_birth"],
-              backhandStyle: players["backhand_style"],
-              name: players["name"],
-              roleModel: players["role_model"],
-              strongHand: players["strong_hand"],
-              homeClub: players["home_club"],
-              achievements: players["achievements"],
-              profilePhotoUrl: players["profile_photo"],
-            );
+                city: players["city"],
+                dob: players["date_of_birth"],
+                backhandStyle: players["backhand_style"],
+                name: players["name"],
+                roleModel: players["role_model"],
+                strongHand: players["strong_hand"],
+                homeClub: players["home_club"],
+                achievements: players["achievements"],
+                profilePhotoUrl: players["profile_photo"],
+                id: players["player_id"]);
             playerProfiles.add(temp);
           }
           isProfileDataLoaded = true;

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -29,6 +31,8 @@ class _SigningPageState extends State<SigningPage> {
             ),
           ),
           child: ListView(
+            dragStartBehavior: DragStartBehavior.down,
+            primary: false,
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(
@@ -77,22 +81,25 @@ class _SigningPageState extends State<SigningPage> {
                     top: MediaQuery.of(context).size.height * 0.05,
                     left: MediaQuery.of(context).size.width * 0.1,
                     right: MediaQuery.of(context).size.width * 0.1),
-                child: Container(
-                  // width: MediaQuery.of(context).size.width * 0.8 + 20,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: RaisedButton(
-                    color: Theme.of(context).accentColor.withOpacity(0.8),
-                    child: Text(
-                      "LOGIN",
-                      textScaleFactor: 1.3,
-                      style: TextStyle(color: Colors.white),
+                child: Hero(
+                  tag: 123,
+                                  child: Container(
+                    // width: MediaQuery.of(context).size.width * 0.8 + 20,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    child: RaisedButton(
+                      color: Theme.of(context).accentColor.withOpacity(0.8),
+                      child: Text(
+                        "LOGIN",
+                        textScaleFactor: 1.3,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CalendarPage();
+                        }));
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CalendarPage();
-                      }));
-                    },
                   ),
                 ),
               ),

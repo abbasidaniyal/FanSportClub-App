@@ -1,3 +1,5 @@
+import 'dart:ui' as prefix0;
+
 import 'package:Fan_Sports/pages/UnAuthorizedUser/sign_in_page.dart';
 import 'package:Fan_Sports/pages/UnAuthorizedUser/sign_up_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,26 +47,29 @@ class _LandingPageState extends State<LandingPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.40,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      child: RaisedButton(
-                        color: Theme.of(context).accentColor.withOpacity(0.8),
-                        child: Text(
-                          "LOGIN",
-                          textScaleFactor: 1.3,
-                          style: TextStyle(color: Colors.white),
+                    Hero(
+                      tag: 123,
+                                          child: Container(
+                        width: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        child: RaisedButton(
+                          color: Theme.of(context).accentColor.withOpacity(0.8),
+                          child: Text(
+                            "LOGIN",
+                            textScaleFactor: 1.3,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, a, b) {
+                                  return SigningPage();
+                                },
+                              ),
+                            );
+                          },
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (context, a, b) {
-                                return SigningPage();
-                              },
-                            ),
-                          );
-                        },
                       ),
                     ),
                     SizedBox(
@@ -95,6 +100,24 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     )
                   ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 30),
+                child: InkWell(
+                  child: Text(
+                    "Continue Without Login",
+                    style: TextStyle(
+                        color: Colors.white,
+                        decoration: TextDecoration.underline,
+                        fontSize: 15),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return CalendarPage();
+                    }));
+                  },
                 ),
               )
             ],

@@ -30,11 +30,8 @@ class FSCInfoPage extends StatelessWidget {
         child: Container(
           child: ListView(
             children: <Widget>[
-              Hero(
-                tag: index,
-                child: Image(
-                  image: AssetImage("assets/tournamentInfo.jpg"),
-                ),
+              Image(
+                image: AssetImage("assets/tournamentInfo.jpg"),
               ),
               Container(
                 margin: EdgeInsets.only(top: 20.0, left: 25.0, right: 25.0),

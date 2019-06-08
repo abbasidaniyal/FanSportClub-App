@@ -6,9 +6,8 @@ import 'package:intl/intl.dart';
 
 class PlayerProfilePage extends StatelessWidget {
   UserProfile user;
-  int index;
 
-  PlayerProfilePage(this.user, this.index);
+  PlayerProfilePage(this.user);
   @override
   Widget build(BuildContext context) {
     double nameSize = MediaQuery.of(context).size.width * 0.05;
@@ -198,9 +197,9 @@ class PlayerProfilePage extends StatelessWidget {
                             ),
                             Container(
                               margin: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                  top: 5),
+                                left: MediaQuery.of(context).size.width * 0.05,
+                                top: 5,
+                              ),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 user.strongHand,
@@ -216,8 +215,8 @@ class PlayerProfilePage extends StatelessWidget {
                     ),
                   ),
                   Hero(
-                    tag: index,
-                                      child: Container(
+                    tag: user.id,
+                    child: Container(
                       width: MediaQuery.of(context).size.width * 0.35,
                       height: MediaQuery.of(context).size.width * 0.35,
                       margin: EdgeInsets.only(top: 25, left: 20.0),

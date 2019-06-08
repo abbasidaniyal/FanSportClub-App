@@ -140,7 +140,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Hero(
-                    tag: index,
+                    tag: results.toList()[index].id,
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
@@ -175,9 +175,9 @@ class CustomSearchDelegate extends SearchDelegate {
               onTap: () {
                 // close(context, results.toList()[index].name);
                 Navigator.of(context).push(
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                     builder: (context) {
-                      return PlayerProfilePage(results.toList()[index], index);
+                      return PlayerProfilePage(results.toList()[index]);
                     },
                   ),
                 );
@@ -212,7 +212,7 @@ class CustomSearchDelegate extends SearchDelegate {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Hero(
-                    tag: index,
+                    tag: results.toList()[index].id,
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.1,
                       height: MediaQuery.of(context).size.width * 0.1,
@@ -247,9 +247,9 @@ class CustomSearchDelegate extends SearchDelegate {
               onTap: () {
                 // close(context, results.toList()[index].name);
                 Navigator.of(context).push(
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                     builder: (context) {
-                      return PlayerProfilePage(results.toList()[index], index);
+                      return PlayerProfilePage(results.toList()[index]);
                     },
                   ),
                 );
