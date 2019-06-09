@@ -1,6 +1,6 @@
 import 'package:http/http.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:razorpay_plugin/razorpay_plugin.dart';
+// import 'package:razorpay_plugin/razorpay_plugin.dart';
 
 mixin PaymentModel on Model {
   Future<Null> payment() async {
@@ -27,7 +27,7 @@ mixin PaymentModel on Model {
     options.putIfAbsent("api_key", () => apiKey);
 
     Map<dynamic, dynamic> paymentResponse = new Map();
-    paymentResponse = await Razorpay.showPaymentForm(options);
+    // paymentResponse = await Razorpay.showPaymentForm(options);
     print("response $paymentResponse");
   }
 }
