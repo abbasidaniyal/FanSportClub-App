@@ -27,24 +27,22 @@ class _FscPage extends State<FscPage>
   bool get wantKeepAlive => true;
 
   @override
-  void initState() {  
+  void initState() {
     super.initState();
     MainModel model = ScopedModel.of(context);
 
     if (!model.isFSCLoaded) {
-      model.getGeneralToken().then((_) {
-        model.initFscData(model.token).then((_) {
-          if (model.isFSCLoaded) {
-            setState(() {
-              array = model.fscTournaments;
-              isLoading = false;
-            });
-          } else {
-            setState(() {
-              isLoading = true;
-            });
-          }
-        });
+      model.initFscData(model.token).then((_) {
+        if (model.isFSCLoaded) {
+          setState(() {
+            array = model.fscTournaments;
+            isLoading = false;
+          });
+        } else {
+          setState(() {
+            isLoading = true;
+          });
+        }
         model.intiProfileData(model.token);
       });
     } else {

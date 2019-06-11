@@ -1,3 +1,4 @@
+import 'package:Fan_Sports/pages/UnAuthorizedUser/landing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -9,6 +10,7 @@ import '../pages/calendar_page.dart';
 import '../pages/cien_form_page.dart';
 import '../pages/itf_ranking_page.dart';
 import '../scoped_model/main.dart';
+import '../pages/gallery_page.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -70,7 +72,6 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-
             ListTile(
               title: Text(
                 'IPIN Renewal',
@@ -145,22 +146,22 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Text(
-            //     'Gallery',
-            //     style: TextStyle(
-            //       color: Theme.of(context).textTheme.title.color,
-            //     ),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       CupertinoPageRoute(
-            //         builder: (context) => GalleryPage(),
-            //       ),
-            //     );
-            //   },
-            // ),
+            ListTile(
+              title: Text(
+                'Gallery',
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => GalleryPage(),
+                  ),
+                );
+              },
+            ),
             ScopedModelDescendant<MainModel>(
               builder: (context, child, model) {
                 return ListTile(
@@ -172,6 +173,26 @@ class MyDrawer extends StatelessWidget {
                   ),
                   onTap: () async {
                     await model.payment();
+                  },
+                );
+              },
+            ),
+            ScopedModelDescendant<MainModel>(
+              builder: (context, child, model) {
+                return ListTile(
+                  title: Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.title.color,
+                    ),
+                  ),
+                  onTap: () async {
+                    await model.logoutUser().then((onValue) {
+                      Navigator.pushReplacement(context,
+                          PageRouteBuilder(pageBuilder: (context, a, s) {
+                        return LandingPage();
+                      }));
+                    });
                   },
                 );
               },

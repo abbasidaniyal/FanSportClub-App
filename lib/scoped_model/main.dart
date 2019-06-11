@@ -6,6 +6,7 @@ import './user_profile_search.dart';
 import './login.dart';
 import './send_mail.dart';
 import './payment.dart';
+import './gallery_images.dart';
 
 class MainModel extends Model
     with
@@ -14,4 +15,5 @@ class MainModel extends Model
         UserProfileModel,
         Login,
         SendCIENMail,
+        GalleryModel,
         PaymentModel {}

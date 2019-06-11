@@ -1,37 +1,57 @@
-// import "package:flutter/material.dart";
-// import '../widget/drawer.dart';
+import "package:flutter/material.dart";
+import 'package:scoped_model/scoped_model.dart';
 
-// class GalleryPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       drawer: MyDrawer(),
-//       appBar: AppBar(title: Text("Fan Sport Club"),backgroundColor:Theme.of(context).primaryColor,
-//           ),
-//       body: Column(
-//         children: <Widget>[
-//           Container(
-//             margin: EdgeInsets.all(5.0),
-//             padding: EdgeInsets.all(2.0),
-//             child: Center(
-//                 child: Text(
-//               "Gallery",
-//               textScaleFactor: 2.5,
-//             )),
-//           ),
-//           SizedBox(
-//             height: 10.0,
-//           ),
-//           Column(
-//             children: <Widget>[
-//               Card(
-//                 child: Image.asset("assets/logo.jpg"),
-//               )
-              
-//             ],
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
+import '../widget/drawer.dart';
+import '../models/gallery_image.dart';
+import '../widget/gallery_tile.dart';
+import '../scoped_model/main.dart';
+
+class GalleryPage extends StatefulWidget {
+  @override
+  _GalleryPageState createState() => _GalleryPageState();
+}
+
+class _GalleryPageState extends State<GalleryPage> {
+  List<GalleryImage> array = [];
+
+  @override
+  void initState() {
+    getImages();
+    super.initState();
+  }
+
+  void getImages() {}
+  @override
+  Widget build(BuildContext context) {
+    MainModel model = ScopedModel.of(context);
+    print("REACHING 1");
+    if (array.length == 0) {
+      model.loadGalleryImages(model.token).then((success) {
+        print(success);
+        if (success) {
+          print("REACHING 2");
+          setState(() {
+            array = model.galleryImages;
+          });
+        }
+      });
+    }
+    return Scaffold(
+      drawer: MyDrawer(),
+      appBar: AppBar(
+        title: Text("Gallery"),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      body: array.length == 0
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: array.length,
+              itemBuilder: (context, index) {
+                return GalleryTile(image: array[index]);
+              },
+            ),
+    );
+  }
+}
