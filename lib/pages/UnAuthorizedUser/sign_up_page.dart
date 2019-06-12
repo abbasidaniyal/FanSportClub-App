@@ -72,7 +72,7 @@ class _SignupPageState extends State<SignupPage> {
                           )),
                 ),
               ),
-                            Container(
+              Container(
                 margin: EdgeInsets.only(top: 20, left: 30, right: 30),
                 child: TextField(
                   controller: password,
@@ -88,7 +88,6 @@ class _SignupPageState extends State<SignupPage> {
                           )),
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.05,
@@ -124,7 +123,34 @@ class _SignupPageState extends State<SignupPage> {
                           textScaleFactor: 1.3,
                           style: TextStyle(color: Colors.white),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          MainModel model = ScopedModel.of(context);
+                          bool success = await model.googleSignIn();
+
+                          if (success) {
+                            //LOGIN WITH SERVER AND GET TOKEN
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CalendarPage();
+                            }));
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("Google sign in failed"),
+                                    content: Text("Please try again"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  ),
+                            );
+                          }
+                        },
                       ),
                     ),
                     SizedBox(
@@ -142,7 +168,35 @@ class _SignupPageState extends State<SignupPage> {
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          MainModel model = ScopedModel.of(context);
+                          bool success = await model.facebookSignIn();
+                          if (success) {
+                            //LOGIN WITH SERVER AND GET TOKEN
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CalendarPage();
+                            }));
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Facebook sign in failed"),
+                                  content: Text("Please try again"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
                       ),
                     )
                   ],
