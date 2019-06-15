@@ -9,6 +9,11 @@ import './baseUrl.dart';
 
 mixin Login on Model {
   String token;
+  FacebookLoginResult signedInUser;
+  FacebookLogin facebookUser = FacebookLogin();
+  GoogleSignInAuthentication googleSignInAuthentication;
+
+  GoogleSignIn googleUser = GoogleSignIn();
 
   Future<bool> logoutUser() async {
     token = null;
@@ -32,17 +37,13 @@ mixin Login on Model {
   }
 
   Future<bool> googleSignIn() async {
-    GoogleSignIn user = GoogleSignIn();
     try {
-      GoogleSignInAccount signedInUser =
-          await user.signIn().catchError((onError) {
-        print("Error = $onError");
+      GoogleSignInAccount signedInUser = await googleUser.signIn();
 
-        return false;
-      });
-      GoogleSignInAuthentication gsa = await signedInUser.authentication;
+      googleSignInAuthentication = await signedInUser.authentication;
       print(signedInUser.toString());
-      print(gsa.toString());
+      print(googleSignInAuthentication.toString());
+
       return true;
     } catch (error) {
       print("Error = $error");
@@ -51,22 +52,24 @@ mixin Login on Model {
   }
 
   Future<bool> facebookSignIn() async {
-    FacebookLogin user = FacebookLogin();
-
     try {
-      FacebookLoginResult signedInUser = await user.logInWithReadPermissions(
-          ["email", 'public_profile']).catchError((onError) {
-        print("Error = $onError");
-
-        return false;
-      });
-      print(signedInUser.accessToken);
+      signedInUser = await facebookUser
+          .logInWithReadPermissions(["email", 'public_profile']);
+      print(signedInUser.accessToken.token);
       print(signedInUser.status);
       print(signedInUser.errorMessage);
       return true;
     } catch (error) {
       print("Error = $error");
       return false;
+    }
+  }
+
+  Future<bool> sendAccessToken()async {
+    try {
+     http.Response res = await   http.post("$baseUrl/");
+    } catch (error){
+
     }
   }
 }

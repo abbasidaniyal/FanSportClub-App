@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../scoped_model/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
-import '../models/fsc_tournament.dart';
 
+import '../scoped_model/main.dart';
+import '../models/fsc_tournament.dart'; 
 import '../widget/fsc_card.dart';
 
 class FscPage extends StatefulWidget {
