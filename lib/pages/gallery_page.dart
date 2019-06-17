@@ -49,7 +49,10 @@ class _GalleryPageState extends State<GalleryPage> {
           : ListView.builder(
               itemCount: array.length,
               itemBuilder: (context, index) {
-                return GalleryTile(image: array[index]);
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: GalleryTile(image: array[index]),
+                );
               },
             ),
     );

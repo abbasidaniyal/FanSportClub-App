@@ -44,6 +44,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               Container(
+                color: Colors.grey.withOpacity(0.5),
                 margin: EdgeInsets.only(top: 20, left: 30, right: 30),
                 child: TextField(
                   controller: username,
@@ -57,6 +58,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               Container(
+                color: Colors.grey.withOpacity(0.5),
                 margin: EdgeInsets.only(top: 20, left: 30, right: 30),
                 child: TextField(
                   controller: password,
@@ -73,6 +75,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
               Container(
+                color: Colors.grey.withOpacity(0.5),
                 margin: EdgeInsets.only(top: 20, left: 30, right: 30),
                 child: TextField(
                   controller: password,

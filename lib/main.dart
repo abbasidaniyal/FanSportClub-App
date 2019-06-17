@@ -5,15 +5,23 @@ import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
 import './pages/UnAuthorizedUser/landing_page.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String token;
+  preferences.containsKey("token")
+      ? token = preferences.get("token")
+      : token = null;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((onValue) {
-    runApp(MyApp());
+    runApp(MyApp(token));
   });
 }
 
 class MyApp extends StatelessWidget {
+  final String token;
+  MyApp(this.token);
   @override
   Widget build(BuildContext context) {
     return ScopedModel(
@@ -42,7 +50,7 @@ class MyApp extends StatelessWidget {
             )),
         routes: {
           "/": (BuildContext context) {
-            return WelcomePage();
+            return WelcomePage(token);
           },
         },
       ),

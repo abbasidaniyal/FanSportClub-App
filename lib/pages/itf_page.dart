@@ -30,30 +30,43 @@ class _ItfPage extends State<ItfPage>
   @override
   void initState() {
     super.initState();
+    // MainModel model = ScopedModel.of(context);
+    // if (!model.isITFLoaded) {
+    //   model.initItfData(model.token).then((s) {
+    //     if (model.isITFLoaded) {
+    //       setState(() {
+    //         array = model.itfTournaments;
+    //         isLoading = false;
+    //       });
+    //     } else {
+    //       setState(() {
+    //         isLoading = true;
+    //       });
+    //     }
+    //   });
+    // } else {
+    //   setState(() {
+    //     array = model.itfTournaments;
+    //     isLoading = false;
+    //   });
+    // }
+    initItfData();
+    selectedDate = DateTime.now();
+    isDateChanged = true;
+
+    _scrollController = ScrollController(initialScrollOffset: 0.0);
+  }
+
+  void initItfData() async {
     MainModel model = ScopedModel.of(context);
-    if (!model.isITFLoaded) {
-      model.initItfData(model.token).then((s) {
-        if (model.isITFLoaded) {
-          setState(() {
-            array = model.itfTournaments;
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            isLoading = true;
-          });
-        }
-      });
-    } else {
+    bool success = await model.initItfData(model.token);
+
+    if (success) {
       setState(() {
         array = model.itfTournaments;
         isLoading = false;
       });
     }
-    selectedDate = DateTime.now();
-    isDateChanged = true;
-
-    _scrollController = ScrollController(initialScrollOffset: 0.0);
   }
 
   void setSelectedDate(DateTime b) {
@@ -89,26 +102,13 @@ class _ItfPage extends State<ItfPage>
   Widget build(BuildContext context) {
     if (isLoading == true || array.length <= 0) {
       MainModel model = ScopedModel.of(context);
-      if (model.itfError == true) {
-        return AlertDialog(
-          content: Text(
-            "Server did not respond. \nPlease check your internet connection",
-            textScaleFactor: 1,
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
           ),
-          title: Text(
-            "ERROR",
-            textScaleFactor: 1,
-          ),
-        );
-      } else {
-        return Container(
-          child: Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-          ),
-        );
-      }
+        ),
+      );
     } else {
       return Container(
         color: Color.fromRGBO(245, 245, 245, 0.8),
@@ -130,7 +130,7 @@ class _ItfPage extends State<ItfPage>
                 itemCount: array.length,
                 itemBuilder: (BuildContext context, int index) {
                   checkDateChange();
-                  return ITFCardRender(array[index], imageUrl,index);
+                  return ITFCardRender(array[index], imageUrl, index);
                 },
               ),
             ))

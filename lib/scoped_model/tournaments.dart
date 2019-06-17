@@ -1,14 +1,12 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'dart:core';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/fsc_tournament.dart';
-import 'dart:convert';
-import 'dart:core';
 import '../models/itf_tournament.dart';
 import './baseUrl.dart';
-
 
 mixin TournamentModel on Model {
   List<FSCTournament> fscTournaments = [];
@@ -20,48 +18,51 @@ mixin TournamentModel on Model {
   bool fscError = false;
   bool itfError = false;
 
-  Future<void> initItfData(String token) async {
-    await http.get("$baseUrl/tournaments/tournaments-itf/",
-        headers: {'Authorization': 'Token $token'}).then(
-      (http.Response res) {
-        if (res.statusCode == 200) {
-          itfTournaments = [];
-          fsc = json.decode(res.body);
-          for (var event in fsc) {
-            ITFTournament temp = ITFTournament(
-              name: event["tournament_name"],
-              grade: event["grade"],
-              venue: event["venue"],
-              startDate:
-                  DateTime.parse(event["start_date"].toString() + " 12:00:00z"),
-              endDate:
-                  DateTime.parse(event["end_date"].toString() + " 12:00:00z"),
-              link: event["link"],
-              website: event["website"],
-              surface: event["surface"],
-            );
-            itfTournaments.add(temp);
-          }
-          isITFLoaded = true;
-        } else {
-          print("ERROR");
-          print(res.statusCode);
-          itfError = true;
-          isITFLoaded = false;
+  Future<bool> initItfData(String token) async {
+    try {
+      http.Response res =
+          await http.get("$baseUrl/tournaments/tournaments-itf/", headers: {
+        'Authorization': token,
+        // 'Authorization': 'Bearer $token',
+      });
+
+      if (res.statusCode != 200 && res.statusCode != 201)
+        return false;
+      else {
+        itfTournaments = [];
+        fsc = json.decode(res.body);
+        for (var event in fsc) {
+          ITFTournament temp = ITFTournament(
+            name: event["tournament_name"],
+            grade: event["grade"],
+            venue: event["venue"],
+            startDate:
+                DateTime.parse(event["start_date"].toString() + " 12:00:00z"),
+            endDate:
+                DateTime.parse(event["end_date"].toString() + " 12:00:00z"),
+            link: event["link"],
+            website: event["website"],
+            surface: event["surface"],
+          );
+          itfTournaments.add(temp);
         }
-        notifyListeners();
-      },
-    ).catchError((onError) {
-      print("ERROR");
-      itfError = true;
-      isITFLoaded = false;
-    });
+        return true;
+      }
+    } catch (onError) {
+      print("ERROR in ITF ");
+    }
   }
 
-  Future<void> initFscData(String token) async {
-    await http.get("$baseUrl/tournaments/tournaments-fsc/",
-        headers: {'Authorization': 'Token $token'}).then((http.Response res) {
-      if (res.statusCode == 200) {
+  Future<bool> initFscData(String token) async {
+    try {
+      http.Response res = await http
+          .get("$baseUrl/tournaments/tournaments-fsc/", headers: {
+        'Authorization': token,
+        // 'Authorization': 'Bearer $token'
+      });
+      if (res.statusCode != 200 && res.statusCode != 201)
+        return false;
+      else {
         //print(res.body);
         fscTournaments = [];
         fsc = json.decode(res.body);
@@ -80,26 +81,21 @@ mixin TournamentModel on Model {
 
           fscTournaments.add(temp);
         }
-        isFSCLoaded = true;
-      } else {
-        print("ERROR");
-        print(res.statusCode);
-        isFSCLoaded = false;
-        fscError = true;
-        notifyListeners();
+        fscTournaments.sort(
+          (a, b) {
+            return a.date.compareTo(b.date);
+          },
+        );
+        return true;
       }
-    }).catchError((onError) {
+    } catch (onError) {
       print("ERROR");
       itfError = true;
       isITFLoaded = false;
       notifyListeners();
-    });
+      return false;
+    }
 
     //SORTING THE INCOMING ARRAY
-    fscTournaments.sort(
-      (a, b) {
-        return a.date.compareTo(b.date);
-      },
-    );
   }
 }

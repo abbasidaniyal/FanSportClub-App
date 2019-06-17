@@ -7,7 +7,11 @@ import '../scoped_model/main.dart';
 import './UnAuthorizedUser/landing_page.dart';
 
 class WelcomePage extends StatelessWidget {
+  final String token;
+  WelcomePage(this.token);
   Widget build(BuildContext context) {
+    MainModel model = ScopedModel.of(context);
+    // model.token;
     return SplashScreen(
       seconds: 2,
       image: Image.asset(

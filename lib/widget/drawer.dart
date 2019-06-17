@@ -137,7 +137,6 @@ class MyDrawer extends StatelessWidget {
                   )),
               onTap: () {
                 Navigator.pop(context);
-
                 Navigator.push(
                   context,
                   CupertinoPageRoute(
@@ -181,18 +180,24 @@ class MyDrawer extends StatelessWidget {
               builder: (context, child, model) {
                 return ListTile(
                   title: Text(
-                    'Logout',
+                    model.isUserSignedIn ? 'Logout' : "Login",
                     style: TextStyle(
                       color: Theme.of(context).textTheme.title.color,
                     ),
                   ),
                   onTap: () async {
-                    await model.logoutUser().then((onValue) {
-                      Navigator.pushReplacement(context,
-                          PageRouteBuilder(pageBuilder: (context, a, s) {
-                        return LandingPage();
-                      }));
-                    });
+                    await model.logoutUser().then(
+                      (onValue) {
+                        Navigator.pushReplacement(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, a, s) {
+                              return LandingPage();
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
                 );
               },

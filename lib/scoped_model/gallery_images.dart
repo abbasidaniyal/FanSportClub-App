@@ -9,8 +9,10 @@ import 'package:http/http.dart' as http;
 mixin GalleryModel on Model {
   List<GalleryImage> galleryImages = [];
   Future<bool> loadGalleryImages(token) async {
-    http.Response response = await http
-        .get("$baseUrl/gallery/", headers: {'Authorization': 'Token $token'});
+    http.Response response = await http.get("$baseUrl/gallery/", headers: {
+      'Authorization': 'Token $token',
+      'Authorization': 'Bearer $token',
+    });
     // print(response.statusCode);
     // print(response.body);
     if (response.statusCode != 200 && response.statusCode != 201) return false;

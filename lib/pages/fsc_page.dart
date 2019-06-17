@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 
 import '../scoped_model/main.dart';
-import '../models/fsc_tournament.dart'; 
+import '../models/fsc_tournament.dart';
 import '../widget/fsc_card.dart';
 
 class FscPage extends StatefulWidget {
@@ -24,36 +24,55 @@ class _FscPage extends State<FscPage>
   final double elementHeight = 150.0;
   String imageUrl = 'assets/logo-fsc.png';
   bool get wantKeepAlive => true;
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    // MainModel model = ScopedModel.of(context);
+
+    // if (!model.isFSCLoaded) {
+    //   model.initFscData(model.token).then((_) {
+    //     if (model.isFSCLoaded) {
+    //       setState(() {
+    //         array = model.fscTournaments;
+    //         isLoading = false;
+    //       });
+    //     } else {
+    //       setState(() {
+    //         isLoading = true;
+    //       });
+    //     }
+    //     model.intiProfileData(model.token);
+    //   });
+    // } else {
+    //   setState(() {
+    //     array = model.fscTournaments;
+    //     isLoading = false;
+    //   });
+    // }
+    initData();
+    selectedDate = DateTime.now();
+    isDateChanged = true;
+
+    _scrollController = ScrollController(initialScrollOffset: 0.0);
+  }
+
+  void initData() async {
     MainModel model = ScopedModel.of(context);
 
-    if (!model.isFSCLoaded) {
-      model.initFscData(model.token).then((_) {
-        if (model.isFSCLoaded) {
-          setState(() {
-            array = model.fscTournaments;
-            isLoading = false;
-          });
-        } else {
-          setState(() {
-            isLoading = true;
-          });
-        }
-        model.intiProfileData(model.token);
-      });
-    } else {
+    bool fscStatus = await model.initFscData(model.token);
+    if (fscStatus) {
       setState(() {
         array = model.fscTournaments;
         isLoading = false;
       });
     }
-    selectedDate = DateTime.now();
-    isDateChanged = true;
-
-    _scrollController = ScrollController(initialScrollOffset: 0.0);
   }
 
   void setSelectedDate(DateTime b) {
@@ -65,8 +84,8 @@ class _FscPage extends State<FscPage>
 
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
+    _scrollController.dispose();
   }
 
   void checkDateChange() {
@@ -74,7 +93,10 @@ class _FscPage extends State<FscPage>
     if (isDateChanged) {
       if (array.last.date.isBefore(selectedDate)) {
         _scrollController.animateTo(array.length * elementHeight,
-            duration: Duration(milliseconds: 1000), curve: Curves.ease);
+            duration: Duration(
+              milliseconds: 1000,
+            ),
+            curve: Curves.ease);
       } else {
         for (int i = 0; i < array.length; i++) {
           d = array[i].date;
@@ -93,29 +115,29 @@ class _FscPage extends State<FscPage>
   @override
   Widget build(BuildContext context) {
     // print("BEFORE BUILD"+isLoading + array.length);
+    MainModel model = ScopedModel.of(context);
 
     if (isLoading == true || array.length <= 0) {
-      MainModel model = ScopedModel.of(context);
-      if (model.fscError == true) {
-        return AlertDialog(
-          content: Text(
-            "Server did not respond. \nPlease check your internet connection",
-            textScaleFactor: 1,
+      // if (model.fscError == true) {
+      //   return AlertDialog(
+      //     content: Text(
+      //       "Server did not respond. \nPlease check your internet connection",
+      //       textScaleFactor: 1,
+      //     ),
+      //     title: Text(
+      //       "ERROR",
+      //       textScaleFactor: 1,
+      //     ),
+      //   );
+      // } else {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).primaryColor,
           ),
-          title: Text(
-            "ERROR",
-            textScaleFactor: 1,
-          ),
-        );
-      } else {
-        return Container(
-          child: Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Theme.of(context).primaryColor,
-            ),
-          ),
-        );
-      }
+        ),
+      );
+      // }
     } else {
       return Container(
         color: Color.fromRGBO(245, 245, 245, 0.8),
