@@ -314,6 +314,24 @@ class FSCInfoPage extends StatelessWidget {
           ),
         ),
       ),
+      bottomSheet: Container(
+        color: Theme.of(context).primaryColor,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.06,
+          alignment: Alignment(0.0,0.0),
+          child: InkWell(
+            child: Text(
+              "Register Now",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                color: Theme.of(context).accentColor
+              ),
+            ),
+            onTap: () {
+              //GO TO PAYMENT CONFIRMPAGE
+            },
+          )),
     );
   }
 }
