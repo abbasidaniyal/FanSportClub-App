@@ -10,7 +10,7 @@ import './baseUrl.dart';
 
 mixin Login on Model {
   String token;
-  bool isUserSignedIn;
+  bool isUserSignedIn=false;
 
   FacebookLoginResult facebookSignedInUser;
   FacebookLogin facebookUser = FacebookLogin();
@@ -23,7 +23,7 @@ mixin Login on Model {
     return true;
   }
 
-  Future<bool> getGeneralToken(username, password) async {
+Future<bool> getGeneralToken(username, password) async {
     try {
       http.Response res = await http.post(
         "$baseUrl/api-token-auth/",
@@ -38,8 +38,32 @@ mixin Login on Model {
       token = "Token " + json.decode(res.body)["token"];
       print(token);
 
-      notifyListeners();
       isUserSignedIn = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> getLocalAuthToken(username, password) async {
+    try {
+      http.Response res = await http.post(
+        "$baseUrl/api-token-auth/",
+        body: {
+          'username': username,
+          'password': password,
+        },
+      );
+      print(res.body);
+      if (res.statusCode != 200 && res.statusCode != 201) return false;
+
+      token = "Token " + json.decode(res.body)["token"];
+      print(token);
+
+      isUserSignedIn = true;
+      notifyListeners();
       return true;
     } catch (e) {
       print(e);

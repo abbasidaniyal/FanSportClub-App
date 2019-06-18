@@ -117,7 +117,7 @@ class _SigningPageState extends State<SigningPage> {
                     onPressed: () async {
                       //LOGIN WITH SERVER AND GET TOKEN
                       MainModel model = ScopedModel.of(context);
-                      bool status = await model.getGeneralToken(
+                      bool status = await model.getLocalAuthToken(
                           username.text, password.text);
                       if (status) {
                         Navigator.pushReplacement(context,

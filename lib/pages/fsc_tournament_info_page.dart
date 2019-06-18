@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../models/fsc_tournament.dart';
 import 'package:intl/intl.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../scoped_model/main.dart';
 import '../widget/button.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -14,6 +17,7 @@ class FSCInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MainModel model = ScopedModel.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -314,7 +318,8 @@ class FSCInfoPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomSheet: Container(
+      
+       bottomSheet:model.isUserSignedIn? Container(
         color: Theme.of(context).primaryColor,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 0.06,
@@ -331,7 +336,7 @@ class FSCInfoPage extends StatelessWidget {
             onTap: () {
               //GO TO PAYMENT CONFIRMPAGE
             },
-          )),
+          )):Container(height: 0.0,),
     );
   }
 }

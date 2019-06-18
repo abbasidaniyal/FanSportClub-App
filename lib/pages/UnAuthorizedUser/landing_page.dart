@@ -112,7 +112,9 @@ class _LandingPageState extends State<LandingPage> {
                         decoration: TextDecoration.underline,
                         fontSize: 15),
                   ),
-                  onTap: () {
+                  onTap: () async{
+                    MainModel model = ScopedModel.of(context);
+                    await model.getGeneralToken("fsc", "fsc");
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) {
                       return CalendarPage();

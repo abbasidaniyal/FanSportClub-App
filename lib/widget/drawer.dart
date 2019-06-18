@@ -11,10 +11,12 @@ import '../pages/cien_form_page.dart';
 import '../pages/itf_ranking_page.dart';
 import '../scoped_model/main.dart';
 import '../pages/gallery_page.dart';
+import '../pages/player_search.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    MainModel model = ScopedModel.of(context);
     return Drawer(
       child: Container(
         padding: EdgeInsets.only(left: 20.0, top: 25),
@@ -91,25 +93,27 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Text(
-                'CIEN Registration',
-                textScaleFactor: 1,
-                style: TextStyle(
-                  color: Theme.of(context).textTheme.title.color,
-                ),
-              ),
-              onTap: () {
-                Navigator.pop(context);
+            model.isUserSignedIn
+                ? Container()
+                : ListTile(
+                    title: Text(
+                      'CIEN Registration',
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.title.color,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
 
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => CIENPage(),
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => CIENPage(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
             ListTile(
               title: Text(
                 'ITF Ranking',
@@ -127,6 +131,24 @@ class MyDrawer extends StatelessWidget {
                     builder: (context) => ItfRankingPage(),
                   ),
                 );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Player Search',
+                textScaleFactor: 1,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                showSearch(
+                    context: context,
+                    delegate: CustomSearchDelegate(),
+                  );
+                   
+                
               },
             ),
             ListTile(
@@ -176,27 +198,23 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
-            ScopedModelDescendant<MainModel>(
-              builder: (context, child, model) {
-                return ListTile(
-                  title: Text(
-                    model.isUserSignedIn ? 'Logout' : "Login",
-                    style: TextStyle(
-                      color: Theme.of(context).textTheme.title.color,
-                    ),
-                  ),
-                  onTap: () async {
-                    await model.logoutUser().then(
-                      (onValue) {
-                        Navigator.pushReplacement(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, a, s) {
-                              return LandingPage();
-                            },
-                          ),
-                        );
-                      },
+            ListTile(
+              title: Text(
+                model.isUserSignedIn ? 'Logout' : "Login",
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.title.color,
+                ),
+              ),
+              onTap: () async {
+                await model.logoutUser().then(
+                  (onValue) {
+                    Navigator.pushReplacement(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, a, s) {
+                          return LandingPage();
+                        },
+                      ),
                     );
                   },
                 );
