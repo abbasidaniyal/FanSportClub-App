@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import "package:flutter/material.dart";
 import 'package:scoped_model/scoped_model.dart';
 
@@ -20,41 +22,49 @@ class _GalleryPageState extends State<GalleryPage> {
     super.initState();
   }
 
-  void getImages() {}
-  @override
-  Widget build(BuildContext context) {
+  Future<Null> getImages() async {
     MainModel model = ScopedModel.of(context);
     print("REACHING 1");
-    if (array.length == 0) {
-      model.loadGalleryImages(model.token).then((success) {
-        print(success);
-        if (success) {
-          print("REACHING 2");
-          setState(() {
-            array = model.galleryImages;
-          });
-        }
-      });
-    }
+    await model.loadGalleryImages(model.token).then((success) {
+      print(success);
+      if (success) {
+        print("REACHING 2");
+        setState(() {
+          array = model.galleryImages;
+        });
+      }
+    });
+
+    return;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Text("Gallery"),
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: array.length == 0
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: array.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: GalleryTile(image: array[index]),
-                );
-              },
-            ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await getImages();
+          return;
+        },
+        child: array.length == 0
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: array.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: GalleryTile(image: array[index]),
+                  );
+                },
+              ),
+      ),
     );
   }
 }

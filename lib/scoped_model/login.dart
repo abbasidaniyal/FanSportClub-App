@@ -23,6 +23,7 @@ mixin Login on Model {
     //REFRESH TOKEN
     token = storedToken;
     isUserSignedIn = true;
+    notifyListeners();
   }
 
   Future<bool> logoutUser() async {
@@ -30,6 +31,7 @@ mixin Login on Model {
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
     isUserSignedIn = false;
+    notifyListeners();
     return true;
   }
 
@@ -168,7 +170,9 @@ mixin Login on Model {
       _preferences = await SharedPreferences.getInstance();
       _preferences.setString("accessToken", token);
       print(token);
+
       isUserSignedIn = true;
+      notifyListeners();
       return true;
     } catch (error) {
       print(error);
@@ -192,6 +196,7 @@ mixin Login on Model {
       _preferences.setString("accessToken", token);
       print(token);
       isUserSignedIn = true;
+      notifyListeners();
       return true;
     } catch (error) {
       print(error);

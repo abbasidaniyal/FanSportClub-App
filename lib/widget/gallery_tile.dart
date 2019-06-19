@@ -8,7 +8,15 @@ class GalleryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Image.network(image.imageUrl),
+      child: Column(
+        children: <Widget>[
+          Image.network(image.imageUrl),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Text(image.description + "@" ),//+ image.tournamentTag.tournamentName
+          )
+        ],
+      ),
     );
   }
 }
