@@ -21,7 +21,8 @@ class WelcomePage extends StatelessWidget {
       ),
       photoSize: MediaQuery.of(context).size.shortestSide * 0.22,
       imageBackground: AssetImage("assets/splashScreen.jpg"),
-      navigateAfterSeconds: LandingPage(),
+      navigateAfterSeconds:
+          model.token == null ? LandingPage() : CalendarPage(),
       loaderColor: Colors.white,
     );
   }

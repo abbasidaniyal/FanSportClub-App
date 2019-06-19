@@ -5,25 +5,35 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './baseUrl.dart';
 
 mixin Login on Model {
   String token;
-  bool isUserSignedIn=false;
+  bool isUserSignedIn = false;
 
   FacebookLoginResult facebookSignedInUser;
   FacebookLogin facebookUser = FacebookLogin();
   GoogleSignInAuthentication googleSignInAuthentication;
   GoogleSignIn googleUser = GoogleSignIn();
+  SharedPreferences _preferences;
+
+  Future<bool> autoLogin(storedToken) async {
+    //REFRESH TOKEN
+    token = storedToken;
+    isUserSignedIn = true;
+  }
 
   Future<bool> logoutUser() async {
     token = null;
+    _preferences = await SharedPreferences.getInstance();
+    _preferences.remove("accessToken");
     isUserSignedIn = false;
     return true;
   }
 
-Future<bool> getGeneralToken(username, password) async {
+  Future<bool> getGeneralToken(username, password) async {
     try {
       http.Response res = await http.post(
         "$baseUrl/api-token-auth/",
@@ -36,6 +46,9 @@ Future<bool> getGeneralToken(username, password) async {
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
       token = "Token " + json.decode(res.body)["token"];
+      _preferences = await SharedPreferences.getInstance();
+      _preferences.setString("accessToken", token);
+
       print(token);
 
       isUserSignedIn = false;
@@ -60,6 +73,8 @@ Future<bool> getGeneralToken(username, password) async {
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
       token = "Token " + json.decode(res.body)["token"];
+      _preferences = await SharedPreferences.getInstance();
+      _preferences.setString("accessToken", token);
       print(token);
 
       isUserSignedIn = true;
@@ -106,10 +121,9 @@ Future<bool> getGeneralToken(username, password) async {
         "provider": "facebook",
         "access_token": facebookSignedInUser.accessToken.token,
       });
-      print(res.body);
+      // print(res.body);
 
-      token = json.decode(res.body)["token"];
-      print("Facebook Token = $token");
+      print("Facebook Token = ${res.body}");
       return true;
     } catch (e) {
       print(e);
@@ -123,7 +137,7 @@ Future<bool> getGeneralToken(username, password) async {
         "provider": "google-oauth2",
         "access_token": googleSignInAuthentication.accessToken
       });
-      print(res.body);
+      print("Google Token = " + res.body);
       // if (googleSignInAuthentication.idToken ==
       //     json.decode(res.body)["token"]) {
       //       //GET TOKEN FROM SERVER
@@ -151,6 +165,8 @@ Future<bool> getGeneralToken(username, password) async {
       print(res.body);
       var temp = json.decode(res.body);
       token = "Bearer " + temp["access_token"];
+      _preferences = await SharedPreferences.getInstance();
+      _preferences.setString("accessToken", token);
       print(token);
       isUserSignedIn = true;
       return true;
@@ -172,6 +188,8 @@ Future<bool> getGeneralToken(username, password) async {
       print(res.body);
       var temp = json.decode(res.body);
       token = "Bearer " + temp["access_token"];
+      _preferences = await SharedPreferences.getInstance();
+      _preferences.setString("accessToken", token);
       print(token);
       isUserSignedIn = true;
       return true;

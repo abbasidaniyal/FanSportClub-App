@@ -10,8 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String token;
-  preferences.containsKey("token")
-      ? token = preferences.get("token")
+  preferences.containsKey("accessToken")
+      ? token = preferences.get("accessToken")
       : token = null;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((onValue) {
@@ -50,6 +50,9 @@ class MyApp extends StatelessWidget {
             )),
         routes: {
           "/": (BuildContext context) {
+            MainModel model = ScopedModel.of(context);
+            print("$token");
+            model.autoLogin(token);
             return WelcomePage(token);
           },
         },
