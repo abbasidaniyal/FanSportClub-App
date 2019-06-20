@@ -13,6 +13,9 @@ class WelcomePage extends StatelessWidget {
   WelcomePage(this.token);
   Widget build(BuildContext context) {
     _firebaseMessaging.requestNotificationPermissions();
+    _firebaseMessaging.getToken().then((notificationToken){
+      print("Token   " + notificationToken);
+    });
     _firebaseMessaging.configure(
       onLaunch: (temp) async {},
       onMessage: (temp) async {},
