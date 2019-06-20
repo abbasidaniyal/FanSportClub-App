@@ -8,12 +8,26 @@ class GalleryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.hardEdge,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Image.network(image.imageUrl),
+          Image(
+            image: NetworkImage(image.imageUrl),
+            fit: BoxFit.fitWidth,
+          ),
           Container(
-            padding: EdgeInsets.all(10),
-            child: Text(image.description + "@" ),//+ image.tournamentTag.tournamentName
+            padding: EdgeInsets.only(top: 20.0,left: 20.0),
+            child: Text(
+                "Date : "+image.description + "@",textScaleFactor: 1.1,), //+ image.tournamentTag.tournamentName
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 5,left: 20.0,bottom: 20.0),
+            child: Text(
+               "Description" + image.description + "@",textScaleFactor: 1.1,), //+ image.tournamentTag.tournamentName
           )
         ],
       ),

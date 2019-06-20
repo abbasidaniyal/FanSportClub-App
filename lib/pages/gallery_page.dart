@@ -41,6 +41,7 @@ class _GalleryPageState extends State<GalleryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(245, 245, 245, 0.95),
       drawer: MyDrawer(),
       appBar: AppBar(
         title: Text("Gallery"),
@@ -59,7 +60,8 @@ class _GalleryPageState extends State<GalleryPage> {
                 itemCount: array.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(5.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                     child: GalleryTile(image: array[index]),
                   );
                 },
