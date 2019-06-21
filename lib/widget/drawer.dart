@@ -14,6 +14,9 @@ import '../pages/gallery_page.dart';
 import '../pages/player_search.dart';
 
 class MyDrawer extends StatelessWidget {
+  
+
+
   @override
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
@@ -141,7 +144,10 @@ class MyDrawer extends StatelessWidget {
                   color: Theme.of(context).textTheme.title.color,
                 ),
               ),
-              onTap: () {
+              onTap: () async {
+                bool success = await model.intiProfileData(model.token);
+
+
                 Navigator.pop(context);
                 showSearch(
                     context: context,
@@ -225,4 +231,5 @@ class MyDrawer extends StatelessWidget {
       ),
     );
   }
+  
 }

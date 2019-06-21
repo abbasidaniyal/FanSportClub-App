@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import '../widget/drawer.dart';
 import './fsc_page.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -15,24 +17,41 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   String nameToBeSearched;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    initProfiles();
+    // initProfiles();
   }
 
-  void initProfiles() async {
-    MainModel model = ScopedModel.of(context);
-    bool success = await model.intiProfileData(model.token);
-
-    if (success) {}
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      print(token);
+    });
     return DefaultTabController(
       length: 2,
       child: Scaffold(
