@@ -14,9 +14,6 @@ import '../pages/gallery_page.dart';
 import '../pages/player_search.dart';
 
 class MyDrawer extends StatelessWidget {
-  
-
-
   @override
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
@@ -146,15 +143,16 @@ class MyDrawer extends StatelessWidget {
               ),
               onTap: () async {
                 bool success = await model.intiProfileData(model.token);
-
-
-                Navigator.pop(context);
-                showSearch(
+                if (success) {
+                  Navigator.pop(context);
+                  showSearch(
                     context: context,
                     delegate: CustomSearchDelegate(),
                   );
-                   
-                
+                } 
+                else {
+                  
+                }
               },
             ),
             ListTile(
@@ -231,5 +229,4 @@ class MyDrawer extends StatelessWidget {
       ),
     );
   }
-  
 }
