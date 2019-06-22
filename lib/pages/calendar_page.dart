@@ -26,8 +26,6 @@ class _CalendarPageState extends State<CalendarPage> {
     // initProfiles();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
@@ -59,20 +57,6 @@ class _CalendarPageState extends State<CalendarPage> {
         drawer: MyDrawer(),
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                if (model.playerProfiles.length == 0) {
-                } else {
-                  showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                  );
-                }
-              },
-            ),
-          ],
           title: Text(
             "Fan Sports Club",
             textScaleFactor: 1,
