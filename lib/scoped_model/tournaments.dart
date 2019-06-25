@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
+import 'package:Fan_Sports/models/user_profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -77,6 +78,18 @@ mixin TournamentModel on Model {
             contactNumber: event["coordinator_contact_number"],
             contactEmail: event["coordinator_email"],
             contactPerson: event["coordinator_name"],
+            tournamentWinner: event["tournament_winner"]!=null?
+           UserProfile(
+              city: event["tournament_winner"]["city"],
+              dob: event["tournament_winner"]["date_of_birth"],
+              backhandStyle: event["tournament_winner"]["backhand_style"],
+              name: event["tournament_winner"]["name"],
+              roleModel: event["tournament_winner"]["role_model"],
+              strongHand: event["tournament_winner"]["strong_hand"],
+              homeClub: event["tournament_winner"]["home_club"],
+              achievements: event["tournament_winner"]["achievements"],
+              profilePhotoUrl: event["tournament_winner"]["profile_photo"],
+              id: event["tournament_winner"]["player_id"]):null,
           );
 
           fscTournaments.add(temp);
@@ -89,7 +102,7 @@ mixin TournamentModel on Model {
         return true;
       }
     } catch (onError) {
-      print("ERROR");
+      print("$onError ERROR");
       itfError = true;
       isITFLoaded = false;
       notifyListeners();

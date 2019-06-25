@@ -1,4 +1,4 @@
-
+import 'user_profile.dart';
 class FSCTournament {
   String tournamentName;
   DateTime date;
@@ -9,6 +9,7 @@ class FSCTournament {
   String contactEmail;
   int contactNumber;
   String contactPerson;
+  UserProfile tournamentWinner;
 
   FSCTournament(
       {this.tournamentName,
@@ -19,5 +20,6 @@ class FSCTournament {
       this.locationURL,
       this.contactPerson,
       this.contactNumber,
-      this.contactEmail});
+      this.contactEmail,
+      this.tournamentWinner});
 }

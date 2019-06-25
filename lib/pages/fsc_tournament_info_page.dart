@@ -9,6 +9,8 @@ import '../scoped_model/main.dart';
 import '../widget/button.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import 'player_profile_page.dart';
+
 class FSCInfoPage extends StatelessWidget {
   final FSCTournament tournamentData;
   final int index;
@@ -308,6 +310,41 @@ class FSCInfoPage extends StatelessWidget {
                             ),
                           )
                         : Container(),
+                    tournamentData.tournamentWinner!=null?Container(
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              "Winner : ",
+                              textScaleFactor: 1.1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.values[5],
+                                  fontSize: 15),
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 5.0),
+                              child: Text(
+                                tournamentData.tournamentWinner.name,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.values[5],
+                                    fontSize: 15,
+                                    color: Colors.blue),
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (context) {
+                                return PlayerProfilePage(
+                                    tournamentData.tournamentWinner);
+                              }));
+                            },
+                          ),
+                        ],
+                      ),
+                    ):Container(),
                     SizedBox(
                       height: 40.0,
                     ),
@@ -318,25 +355,26 @@ class FSCInfoPage extends StatelessWidget {
           ),
         ),
       ),
-      
-       bottomSheet:model.isUserSignedIn? Container(
-        color: Theme.of(context).primaryColor,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.06,
-          alignment: Alignment(0.0,0.0),
-          child: InkWell(
-            child: Text(
-              "Register Now",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24,
-                color: Theme.of(context).accentColor
-              ),
+      bottomSheet: model.isUserSignedIn
+          ? Container(
+              color: Theme.of(context).primaryColor,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.06,
+              alignment: Alignment(0.0, 0.0),
+              child: InkWell(
+                child: Text(
+                  "Register Now",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 24, color: Theme.of(context).accentColor),
+                ),
+                onTap: () {
+                  //GO TO PAYMENT CONFIRMPAGE
+                },
+              ))
+          : Container(
+              height: 0.0,
             ),
-            onTap: () {
-              //GO TO PAYMENT CONFIRMPAGE
-            },
-          )):Container(height: 0.0,),
     );
   }
 }
