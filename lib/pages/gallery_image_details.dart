@@ -12,7 +12,10 @@ class GalleryImageDetailsPage extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
+          pinned: true,
           expandedHeight: 350.0,
+          forceElevated: true,
+          title: Text(image.tournamentTag.tournamentName),
           flexibleSpace: FlexibleSpaceBar(
             background: Image(
               image: NetworkImage(image.imageUrl),
@@ -31,27 +34,39 @@ class GalleryImageDetailsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
+                        padding: EdgeInsets.all(10.0),
                         child: Text("Tournament : " +
                             image.tournamentTag.tournamentName),
                       ),
                       Container(
+                        padding: EdgeInsets.all(10.0),
                         child: Text("Description : " + image.description),
                       ),
                       Container(
+                        padding: EdgeInsets.all(10.0),
                         child: Text("Venue : " + image.tournamentTag.venue),
                       ),
                       Container(
+                        padding: EdgeInsets.all(10.0),
                         child: Text("Date : " +
                             DateFormat.yMMMMd()
                                 .format(image.tournamentTag.date)),
                       ),
+                      Container(
+                          padding: EdgeInsets.only(left:10.0,top: 10.0),
+                          child: Text("Tagged Users")),
                       ListView.builder(
+                        controller: ScrollController(keepScrollOffset: true),
                         shrinkWrap: true,
                         itemCount: image.taggedUserList.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             child: Container(
-                              child: Text(image.taggedUserList[index].name,style: TextStyle(color: Colors.blue),),
+                              padding: EdgeInsets.only(bottom: 10.0,left: 10.0),
+                              child: Text(
+                                image.taggedUserList[index].name,
+                                style: TextStyle(color: Colors.blue),
+                              ),
                             ),
                             onTap: () {
                               Navigator.of(context)

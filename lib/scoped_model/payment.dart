@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 mixin PaymentModel on Model {
-  Future<Null> payment() async {
+  Future<bool> payment() async {
     String apiKey = "rzp_test_EcwB4YZMeBEleN";
     Map<String, String> notes = new Map();
     notes.putIfAbsent('billing_address', () => "Somewhere on earth");
@@ -43,11 +43,12 @@ mixin PaymentModel on Model {
 
     print("response $paymentResponse");
     // _razorpay.clear();
+    return true;
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
-    print(response.signature);
+    print("Success" + response.signature);
     print(response.paymentId);
     print(response.orderId);
   }

@@ -18,45 +18,43 @@ class GalleryTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Stack(children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                      fit: BoxFit.fill, image: NetworkImage(image.imageUrl)),
+            Stack(
+              children: <Widget>[
+                Container(
+                  height: 350.0,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                        fit: BoxFit.fill, image: NetworkImage(image.imageUrl)),
+                  ),
                 ),
-                height: 350.0,
-              ),
-              Container(
-                height: 350.0,
-                decoration: BoxDecoration(
+                Container(
+                  height: 350.0,
+                  decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        begin: FractionalOffset.topCenter,
-                        end: FractionalOffset.bottomCenter,
-                        colors: [
-                      Colors.black.withOpacity(0.6),
-                      Colors.black.withOpacity(0.05)
-                    ],
-                        stops: [
-                      0.0,
-                      0.4
-                    ])),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 20.0, left: 15.0),
-                child: Text(
-                  image.tournamentTag.tournamentName,
-                  
-                  style: TextStyle(color: Colors.white.withOpacity(0.9),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
+                      begin: FractionalOffset.topCenter,
+                      end: FractionalOffset.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.6),
+                        Colors.black.withOpacity(0.05)
+                      ],
+                      stops: [0.0, 0.4],
+                    ),
+                  ),
                 ),
-              )
-            ]),
-            // Image(
-            //   image: NetworkImage(image.imageUrl),
-            //   fit: BoxFit.fitWidth,
-            // ),
+                Container(
+                  padding: EdgeInsets.only(top: 20.0, left: 15.0),
+                  child: Text(
+                    image.tournamentTag.tournamentName,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.9),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                )
+              ],
+            ),
             Container(
               padding: EdgeInsets.only(top: 20.0, left: 20.0),
               child: Text(

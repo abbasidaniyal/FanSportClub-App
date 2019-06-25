@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:Fan_Sports/models/user_profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './baseUrl.dart';
 
 mixin Login on Model {
+  UserProfile loggedInUser;
   String token;
   bool isUserSignedIn = false;
 

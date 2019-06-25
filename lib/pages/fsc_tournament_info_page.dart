@@ -9,6 +9,7 @@ import '../scoped_model/main.dart';
 import '../widget/button.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import 'payment_details_page.dart';
 import 'player_profile_page.dart';
 
 class FSCInfoPage extends StatelessWidget {
@@ -370,6 +371,11 @@ class FSCInfoPage extends StatelessWidget {
                 ),
                 onTap: () {
                   //GO TO PAYMENT CONFIRMPAGE
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context){
+                      return PaymentConfirmPage();
+                    }
+                  ));
                 },
               ))
           : Container(
