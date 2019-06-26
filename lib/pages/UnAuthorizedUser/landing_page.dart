@@ -1,10 +1,9 @@
-import 'dart:ui' as prefix0;
+import 'dart:io';
 
 import 'package:Fan_Sports/pages/UnAuthorizedUser/sign_in_page.dart';
 import 'package:Fan_Sports/pages/UnAuthorizedUser/sign_up_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../calendar_page.dart';
 
@@ -112,7 +111,7 @@ class _LandingPageState extends State<LandingPage> {
                         decoration: TextDecoration.underline,
                         fontSize: 15),
                   ),
-                  onTap: () async{
+                  onTap: () async {
                     MainModel model = ScopedModel.of(context);
                     await model.getGeneralToken("fsc", "fsc");
                     Navigator.pushReplacement(context,

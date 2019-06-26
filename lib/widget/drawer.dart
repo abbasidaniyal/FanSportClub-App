@@ -39,22 +39,51 @@ class MyDrawer extends StatelessWidget {
               },
               child: Container(
                 margin: EdgeInsets.all(3.0),
-                padding: EdgeInsets.only(top: 40.0, bottom: 30.0),
-                child: Image.asset(
-                  "assets/logo-fsc.png",
-                  alignment: Alignment.topLeft,
-                  width: 110,
-                ),
+                // height: 200.0,
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: !model.isUserSignedIn
+                    ? Image.asset(
+                        "assets/logo-fsc.png",
+                        alignment: Alignment.topLeft,
+                        width: 110,
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        height: MediaQuery.of(context).size.width * 0.25,
+                        margin: EdgeInsets.only(top: 25, left: 20.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100.0),
+                            color: Theme.of(context).primaryColor),
+                        foregroundDecoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 3.0),
+                          borderRadius: BorderRadius.circular(100.0),
+                          image: DecorationImage(
+                            image: model.isUserSignedIn &&
+                                    model.loggedInUser.profilePhotoUrl != ""
+                                ? NetworkImage(
+                                    model.loggedInUser.profilePhotoUrl)
+                                : AssetImage("assets/profilePicture.jpeg"),
+                          ),
+                        ),
+                      ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+              padding: EdgeInsets.only(left: 25,bottom: 20.0),
+              child: model.isUserSignedIn?Text(
+                model.loggedInUser.name,
+                style: TextStyle(color: Colors.white),
+              ):Container(),
+            ),
+            Container(
+              padding: EdgeInsets.only( right: 20.0, bottom: 10.0),
               child: Divider(
                 color: Color.fromRGBO(120, 120, 120, 1),
                 height: 1.0,
               ),
             ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text(
                 'Calendar',
                 textScaleFactor: 1,
@@ -75,6 +104,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text(
                 'IPIN Renewal',
                 textScaleFactor: 1,
@@ -96,6 +126,7 @@ class MyDrawer extends StatelessWidget {
             model.isUserSignedIn
                 ? Container()
                 : ListTile(
+                  contentPadding: EdgeInsets.only(left: 25.0),
                     title: Text(
                       'CIEN Registration',
                       textScaleFactor: 1,
@@ -115,6 +146,7 @@ class MyDrawer extends StatelessWidget {
                     },
                   ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text(
                 'ITF Ranking',
                 textScaleFactor: 1,
@@ -134,6 +166,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text(
                 'Player Search',
                 textScaleFactor: 1,
@@ -149,13 +182,11 @@ class MyDrawer extends StatelessWidget {
                     context: context,
                     delegate: CustomSearchDelegate(),
                   );
-                } 
-                else {
-                  
-                }
+                } else {}
               },
             ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text('About us',
                   textScaleFactor: 1,
                   style: TextStyle(
@@ -172,6 +203,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text(
                 'Gallery',
                 style: TextStyle(
@@ -190,6 +222,7 @@ class MyDrawer extends StatelessWidget {
             ScopedModelDescendant<MainModel>(
               builder: (context, child, model) {
                 return ListTile(
+                  contentPadding: EdgeInsets.only(left: 25.0),
                   title: Text(
                     'Payment',
                     style: TextStyle(
@@ -203,6 +236,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
+              contentPadding: EdgeInsets.only(left: 25.0),
               title: Text(
                 model.isUserSignedIn ? 'Logout' : "Login",
                 style: TextStyle(

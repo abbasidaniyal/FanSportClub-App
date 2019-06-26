@@ -11,9 +11,9 @@ class UserProfile {
   String roleModel;
   String cienNumber;
   String achievements;
-  String state;
-  String dob;
+  String dob;//TO DATETIME
   String profilePhotoUrl;
+  String username;
   int id;
 
   String age() {
@@ -28,7 +28,6 @@ class UserProfile {
       @required this.strongHand,
       @required this.backhandStyle,
       this.city,
-      this.state,
       this.homeClub,
       this.id,
       this.roleModel,

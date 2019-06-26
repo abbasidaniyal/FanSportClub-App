@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './baseUrl.dart';
 
 mixin Login on Model {
-  UserProfile loggedInUser;
+  UserProfile loggedInUser ;
   String token;
   bool isUserSignedIn = false;
 
@@ -21,15 +21,77 @@ mixin Login on Model {
   GoogleSignIn googleUser = GoogleSignIn();
   SharedPreferences _preferences;
 
-  Future<bool> autoLogin(storedToken) async {
-    //REFRESH TOKEN
-    token = storedToken;
+  Future<int> initLoggedInUser() async {
+    http.Response res;
+    try {
+      res = await http.get(
+        "$baseUrl/users/current-user",
+        headers: {
+          'Authorization': '$token',
+        },
+      );
+      if (res.statusCode != 200 && res.statusCode != 201) return 1;
+    } catch (error) {
+      print("ERROR =" + error);
+      return 1;
+    }
+
+    // print(res.body);
+    var userProfileID;
+    try {
+      userProfileID = json.decode(res.body)["profile"][0];
+    } catch (e) {
+      print("THIS ERROR = $e");
+      return 2;
+    }
+    http.Response res2;
+    try {
+      res2 = await http.get(
+        "$baseUrl/users/user-profile-update/$userProfileID",
+        headers: {
+          'Authorization': '$token',
+        },
+      );
+    } catch (error) {
+      print("ERROR =" + error);
+      return 1;
+    }
+
+    if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
+
+    print(res2.body);
+    var userData = json.decode(res2.body);
+    loggedInUser = UserProfile(
+      name: userData["name"],
+      backhandStyle: userData["backhand_style"],
+      dob: userData["date_of_birth"],
+      strongHand: userData["strong_hand"],
+      achievements: userData["achievements"],
+      city: userData["city"],
+      homeClub: userData["home_club"],
+      id: userData["player_id"],
+      profilePhotoUrl:
+          userData["profile_photo"] == null ? "" : userData["profile_photo"],
+      roleModel: userData["role_model"],
+    );
+
     isUserSignedIn = true;
+    return 3;
+  }
+
+  Future<Null> autoLogin(storedToken) async {
+    
+    //REFRESH TOKEN
+    
+    token = storedToken;
+    await initLoggedInUser();
     notifyListeners();
+    return;
   }
 
   Future<bool> logoutUser() async {
     token = null;
+    // loggedInUser = null;
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
     isUserSignedIn = false;
@@ -81,7 +143,6 @@ mixin Login on Model {
       _preferences.setString("accessToken", token);
       print(token);
 
-      isUserSignedIn = true;
       notifyListeners();
       return true;
     } catch (e) {
@@ -173,7 +234,6 @@ mixin Login on Model {
       _preferences.setString("accessToken", token);
       print(token);
 
-      isUserSignedIn = true;
       notifyListeners();
       return true;
     } catch (error) {
@@ -197,7 +257,6 @@ mixin Login on Model {
       _preferences = await SharedPreferences.getInstance();
       _preferences.setString("accessToken", token);
       print(token);
-      isUserSignedIn = true;
       notifyListeners();
       return true;
     } catch (error) {

@@ -1,9 +1,8 @@
+import 'package:Fan_Sports/pages/create_update_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../calendar_page.dart';
 
@@ -120,10 +119,34 @@ class _SigningPageState extends State<SigningPage> {
                       bool status = await model.getLocalAuthToken(
                           username.text, password.text);
                       if (status) {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CalendarPage();
-                        }));
+                        int newUser = await model.initLoggedInUser();
+                        if (newUser == 1) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Text("Login Failed"),
+                                  content: Text("Please try again"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                ),
+                          );
+                        } else if (newUser == 2) {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ProfileUpdatePage(model.loggedInUser);
+                          }));
+                        } else {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return CalendarPage();
+                          }));
+                        }
                       } else {
                         showDialog(
                           context: context,
@@ -172,14 +195,34 @@ class _SigningPageState extends State<SigningPage> {
                             bool convertToken =
                                 await model.convertGoogleToken();
                             if (convertToken) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CalendarPage();
-                                  },
-                                ),
-                              );
+                              int newUser = await model.initLoggedInUser();
+                              if (newUser == 1) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: Text("Login Failed"),
+                                        content: Text("Please try again"),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                );
+                              } else if (newUser == 2) {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ProfileUpdatePage(model.loggedInUser);
+                                }));
+                              } else {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return CalendarPage();
+                                }));
+                              }
                             } else {
                               showDialog(
                                 context: context,
@@ -199,11 +242,6 @@ class _SigningPageState extends State<SigningPage> {
                                 },
                               );
                             }
-
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return CalendarPage();
-                            }));
                           } else {
                             showDialog(
                               context: context,
@@ -265,14 +303,34 @@ class _SigningPageState extends State<SigningPage> {
                             bool convertToken =
                                 await model.convertFacebookToken();
                             if (convertToken) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CalendarPage();
-                                  },
-                                ),
-                              );
+                              int newUser = await model.initLoggedInUser();
+                              if (newUser == 1) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: Text("Login Failed"),
+                                        content: Text("Please try again"),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                );
+                              } else if (newUser == 2) {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ProfileUpdatePage(model.loggedInUser);
+                                }));
+                              } else {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return CalendarPage();
+                                }));
+                              }
                             } else {
                               showDialog(
                                 context: context,

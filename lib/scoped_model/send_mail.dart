@@ -11,8 +11,7 @@ mixin SendCIENMail on Model {
         .post(
       "http://api.fansportsclub.com/form/",
       headers: {
-        'Authorization': 'Token $token',
-      'Authorization': 'Bearer $token',
+        'Authorization': '$token',
         "Content-Type": "application/json"
       },
       body: json.encode(data),
