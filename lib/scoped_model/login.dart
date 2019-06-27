@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:Fan_Sports/models/user_profile.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -11,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './baseUrl.dart';
 
 mixin Login on Model {
-  UserProfile loggedInUser ;
+  UserProfile loggedInUser = UserProfile();
   String token;
   bool isUserSignedIn = false;
 
@@ -59,30 +60,34 @@ mixin Login on Model {
 
     if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
 
-    print(res2.body);
+    print("BODY " + res2.body);
     var userData = json.decode(res2.body);
     loggedInUser = UserProfile(
-      name: userData["name"],
-      backhandStyle: userData["backhand_style"],
-      dob: userData["date_of_birth"],
-      strongHand: userData["strong_hand"],
-      achievements: userData["achievements"],
-      city: userData["city"],
-      homeClub: userData["home_club"],
-      id: userData["player_id"],
-      profilePhotoUrl:
-          userData["profile_photo"] == null ? "" : userData["profile_photo"],
-      roleModel: userData["role_model"],
-    );
+        city: userData["city"],
+        dob: DateTime.parse(userData["date_of_birth"]),
+        backhandStyle: userData["backhand_style"] == "DOUBLE"
+            ? BACKHANDSTYLE.DOUBLE
+            : userData["backhand_style"] == "SINGLE"
+                ? BACKHANDSTYLE.SINGLE
+                : BACKHANDSTYLE.MIXED,
+        name: userData["name"],
+        roleModel: userData["role_model"],
+        strongHand: userData["strong_hand"] == "LEFT"
+            ? STRONGHAND.LEFT
+            : STRONGHAND.RIGHT,
+        homeClub: userData["home_club"],
+        achievements: userData["achievements"],
+        profilePhotoUrl: userData["profile_photo"],
+        gender: userData["gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
+        id: userData["player_id"]);
 
     isUserSignedIn = true;
     return 3;
   }
 
   Future<Null> autoLogin(storedToken) async {
-    
     //REFRESH TOKEN
-    
+
     token = storedToken;
     await initLoggedInUser();
     notifyListeners();
@@ -261,6 +266,24 @@ mixin Login on Model {
       return true;
     } catch (error) {
       print(error);
+      return false;
+    }
+  }
+
+  Future<bool> updateProfile(
+      Map<String, dynamic> profileData, File profileImage) async {
+    try {
+      http.Response res = await http.patch(
+        "$baseUrl/users/user-profile-update/${profileData["id"]}",
+        headers: {
+          'Authorization': '$token',
+        },
+        body: json.encode(profileData),
+      );
+      print(res.body);
+      return true;
+    } catch (e) {
+      print("PROFILE ERROR : $e");
       return false;
     }
   }

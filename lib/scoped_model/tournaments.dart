@@ -56,8 +56,8 @@ mixin TournamentModel on Model {
 
   Future<bool> initFscData(String token) async {
     try {
-      http.Response res = await http
-          .get("$baseUrl/tournaments/tournaments-fsc/", headers: {
+      http.Response res =
+          await http.get("$baseUrl/tournaments/tournaments-fsc/", headers: {
         'Authorization': token,
         // 'Authorization': 'Bearer $token'
       });
@@ -78,18 +78,33 @@ mixin TournamentModel on Model {
             contactNumber: event["coordinator_contact_number"],
             contactEmail: event["coordinator_email"],
             contactPerson: event["coordinator_name"],
-            tournamentWinner: event["tournament_winner"]!=null?
-           UserProfile(
-              city: event["tournament_winner"]["city"],
-              dob: event["tournament_winner"]["date_of_birth"],
-              backhandStyle: event["tournament_winner"]["backhand_style"],
-              name: event["tournament_winner"]["name"],
-              roleModel: event["tournament_winner"]["role_model"],
-              strongHand: event["tournament_winner"]["strong_hand"],
-              homeClub: event["tournament_winner"]["home_club"],
-              achievements: event["tournament_winner"]["achievements"],
-              profilePhotoUrl: event["tournament_winner"]["profile_photo"],
-              id: event["tournament_winner"]["player_id"]):null,
+            tournamentWinner: event["tournament_winner"] != null
+                ? UserProfile(
+                    city: event["tournament_winner"]["city"],
+                    dob: DateTime.parse(
+                        event["tournament_winner"]["date_of_birth"]),
+                    backhandStyle:
+                        event["tournament_winner"]["backhand_style"] == "DOUBLE"
+                            ? BACKHANDSTYLE.DOUBLE
+                            : event["tournament_winner"]["backhand_style"] ==
+                                    "SINGLE"
+                                ? BACKHANDSTYLE.SINGLE
+                                : BACKHANDSTYLE.MIXED,
+                    name: event["tournament_winner"]["name"],
+                    roleModel: event["tournament_winner"]["role_model"],
+                    strongHand:
+                        event["tournament_winner"]["strong_hand"] == "LEFT"
+                            ? STRONGHAND.LEFT
+                            : STRONGHAND.RIGHT,
+                    homeClub: event["tournament_winner"]["home_club"],
+                    achievements: event["tournament_winner"]["achievements"],
+                    profilePhotoUrl: event["tournament_winner"]
+                        ["profile_photo"],
+                    gender: event["tournament_winner"]["gender"] == "M"
+                        ? GENDER.MALE
+                        : GENDER.FEMALE,
+                    id: event["tournament_winner"]["player_id"])
+                : null,
           );
 
           fscTournaments.add(temp);

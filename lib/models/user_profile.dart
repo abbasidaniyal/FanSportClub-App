@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 
+enum GENDER {
+  MALE,
+  FEMALE,
+}
+
+enum STRONGHAND { LEFT, RIGHT }
+
+enum BACKHANDSTYLE {
+  SINGLE,
+  DOUBLE,
+  MIXED,
+}
+
 class UserProfile {
   String name;
-  String backhandStyle;
-  String strongHand;
+  BACKHANDSTYLE backhandStyle;
+  STRONGHAND strongHand;
   String city;
   String homeClub;
   String profession;
@@ -11,15 +24,14 @@ class UserProfile {
   String roleModel;
   String cienNumber;
   String achievements;
-  String dob;//TO DATETIME
+  DateTime dob; //TO DATETIME
   String profilePhotoUrl;
   String username;
+  GENDER gender;
   int id;
 
   String age() {
-    return (DateTime.parse(dob.split("/").toString())
-            .difference(DateTime.now()))
-        .toString();
+    return ((dob).difference(DateTime.now())).toString();
   }
 
   UserProfile(
@@ -31,6 +43,7 @@ class UserProfile {
       this.homeClub,
       this.id,
       this.roleModel,
+      this.gender,
       this.achievements,
       this.profilePhotoUrl});
 }

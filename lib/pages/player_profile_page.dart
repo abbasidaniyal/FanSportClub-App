@@ -68,8 +68,7 @@ class PlayerProfilePage extends StatelessWidget {
                               left: MediaQuery.of(context).size.width * 0.50,
                               top: 10.0),
                           child: Text(
-                            DateFormat("dd/MM/yyy")
-                                .format(DateTime.parse(user.dob)),
+                            DateFormat("dd/MM/yyy").format(user.dob),
                             maxLines: 1,
                             textScaleFactor: 1,
                             style: TextStyle(
@@ -129,10 +128,7 @@ class PlayerProfilePage extends StatelessWidget {
                               margin: EdgeInsets.only(left: 30.0, top: 5.0),
                               width: MediaQuery.of(context).size.width * 0.2,
                               child: Text(
-                                ((DateTime.now()
-                                            .difference(
-                                                DateTime.parse(user.dob))
-                                            .inDays) /
+                                ((DateTime.now().difference(user.dob).inDays) /
                                         365)
                                     .floor()
                                     .toString(),
@@ -188,7 +184,7 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 5),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
-                                user.backhandStyle,
+                                user.backhandStyle.toString(),
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -202,7 +198,7 @@ class PlayerProfilePage extends StatelessWidget {
                               ),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
-                                user.strongHand,
+                                user.strongHand.toString(),
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(

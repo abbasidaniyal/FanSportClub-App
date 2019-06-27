@@ -33,8 +33,7 @@ dependencies:
   flutter_facebook_login: 2.0.1
   shared_preferences: ^0.5.3+1
   firebase_messaging: ^5.0.4
-
-
+  image_picker: ^0.6.0+10
   flutter:
     sdk: flutter
   
@@ -66,7 +65,6 @@ flutter:
     - assets/splashScreen.jpg
     - assets/itf-card.jpg
     - assets/about-cover.jpg
-
   
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg

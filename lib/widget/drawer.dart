@@ -59,7 +59,7 @@ class MyDrawer extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100.0),
                           image: DecorationImage(
                             image: model.isUserSignedIn &&
-                                    model.loggedInUser.profilePhotoUrl != ""
+                                    model.loggedInUser.profilePhotoUrl != null
                                 ? NetworkImage(
                                     model.loggedInUser.profilePhotoUrl)
                                 : AssetImage("assets/profilePicture.jpeg"),

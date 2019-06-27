@@ -27,15 +27,24 @@ mixin UserProfileModel on Model {
         for (var players in profiles) {
           UserProfile temp = UserProfile(
               city: players["city"],
-              dob: players["date_of_birth"],
-              backhandStyle: players["backhand_style"],
+              dob: DateTime.parse(players["date_of_birth"]),
+              backhandStyle: players["backhand_style"] == "DOUBLE"
+                  ? BACKHANDSTYLE.DOUBLE
+                  : players["backhand_style"] == "SINGLE"
+                      ? BACKHANDSTYLE.SINGLE
+                      : BACKHANDSTYLE.MIXED,
               name: players["name"],
               roleModel: players["role_model"],
-              strongHand: players["strong_hand"],
+              strongHand: players["strong_hand"] == "LEFT"
+                  ? STRONGHAND.LEFT
+                  : STRONGHAND.RIGHT,
               homeClub: players["home_club"],
               achievements: players["achievements"],
               profilePhotoUrl: players["profile_photo"],
+              gender:
+                  players["player_gender"] == "M" ? GENDER.MALE : GENDER.FEMALE,
               id: players["player_id"]);
+
           playerProfiles.add(temp);
         }
         notifyListeners();
