@@ -26,7 +26,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   @override
   void initState() {
     super.initState();
-    profileData["player_id"] = widget.user.id;
+    profileData["player_id"] = widget.user.id==null?"":widget.user.id;
   }
 
   void submitProfile() async {
@@ -38,9 +38,17 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
           await model.updateProfile(profileData, profileUploadedImage);
 
       if (success) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return CalendarPage();
-        }));
+        model.initLoggedInUser().then((status) {
+          if (status == 3) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return CalendarPage();
+            }));
+          } else {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text("Something went wrong"),
+            ));
+          }
+        });
       } else {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Something went wrong"),
@@ -145,7 +153,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                               top: 10.0),
                           child: FormField<DateTime>(
                             onSaved: (dateOfBirth) {
-                              profileData["date_of_birth"] = dateOfBirth.toString();
+                              profileData["date_of_birth"] =
+                                  dateOfBirth.toString();
                             },
                             validator: (DateTime value) {
                               print("object");
@@ -258,7 +267,6 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                 },
                                 initialValue: GENDER.MALE,
                                 builder: (FormFieldState<GENDER> state) {
-                                  
                                   return Theme(
                                       data: Theme.of(context).copyWith(
                                           canvasColor:
@@ -271,7 +279,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                           ),
                                           onChanged: (GENDER newValue) {
                                             setState(() {
-                                              state.didChange(newValue)  ;
+                                              state.didChange(newValue);
                                             });
                                           },
                                           items: [
@@ -699,12 +707,14 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
           height: MediaQuery.of(context).size.height * 0.06,
           alignment: Alignment(0.0, 0.0),
           child: InkWell(
-              child: Text(
-                "Submit Changes",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 24, color: Theme.of(context).accentColor),
-              ),
+              child: Builder(builder: (context) {
+                return Text(
+                  "Submit Changes",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 24, color: Theme.of(context).accentColor),
+                );
+              }),
               onTap: submitProfile)),
     );
   }
