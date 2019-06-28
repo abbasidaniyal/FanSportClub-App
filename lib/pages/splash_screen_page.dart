@@ -10,9 +10,7 @@ class WelcomePage extends StatelessWidget {
   final String token;
   WelcomePage(this.token);
   Widget build(BuildContext context) {
-    
     MainModel model = ScopedModel.of(context);
-    // model.token;
     return SplashScreen(
       seconds: 2,
       image: Image.asset(
@@ -22,8 +20,7 @@ class WelcomePage extends StatelessWidget {
       ),
       photoSize: MediaQuery.of(context).size.shortestSide * 0.22,
       imageBackground: AssetImage("assets/splashScreen.jpg"),
-      navigateAfterSeconds:
-          model.token == null ? LandingPage() : CalendarPage(),
+      navigateAfterSeconds: CalendarPage(),
       loaderColor: Colors.white,
     );
   }

@@ -35,13 +35,13 @@ class UserProfile {
   }
 
   UserProfile(
-      {@required this.name,
-      @required this.dob,
-      @required this.strongHand,
-      @required this.backhandStyle,
+      { this.name,
+       this.dob,
+       this.strongHand,
+       this.backhandStyle,
       this.city,
       this.homeClub,
-      this.id,
+      @required this.id,
       this.roleModel,
       this.gender,
       this.achievements,

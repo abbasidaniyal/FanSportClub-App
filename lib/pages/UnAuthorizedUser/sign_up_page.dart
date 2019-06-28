@@ -1,3 +1,4 @@
+import 'package:Fan_Sports/pages/UnAuthorizedUser/sign_in_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../calendar_page.dart';
 
 import '../../scoped_model/main.dart';
+import '../create_update_profile.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
   GlobalKey<FormState> _key = GlobalKey<FormState>();
+  
+  Map<String, String> userData = {};
 
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
@@ -33,7 +37,7 @@ class _SignupPageState extends State<SignupPage> {
           ),
           child: Form(
             key: _key,
-            child: Column(
+            child: ListView(
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(
@@ -54,6 +58,10 @@ class _SignupPageState extends State<SignupPage> {
                   child: TextFormField(
                     controller: emailController,
                     cursorColor: Colors.white,
+                    onSaved: (text) {
+                      userData["email"] = text;
+                      userData["username"] = text;
+                    },
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                         labelText: "EMAIL",
@@ -70,6 +78,9 @@ class _SignupPageState extends State<SignupPage> {
                     obscureText: true,
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
+                    onSaved: (text) {
+                      userData["password"] = text;
+                    },
                     decoration: InputDecoration(
                         labelText: "PASSWORD",
                         labelStyle: TextStyle(color: Colors.white),
@@ -88,12 +99,13 @@ class _SignupPageState extends State<SignupPage> {
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
-                        labelText: "CONFIRM PASSWORD",
-                        labelStyle: TextStyle(color: Colors.white),
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            //  borderSide: 1,
-                            )),
+                      labelText: "CONFIRM PASSWORD",
+                      labelStyle: TextStyle(color: Colors.white),
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                          //  borderSide: 1,
+                          ),
+                    ),
                   ),
                 ),
                 Container(
@@ -111,13 +123,43 @@ class _SignupPageState extends State<SignupPage> {
                         textScaleFactor: 1.3,
                         style: TextStyle(color: Colors.white),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (password.text == confirmPassword.text &&
                             RegExp(r"^[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+")
                                 .hasMatch(emailController.text) &&
                             _key.currentState.validate()) {
                           _key.currentState.save();
-                          //CALL models.localsignup()
+                          bool success = await model.newUser(userData);
+                          if (success) {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return SigningPage();
+                                },
+                              ),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(
+                                      "Either email address already exists or Invalid credentials"),
+                                  content: Text("Please try again"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
                       },
                     ),
@@ -130,63 +172,31 @@ class _SignupPageState extends State<SignupPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        child: RaisedButton(
-                          color: Color.fromRGBO(219, 50, 54, 1),
-                          child: Text(
-                            "GOOGLE",
-                            textScaleFactor: 1.3,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () async {
-                            MainModel model = ScopedModel.of(context);
-                            bool successSignIn = await model.googleSignIn();
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    child: RaisedButton(
+                      color: Color.fromRGBO(219, 50, 54, 1),
+                      child: Text(
+                        "GOOGLE",
+                        textScaleFactor: 1.3,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () async {
+                        MainModel model = ScopedModel.of(context);
+                        bool successSignIn = await model.googleSignIn();
 
-                            if (successSignIn) {
-                              bool successLogin =
-                                  await model.serverGoogleOauth();
-                              if (successLogin) {
-                                bool convertToken =
-                                    await model.convertGoogleToken();
-                                if (convertToken) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return CalendarPage();
-                                      },
-                                    ),
-                                  );
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text("Facebook sign in failed"),
-                                        content: Text("Please try again"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return CalendarPage();
-                                }));
-                              } else {
+                        if (successSignIn) {
+                          bool successLogin = await model.serverGoogleOauth();
+                          if (successLogin) {
+                            bool convertToken =
+                                await model.convertGoogleToken();
+                            if (convertToken) {
+                              int newUser = await model.initLoggedInUser();
+                              if (newUser == 1) {
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
-                                        title: Text("Google sign in failed"),
+                                        title: Text("Login Failed"),
                                         content: Text("Please try again"),
                                         actions: <Widget>[
                                           FlatButton(
@@ -198,65 +208,112 @@ class _SignupPageState extends State<SignupPage> {
                                         ],
                                       ),
                                 );
+                              } else if (newUser == 2) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return ProfileUpdatePage(
+                                          model.loggedInUser);
+                                    },
+                                  ),
+                                );
+                              } else {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return CalendarPage();
+                                    },
+                                  ),
+                                );
                               }
                             } else {
                               showDialog(
                                 context: context,
-                                builder: (context) => AlertDialog(
-                                      title: Text("Google sign in failed"),
-                                      content: Text("Please try again"),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text("Ok"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    ),
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Google sign in failed"),
+                                    content: Text("Please try again"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                },
                               );
                             }
-                          },
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("Google sign in failed"),
+                                    content: Text("Please try again"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  ),
+                            );
+                          }
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Text("Google sign in failed"),
+                                  content: Text("Please try again"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    child: RaisedButton(
+                      color: Color.fromRGBO(59, 89, 152, 1),
+                      child: Text(
+                        "FACEBOOK ",
+                        textScaleFactor: 1.3,
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.1,
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        child: RaisedButton(
-                          color: Color.fromRGBO(59, 89, 152, 1),
-                          child: Text(
-                            "FACEBOOK ",
-                            textScaleFactor: 1.3,
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: () async {
-                            bool successSignin = await model.facebookSignIn();
-                            if (successSignin) {
-                              bool successLogin =
-                                  await model.serverFacebookOauth();
-                              if (successLogin) {
-                                bool convertToken =
-                                    await model.convertFacebookToken();
-                                if (convertToken) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return CalendarPage();
-                                      },
-                                    ),
-                                  );
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text("Facebook sign in failed"),
+                      onPressed: () async {
+                        MainModel model = ScopedModel.of(context);
+                        bool successSignin = await model.facebookSignIn();
+                        if (successSignin) {
+                          bool successLogin = await model.serverFacebookOauth();
+                          if (successLogin) {
+                            bool convertToken =
+                                await model.convertFacebookToken();
+                            if (convertToken) {
+                              int newUser = await model.initLoggedInUser();
+                              if (newUser == 1) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        title: Text("Login Failed"),
                                         content: Text("Please try again"),
                                         actions: <Widget>[
                                           FlatButton(
@@ -266,28 +323,18 @@ class _SignupPageState extends State<SignupPage> {
                                             },
                                           )
                                         ],
-                                      );
-                                    },
-                                  );
-                                }
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text("Facebook sign in failed"),
-                                      content: Text("Please try again"),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text("Ok"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  },
+                                      ),
                                 );
+                              } else if (newUser == 2) {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return ProfileUpdatePage(model.loggedInUser);
+                                }));
+                              } else {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return CalendarPage();
+                                }));
                               }
                             } else {
                               showDialog(
@@ -308,9 +355,47 @@ class _SignupPageState extends State<SignupPage> {
                                 },
                               );
                             }
-                          },
-                        ),
-                      )
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Facebook sign in failed"),
+                                  content: Text("Please try again"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Facebook sign in failed"),
+                                content: Text("Please try again"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Ok"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  )
                     ],
                   ),
                 )

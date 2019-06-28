@@ -41,11 +41,14 @@ mixin UserProfileModel on Model {
               homeClub: players["home_club"],
               achievements: players["achievements"],
               profilePhotoUrl: players["profile_photo"],
-              gender:
-                  players["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
+              gender: players["player_gender"] == "MALE"
+                  ? GENDER.MALE
+                  : GENDER.FEMALE,
               id: players["player_id"]);
-
-          playerProfiles.add(temp);
+          if (temp.name != "")
+            playerProfiles.add(temp);
+          else
+            continue;
         }
         notifyListeners();
         return true;

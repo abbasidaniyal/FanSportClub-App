@@ -1,5 +1,6 @@
 import 'package:Fan_Sports/pages/UnAuthorizedUser/landing_page.dart';
 import 'package:Fan_Sports/pages/create_update_profile.dart';
+import 'package:Fan_Sports/pages/player_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -33,7 +34,10 @@ class MyDrawer extends StatelessWidget {
                   context,
                   CupertinoPageRoute(
                     builder: (BuildContext context) {
-                      return CalendarPage();
+                      if (model.isUserSignedIn) {
+                        return PlayerProfilePage(model.loggedInUser);
+                      } else
+                        return CalendarPage();
                     },
                   ),
                 );
@@ -79,10 +83,14 @@ class MyDrawer extends StatelessWidget {
                           style: TextStyle(color: Colors.white),
                         ),
                         IconButton(
-                          icon: Icon(Icons.mode_edit,color: Colors.white,size: 20,),
+                          icon: Icon(
+                            Icons.mode_edit,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (context) {
                               return ProfileUpdatePage(model.loggedInUser);
                             }));
                           },

@@ -1,4 +1,7 @@
+import 'package:Fan_Sports/pages/create_update_profile.dart';
+import 'package:Fan_Sports/scoped_model/main.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../models/user_profile.dart';
 
@@ -14,11 +17,24 @@ class PlayerProfilePage extends StatelessWidget {
     double dobSize = MediaQuery.of(context).size.width * 0.04;
     double headingSize = MediaQuery.of(context).size.width * 0.04;
     double contentSize = MediaQuery.of(context).size.width * 0.04;
-
+    MainModel model = ScopedModel.of(context);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
+          actions: <Widget>[
+            user.id == model.loggedInUser.id
+                ? IconButton(
+                    icon: Icon(Icons.mode_edit),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(PageRouteBuilder(pageBuilder: (context, c, v) {
+                        return ProfileUpdatePage(model.loggedInUser);
+                      }));
+                    },
+                  )
+                : Container(),
+          ],
           title: Text(
             "Player Profile",
             textScaleFactor: 1,

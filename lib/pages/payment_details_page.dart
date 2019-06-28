@@ -15,7 +15,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
   Map<String, dynamic> options = new Map();
     
-  Future<Null> payment() async {
+  Future<bool> payment() async {
     String apiKey = "rzp_test_EcwB4YZMeBEleN";
     Map<String, String> notes = new Map();
     notes.putIfAbsent('billing_address', () => "Somewhere on earth");

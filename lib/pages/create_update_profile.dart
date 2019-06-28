@@ -26,14 +26,12 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   @override
   void initState() {
     super.initState();
-    profileData["player_id"] =
-        widget.user.id.toString() == null ? "" : widget.user.id.toString();
+    profileData["player_id"] = widget.user.id.toString();
   }
 
   void submitProfile() async {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      // profileData["profile_photo"] = profileUploadedImage.;
       print(profileData);
       MainModel model = ScopedModel.of(context);
       bool success =
@@ -42,6 +40,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
       if (success) {
         model.initLoggedInUser().then(
           (status) {
+            print(model.loggedInUser.backhandStyle);
+            print(status);
             if (status == 3) {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -178,9 +178,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                   fontWeight: FontWeight.w700,
                                   fontSize: nameSize),
                             ),
-                            initialValue: widget.user.name == null
-                                ? ""
-                                : widget.user.name,
+                            initialValue: widget.user.name,
                             onSaved: (name) {
                               profileData["name"] = name;
                             },
@@ -314,7 +312,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                   profileData["player_gender"] =
                                       value == GENDER.MALE ? "MALE" : "FEMALE";
                                 },
-                                initialValue: GENDER.MALE,
+                                initialValue: widget.user.gender,
                                 builder: (FormFieldState<GENDER> state) {
                                   return Theme(
                                       data: Theme.of(context).copyWith(
@@ -429,14 +427,15 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: FormField(
                                 onSaved: (value) {
-                                  profileData["backhand_style"] =
-                                      value == BACKHANDSTYLE.SINGLE
-                                          ? "SINGLE"
-                                          : value == BACKHANDSTYLE.DOUBLE
-                                              ? "DOUBLE"
-                                              : "BOTH";
+                                  value == BACKHANDSTYLE.SINGLE
+                                      ? profileData["backhand_style"] = "SINGLE"
+                                      : value == BACKHANDSTYLE.DOUBLE
+                                          ? profileData["backhand_style"] =
+                                              "DOUBLE"
+                                          : profileData["backhand_style"] =
+                                              "BOTH";
                                 },
-                                initialValue: BACKHANDSTYLE.SINGLE,
+                                initialValue: widget.user.backhandStyle,
                                 builder: (FormFieldState<BACKHANDSTYLE> state) {
                                   return Theme(
                                     data: Theme.of(context).copyWith(

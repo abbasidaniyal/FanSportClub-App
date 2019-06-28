@@ -1,9 +1,11 @@
 import 'package:Fan_Sports/pages/create_update_profile.dart';
+import 'package:Fan_Sports/scoped_model/baseUrl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../calendar_page.dart';
 
 import '../../scoped_model/main.dart';
@@ -16,6 +18,7 @@ class SigningPage extends StatefulWidget {
 class _SigningPageState extends State<SigningPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool isLoading = false;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,8 +95,8 @@ class _SigningPageState extends State<SigningPage> {
                   ),
                 ),
               ),
-              onTap: () {
-                //NAVIGATE TO FORGOT PASSWORD PAGE
+              onTap: () async {
+                await launch("$baseUrl/users/password/password_reset/");
               },
             ),
             Container(
@@ -101,56 +104,36 @@ class _SigningPageState extends State<SigningPage> {
                   top: MediaQuery.of(context).size.height * 0.05,
                   left: MediaQuery.of(context).size.width * 0.1,
                   right: MediaQuery.of(context).size.width * 0.1),
-              child: Hero(
-                tag: 123,
-                child: Container(
-                  // width: MediaQuery.of(context).size.width * 0.8 + 20,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  child: RaisedButton(
-                    color: Theme.of(context).accentColor.withOpacity(0.8),
-                    child: Text(
-                      "LOGIN",
-                      textScaleFactor: 1.3,
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    onPressed: () async {
-                      //LOGIN WITH SERVER AND GET TOKEN
-                      MainModel model = ScopedModel.of(context);
-                      bool status = await model.getLocalAuthToken(
-                          username.text, password.text);
-                      if (status) {
-                        int newUser = await model.initLoggedInUser();
-                        if (newUser == 1) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  title: Text("Login Failed"),
-                                  content: Text("Please try again"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ok"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                ),
-                          );
-                        } else if (newUser == 2) {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ProfileUpdatePage(model.loggedInUser);
-                          }));
-                        } else {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return CalendarPage();
-                          }));
-                        }
-                      } else {
+              child: Container(
+                // width: MediaQuery.of(context).size.width * 0.8 + 20,
+                height: MediaQuery.of(context).size.height * 0.07,
+                child: RaisedButton(
+                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                  child: isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "LOGIN",
+                          textScaleFactor: 1.3,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    //LOGIN WITH SERVER AND GET TOKEN
+                    MainModel model = ScopedModel.of(context);
+                    bool status = await model.getLocalAuthToken(
+                        username.text, password.text);
+                    if (status) {
+                      int newUser = await model.initLoggedInUser();
+                      if (newUser == 1) {
                         showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
+                            context: context,
+                            builder: (context) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              return AlertDialog(
                                 title: Text("Login Failed"),
                                 content: Text("Please try again"),
                                 actions: <Widget>[
@@ -161,11 +144,49 @@ class _SigningPageState extends State<SigningPage> {
                                     },
                                   )
                                 ],
-                              ),
+                              );
+                            });
+                      } else if (newUser == 2) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ProfileUpdatePage(model.loggedInUser);
+                            },
+                          ),
+                        );
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CalendarPage();
+                            },
+                          ),
                         );
                       }
-                    },
-                  ),
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            return AlertDialog(
+                              title: Text("Login Failed"),
+                              content: Text("Please try again"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
                 ),
               ),
             ),
@@ -180,12 +201,15 @@ class _SigningPageState extends State<SigningPage> {
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: RaisedButton(
                       color: Color.fromRGBO(219, 50, 54, 1),
-                      child: Text(
-                        "GOOGLE",
-                        textScaleFactor: 1.3,
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child:  Text(
+                              "GOOGLE",
+                              textScaleFactor: 1.3,
+                              style: TextStyle(color: Colors.white),
+                            ),
                       onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
                         MainModel model = ScopedModel.of(context);
                         bool successSignIn = await model.googleSignIn();
 
@@ -198,8 +222,12 @@ class _SigningPageState extends State<SigningPage> {
                               int newUser = await model.initLoggedInUser();
                               if (newUser == 1) {
                                 showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      return AlertDialog(
                                         title: Text("Login Failed"),
                                         content: Text("Please try again"),
                                         actions: <Widget>[
@@ -210,8 +238,8 @@ class _SigningPageState extends State<SigningPage> {
                                             },
                                           )
                                         ],
-                                      ),
-                                );
+                                      );
+                                    });
                               } else if (newUser == 2) {
                                 Navigator.pushReplacement(
                                   context,
@@ -236,6 +264,9 @@ class _SigningPageState extends State<SigningPage> {
                               showDialog(
                                 context: context,
                                 builder: (context) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                   return AlertDialog(
                                     title: Text("Google sign in failed"),
                                     content: Text("Please try again"),
@@ -253,8 +284,12 @@ class _SigningPageState extends State<SigningPage> {
                             }
                           } else {
                             showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
+                                context: context,
+                                builder: (context) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  return AlertDialog(
                                     title: Text("Google sign in failed"),
                                     content: Text("Please try again"),
                                     actions: <Widget>[
@@ -265,13 +300,17 @@ class _SigningPageState extends State<SigningPage> {
                                         },
                                       )
                                     ],
-                                  ),
-                            );
+                                  );
+                                });
                           }
                         } else {
                           showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
+                              context: context,
+                              builder: (context) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                return AlertDialog(
                                   title: Text("Google sign in failed"),
                                   content: Text("Please try again"),
                                   actions: <Widget>[
@@ -282,8 +321,8 @@ class _SigningPageState extends State<SigningPage> {
                                       },
                                     )
                                   ],
-                                ),
-                          );
+                                );
+                              });
                         }
                       },
                     ),
@@ -296,14 +335,17 @@ class _SigningPageState extends State<SigningPage> {
                     width: MediaQuery.of(context).size.width * 0.35,
                     child: RaisedButton(
                       color: Color.fromRGBO(59, 89, 152, 1),
-                      child: Text(
-                        "FACEBOOK ",
-                        textScaleFactor: 1.3,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                      child:  Text(
+                              "FACEBOOK",
+                              textScaleFactor: 1.3,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                       onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
                         MainModel model = ScopedModel.of(context);
                         bool successSignin = await model.facebookSignIn();
                         if (successSignin) {
@@ -315,8 +357,12 @@ class _SigningPageState extends State<SigningPage> {
                               int newUser = await model.initLoggedInUser();
                               if (newUser == 1) {
                                 showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                      return AlertDialog(
                                         title: Text("Login Failed"),
                                         content: Text("Please try again"),
                                         actions: <Widget>[
@@ -327,8 +373,8 @@ class _SigningPageState extends State<SigningPage> {
                                             },
                                           )
                                         ],
-                                      ),
-                                );
+                                      );
+                                    });
                               } else if (newUser == 2) {
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
@@ -344,6 +390,9 @@ class _SigningPageState extends State<SigningPage> {
                               showDialog(
                                 context: context,
                                 builder: (context) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                   return AlertDialog(
                                     title: Text("Facebook sign in failed"),
                                     content: Text("Please try again"),
@@ -363,6 +412,9 @@ class _SigningPageState extends State<SigningPage> {
                             showDialog(
                               context: context,
                               builder: (context) {
+                                setState(() {
+                                  isLoading = false;
+                                });
                                 return AlertDialog(
                                   title: Text("Facebook sign in failed"),
                                   content: Text("Please try again"),
@@ -382,6 +434,9 @@ class _SigningPageState extends State<SigningPage> {
                           showDialog(
                             context: context,
                             builder: (context) {
+                              setState(() {
+                                isLoading = false;
+                              });
                               return AlertDialog(
                                 title: Text("Facebook sign in failed"),
                                 content: Text("Please try again"),

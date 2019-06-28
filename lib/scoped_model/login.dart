@@ -22,6 +22,25 @@ mixin Login on Model {
   GoogleSignIn googleUser = GoogleSignIn();
   SharedPreferences _preferences;
 
+  Future<bool> newUser(Map<String, String> newUserData) async {
+    try {
+      http.Response res = await http.post(
+        "$baseUrl/users/create-user/",
+        headers: {
+          'Authorization': '$token',
+          "Content-Type": "application/json"
+        },
+        body: json.encode(newUserData),
+      );
+      print(res.body);
+      if (res.statusCode != 200 && res.statusCode != 201) return false;
+      return true;
+    } catch (error) {
+      print("ERROR : $error");
+      return false;
+    }
+  }
+
   Future<int> initLoggedInUser() async {
     http.Response res;
     try {
@@ -37,7 +56,6 @@ mixin Login on Model {
       return 1;
     }
 
-    // print(res.body);
     var userProfileID = json.decode(res.body)["profile"][0];
     print(userProfileID);
 
@@ -53,13 +71,17 @@ mixin Login on Model {
       print("ERROR =" + error);
       return 1;
     }
-
-    if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
-    if (json.decode(res.body)["name "] == null) return 2;
-
-
     print("BODY " + res2.body);
     var userData = json.decode(res2.body);
+
+    if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
+    loggedInUser = UserProfile(id: userData["player_id"]);
+
+    if (userData["name"] == "") {
+      notifyListeners();
+      return 2;
+    }
+
     loggedInUser = UserProfile(
       city: userData["city"],
       dob: DateTime.parse(userData["date_of_birth"]),
@@ -76,10 +98,10 @@ mixin Login on Model {
       homeClub: userData["home_club"],
       achievements: userData["achievements"],
       profilePhotoUrl: userData["profile_photo"],
-      gender: userData["gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
+      gender: userData["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
       id: userData["player_id"],
     );
-
+    notifyListeners();
     isUserSignedIn = true;
     return 3;
   }
@@ -99,6 +121,7 @@ mixin Login on Model {
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
     isUserSignedIn = false;
+    await getGeneralToken("fsc","fsc");
     notifyListeners();
     return true;
   }
@@ -112,14 +135,12 @@ mixin Login on Model {
           'password': password,
         },
       );
-      print(res.body);
+      // print(res.body);
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
       token = "Token " + json.decode(res.body)["token"];
-      _preferences = await SharedPreferences.getInstance();
-      _preferences.setString("accessToken", token);
 
-      print(token);
+      // print(token);
 
       isUserSignedIn = false;
       notifyListeners();
@@ -139,13 +160,13 @@ mixin Login on Model {
           'password': password,
         },
       );
-      print(res.body);
+      // print(res.body);
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
       token = "Token " + json.decode(res.body)["token"];
       _preferences = await SharedPreferences.getInstance();
       _preferences.setString("accessToken", token);
-      print(token);
+      // print(token);
 
       notifyListeners();
       return true;
@@ -160,8 +181,7 @@ mixin Login on Model {
       GoogleSignInAccount signedInUser = await googleUser.signIn();
 
       googleSignInAuthentication = await signedInUser.authentication;
-      print(signedInUser.toString());
-      print(googleSignInAuthentication.toString());
+      // print(googleSignInAuthentication.toString());
 
       return true;
     } catch (error) {
@@ -174,9 +194,9 @@ mixin Login on Model {
     try {
       facebookSignedInUser = await facebookUser
           .logInWithReadPermissions(["email", 'public_profile']);
-      print(facebookSignedInUser.accessToken.token);
-      print(facebookSignedInUser.status);
-      print(facebookSignedInUser.errorMessage);
+      // print(facebookSignedInUser.accessToken.token);
+      // print(facebookSignedInUser.status);
+      // print(facebookSignedInUser.errorMessage);
       return true;
     } catch (error) {
       print("Error = $error");
@@ -192,7 +212,7 @@ mixin Login on Model {
       });
       // print(res.body);
 
-      print("Facebook Token = ${res.body}");
+      print("Facebook Token = ${facebookSignedInUser.accessToken.token}");
       return true;
     } catch (e) {
       print(e);
@@ -206,15 +226,7 @@ mixin Login on Model {
         "provider": "google-oauth2",
         "access_token": googleSignInAuthentication.accessToken
       });
-      print("Google Token = " + res.body);
-      // if (googleSignInAuthentication.idToken ==
-      //     json.decode(res.body)["token"]) {
-      //       //GET TOKEN FROM SERVER
-      // } else {
-      //   print("ID Token Does not match");
-      //   return false;
-      // }
-
+      // print("Google Token = " + res.body);
       return true;
     } catch (e) {
       print(e);
@@ -236,12 +248,13 @@ mixin Login on Model {
       token = "Bearer " + temp["access_token"];
       _preferences = await SharedPreferences.getInstance();
       _preferences.setString("accessToken", token);
-      print(token);
+      // print(token);
 
       notifyListeners();
       return true;
     } catch (error) {
       print(error);
+      notifyListeners();
       return false;
     }
   }
@@ -273,10 +286,9 @@ mixin Login on Model {
       Map<String, String> profileData, File profileImage) async {
     try {
       http.MultipartRequest request = http.MultipartRequest(
-        "PATCH",
-        Uri.parse(
-            "$baseUrl/users/user-profile-update/${profileData["player_id"]}"),
-      );
+          "PATCH",
+          Uri.parse(
+              "$baseUrl/users/user-profile-update/${profileData["player_id"]}"));
       request.fields.addAll(profileData);
       if (profileImage != null)
         request.files.add(await http.MultipartFile.fromPath(
@@ -285,8 +297,7 @@ mixin Login on Model {
       http.StreamedResponse res = await request.send();
       print(res.statusCode);
       if (res.statusCode != 200 && res.statusCode != 201) return false;
-      // var temp = await initLoggedInUser();
-      // print(temp);
+
       return true;
     } catch (e) {
       print("PROFILE ERROR : $e");

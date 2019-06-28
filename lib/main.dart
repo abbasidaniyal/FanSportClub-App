@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
           "/": (BuildContext context) {
             MainModel model = ScopedModel.of(context);
             print("$token");
-            model.autoLogin(token);
+            token!=null?model.autoLogin(token):model.getGeneralToken("fsc", "fsc");
             return WelcomePage(token);
           },
         },
