@@ -1,4 +1,5 @@
 import 'package:Fan_Sports/pages/UnAuthorizedUser/landing_page.dart';
+import 'package:Fan_Sports/pages/create_update_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -69,14 +70,29 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 25,bottom: 20.0),
-              child: model.isUserSignedIn?Text(
-                model.loggedInUser.name,
-                style: TextStyle(color: Colors.white),
-              ):Container(),
+              padding: EdgeInsets.only(left: 25, bottom: 20.0),
+              child: model.isUserSignedIn
+                  ? Row(
+                      children: <Widget>[
+                        Text(
+                          model.loggedInUser.name,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.mode_edit,color: Colors.white,size: 20,),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
+                              return ProfileUpdatePage(model.loggedInUser);
+                            }));
+                          },
+                        ),
+                      ],
+                    )
+                  : Container(),
             ),
             Container(
-              padding: EdgeInsets.only( right: 20.0, bottom: 10.0),
+              padding: EdgeInsets.only(right: 20.0, bottom: 10.0),
               child: Divider(
                 color: Color.fromRGBO(120, 120, 120, 1),
                 height: 1.0,
@@ -126,7 +142,7 @@ class MyDrawer extends StatelessWidget {
             model.isUserSignedIn
                 ? Container()
                 : ListTile(
-                  contentPadding: EdgeInsets.only(left: 25.0),
+                    contentPadding: EdgeInsets.only(left: 25.0),
                     title: Text(
                       'CIEN Registration',
                       textScaleFactor: 1,

@@ -21,43 +21,90 @@ class ProfileUpdatePage extends StatefulWidget {
 
 class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   File profileUploadedImage;
-  Map<String, dynamic> profileData = {};
+  Map<String, String> profileData = {};
   GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
-    profileData["player_id"] = widget.user.id==null?"":widget.user.id;
+    profileData["player_id"] =
+        widget.user.id.toString() == null ? "" : widget.user.id.toString();
   }
 
   void submitProfile() async {
     if (_key.currentState.validate()) {
       _key.currentState.save();
+      // profileData["profile_photo"] = profileUploadedImage.;
       print(profileData);
       MainModel model = ScopedModel.of(context);
       bool success =
           await model.updateProfile(profileData, profileUploadedImage);
 
       if (success) {
-        model.initLoggedInUser().then((status) {
-          if (status == 3) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return CalendarPage();
-            }));
-          } else {
-            Scaffold.of(context).showSnackBar(SnackBar(
-              content: Text("Something went wrong"),
-            ));
-          }
-        });
+        model.initLoggedInUser().then(
+          (status) {
+            if (status == 3) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CalendarPage();
+                  },
+                ),
+              );
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text("Something went wrong"),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("Ok"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ],
+                  );
+                },
+              );
+            }
+          },
+        );
       } else {
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text("Something went wrong"),
-        ));
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text("Something went wrong"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
       }
     } else {
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("Something went wrong"),
-      ));
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text("Something went wrong"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        },
+      );
     }
   }
 
@@ -154,7 +201,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                           child: FormField<DateTime>(
                             onSaved: (dateOfBirth) {
                               profileData["date_of_birth"] =
-                                  dateOfBirth.toString();
+                                  dateOfBirth.toString().substring(0, 10);
+                              print(profileData["date_of_birth"]);
                             },
                             validator: (DateTime value) {
                               print("object");
@@ -254,6 +302,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                           ],
                         ),
                         Row(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Container(
                               width: MediaQuery.of(context).size.width * 0.2,
@@ -312,7 +361,9 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 30.0, top: 5.0),
+                              margin: EdgeInsets.only(
+                                left: 30.0,
+                              ),
                               width: MediaQuery.of(context).size.width * 0.2,
                               child: widget.user.dob == null
                                   ? Container()
@@ -332,6 +383,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                           ],
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.only(
@@ -368,11 +420,11 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                           ],
                         ),
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Container(
                               margin: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.width * 0.05,
-                                top: 5,
                               ),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: FormField(
@@ -382,8 +434,9 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                           ? "SINGLE"
                                           : value == BACKHANDSTYLE.DOUBLE
                                               ? "DOUBLE"
-                                              : "MIXED";
+                                              : "BOTH";
                                 },
+                                initialValue: BACKHANDSTYLE.SINGLE,
                                 builder: (FormFieldState<BACKHANDSTYLE> state) {
                                   return Theme(
                                     data: Theme.of(context).copyWith(
@@ -394,17 +447,13 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                       padding: EdgeInsets.zero,
                                       child: DropdownButtonHideUnderline(
                                         child: DropdownButton<BACKHANDSTYLE>(
-                                          value:
-                                              widget.user.backhandStyle == null
-                                                  ? BACKHANDSTYLE.SINGLE
-                                                  : widget.user.backhandStyle,
+                                          value: state.value,
                                           style: TextStyle(
                                             color: Colors.white,
                                           ),
                                           onChanged: (BACKHANDSTYLE newValue) {
                                             setState(() {
-                                              widget.user.backhandStyle =
-                                                  newValue;
+                                              state.didChange(newValue);
                                             });
                                           },
                                           items: [
@@ -452,7 +501,6 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                             Container(
                               margin: EdgeInsets.only(
                                 left: MediaQuery.of(context).size.width * 0.05,
-                                top: 5,
                               ),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: FormField(

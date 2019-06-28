@@ -42,7 +42,7 @@ mixin UserProfileModel on Model {
               achievements: players["achievements"],
               profilePhotoUrl: players["profile_photo"],
               gender:
-                  players["player_gender"] == "M" ? GENDER.MALE : GENDER.FEMALE,
+                  players["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
               id: players["player_id"]);
 
           playerProfiles.add(temp);

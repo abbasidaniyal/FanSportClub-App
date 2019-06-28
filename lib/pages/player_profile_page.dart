@@ -117,7 +117,7 @@ class PlayerProfilePage extends StatelessWidget {
                                       MediaQuery.of(context).size.width * 0.50,
                                   top: 5.0),
                               child: Text(
-                                "Male",
+                                user.gender == GENDER.MALE ? "Male" : "Female",
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -184,7 +184,11 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 5),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
-                                user.backhandStyle.toString(),
+                                user.backhandStyle == BACKHANDSTYLE.SINGLE
+                                    ? "Single Handed"
+                                    : user.backhandStyle == BACKHANDSTYLE.DOUBLE
+                                        ? "Double Handed"
+                                        : "Mixed",
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -198,7 +202,9 @@ class PlayerProfilePage extends StatelessWidget {
                               ),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
-                                user.strongHand.toString(),
+                                user.strongHand == STRONGHAND.RIGHT
+                                    ? "Right Handed"
+                                    : "Left Handed",
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(

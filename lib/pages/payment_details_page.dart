@@ -13,15 +13,14 @@ class PaymentConfirmPage extends StatefulWidget {
 class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
   var paymentData = {};
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
-
+  Map<String, dynamic> options = new Map();
+    
   Future<Null> payment() async {
     String apiKey = "rzp_test_EcwB4YZMeBEleN";
     Map<String, String> notes = new Map();
-    MainModel model = ScopedModel.of(context);
     notes.putIfAbsent('billing_address', () => "Somewhere on earth");
     notes.putIfAbsent('shipping_address', () => "Somewhere near India");
 
-    Map<String, dynamic> options = new Map();
     options.putIfAbsent("name", () => "Mr John Doe");
     options.putIfAbsent(
         "image",

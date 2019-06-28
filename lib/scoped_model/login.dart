@@ -38,13 +38,9 @@ mixin Login on Model {
     }
 
     // print(res.body);
-    var userProfileID;
-    try {
-      userProfileID = json.decode(res.body)["profile"][0];
-    } catch (e) {
-      print("THIS ERROR = $e");
-      return 2;
-    }
+    var userProfileID = json.decode(res.body)["profile"][0];
+    print(userProfileID);
+
     http.Response res2;
     try {
       res2 = await http.get(
@@ -59,27 +55,30 @@ mixin Login on Model {
     }
 
     if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
+    if (json.decode(res.body)["name "] == null) return 2;
+
 
     print("BODY " + res2.body);
     var userData = json.decode(res2.body);
     loggedInUser = UserProfile(
-        city: userData["city"],
-        dob: DateTime.parse(userData["date_of_birth"]),
-        backhandStyle: userData["backhand_style"] == "DOUBLE"
-            ? BACKHANDSTYLE.DOUBLE
-            : userData["backhand_style"] == "SINGLE"
-                ? BACKHANDSTYLE.SINGLE
-                : BACKHANDSTYLE.MIXED,
-        name: userData["name"],
-        roleModel: userData["role_model"],
-        strongHand: userData["strong_hand"] == "LEFT"
-            ? STRONGHAND.LEFT
-            : STRONGHAND.RIGHT,
-        homeClub: userData["home_club"],
-        achievements: userData["achievements"],
-        profilePhotoUrl: userData["profile_photo"],
-        gender: userData["gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
-        id: userData["player_id"]);
+      city: userData["city"],
+      dob: DateTime.parse(userData["date_of_birth"]),
+      backhandStyle: userData["backhand_style"] == "DOUBLE"
+          ? BACKHANDSTYLE.DOUBLE
+          : userData["backhand_style"] == "SINGLE"
+              ? BACKHANDSTYLE.SINGLE
+              : BACKHANDSTYLE.MIXED,
+      name: userData["name"],
+      roleModel: userData["role_model"],
+      strongHand: userData["strong_hand"] == "LEFT"
+          ? STRONGHAND.LEFT
+          : STRONGHAND.RIGHT,
+      homeClub: userData["home_club"],
+      achievements: userData["achievements"],
+      profilePhotoUrl: userData["profile_photo"],
+      gender: userData["gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
+      id: userData["player_id"],
+    );
 
     isUserSignedIn = true;
     return 3;
@@ -271,16 +270,23 @@ mixin Login on Model {
   }
 
   Future<bool> updateProfile(
-      Map<String, dynamic> profileData, File profileImage) async {
+      Map<String, String> profileData, File profileImage) async {
     try {
-      http.Response res = await http.patch(
-        "$baseUrl/users/user-profile-update/${profileData["id"]}",
-        headers: {
-          'Authorization': '$token',
-        },
-        body: json.encode(profileData),
+      http.MultipartRequest request = http.MultipartRequest(
+        "PATCH",
+        Uri.parse(
+            "$baseUrl/users/user-profile-update/${profileData["player_id"]}"),
       );
-      print(res.body);
+      request.fields.addAll(profileData);
+      if (profileImage != null)
+        request.files.add(await http.MultipartFile.fromPath(
+            "profile_photo", profileImage.path));
+
+      http.StreamedResponse res = await request.send();
+      print(res.statusCode);
+      if (res.statusCode != 200 && res.statusCode != 201) return false;
+      // var temp = await initLoggedInUser();
+      // print(temp);
       return true;
     } catch (e) {
       print("PROFILE ERROR : $e");

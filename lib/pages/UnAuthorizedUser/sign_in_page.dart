@@ -213,22 +213,31 @@ class _SigningPageState extends State<SigningPage> {
                                       ),
                                 );
                               } else if (newUser == 2) {
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return ProfileUpdatePage(model.loggedInUser);
-                                }));
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return ProfileUpdatePage(
+                                          model.loggedInUser);
+                                    },
+                                  ),
+                                );
                               } else {
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return CalendarPage();
-                                }));
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return CalendarPage();
+                                    },
+                                  ),
+                                );
                               }
                             } else {
                               showDialog(
                                 context: context,
                                 builder: (context) {
                                   return AlertDialog(
-                                    title: Text("Facebook sign in failed"),
+                                    title: Text("Google sign in failed"),
                                     content: Text("Please try again"),
                                     actions: <Widget>[
                                       FlatButton(
