@@ -118,12 +118,16 @@ mixin Login on Model {
   Future<bool> logoutUser() async {
     token = null;
     loggedInUser = null;
-    GoogleSignIn().disconnect();
-    FacebookLogin().logOut();
+    try {
+      GoogleSignIn().disconnect()..catchError((onError){});
+      FacebookLogin().logOut().catchError((onError){});
+    } catch (e) {
+      print("Error = $e");
+    }
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
     isUserSignedIn = false;
-    await getGeneralToken("fsc","fsc");
+    await getGeneralToken("fsc", "fsc");
     notifyListeners();
     return true;
   }

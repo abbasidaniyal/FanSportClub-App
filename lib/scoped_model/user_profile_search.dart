@@ -50,6 +50,7 @@ mixin UserProfileModel on Model {
           else
             continue;
         }
+        print((playerProfiles).toString());
         notifyListeners();
         return true;
       }

@@ -23,7 +23,7 @@ class PlayerProfilePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           actions: <Widget>[
-            user.id == model.loggedInUser.id
+            model.isUserSignedIn && user.id == model.loggedInUser.id
                 ? IconButton(
                     icon: Icon(Icons.mode_edit),
                     onPressed: () {
