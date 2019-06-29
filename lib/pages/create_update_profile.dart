@@ -208,6 +208,11 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                               ),
                               hasFloatingPlaceholder: true,
                             ),
+                            onChanged: (value) {
+                              setState(() {
+                                widget.user.dob = value;
+                              });
+                            },
                             onSaved: (dateOfBirth) {
                               profileData["date_of_birth"] =
                                   dateOfBirth.toString().substring(0, 10);
@@ -221,8 +226,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                 return "Invalid Date";
                               }
                             },
-                            
-                            initialValue:widget.user.dob ,
+                            initialValue: widget.user.dob,
                           ),
                         ),
                         Row(
