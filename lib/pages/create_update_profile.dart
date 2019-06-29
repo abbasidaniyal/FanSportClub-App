@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:Fan_Sports/pages/calendar_page.dart';
 import 'package:Fan_Sports/scoped_model/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../models/user_profile.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class ProfileUpdatePage extends StatefulWidget {
   UserProfile user;
@@ -88,23 +89,6 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
           },
         );
       }
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text("Something went wrong"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Ok"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        },
-      );
     }
   }
 
@@ -171,8 +155,13 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                               left: MediaQuery.of(context).size.width * 0.50,
                               top: 35.0),
                           child: TextFormField(
-                            decoration: InputDecoration.collapsed(
+                            decoration: InputDecoration(
                               hintText: "Name",
+                              border: InputBorder.none,
+                              filled: false,
+                              contentPadding: EdgeInsets.zero,
+                              hasFloatingPlaceholder: true,
+                              errorStyle: TextStyle(height: 0.4),
                               hintStyle: TextStyle(
                                   color: Colors.white.withOpacity(0.6),
                                   fontWeight: FontWeight.w700,
@@ -196,7 +185,29 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                           margin: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width * 0.50,
                               top: 10.0),
-                          child: FormField<DateTime>(
+                          child: DateTimePickerFormField(
+                            format: DateFormat("dd/MM/yyy"),
+                            inputType: InputType.date,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: dobSize,
+                            ),
+                            editable: false,
+                            resetIcon: null,
+                            decoration: InputDecoration(
+                              hintText: "Date of Birth",
+                              border: InputBorder.none,
+                              filled: false,
+                              contentPadding: EdgeInsets.zero,
+                              errorStyle: TextStyle(height: 0.4),
+                              hintStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.6),
+                                fontWeight: FontWeight.w700,
+                                fontSize: dobSize,
+                              ),
+                              hasFloatingPlaceholder: true,
+                            ),
                             onSaved: (dateOfBirth) {
                               profileData["date_of_birth"] =
                                   dateOfBirth.toString().substring(0, 10);
@@ -210,60 +221,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                                 return "Invalid Date";
                               }
                             },
-                            initialValue: widget.user.dob,
-                            builder: (FormFieldState<DateTime> statee) {
-                              return InkWell(
-                                child: Container(
-                                  color: Colors.transparent,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Container(
-                                    margin: EdgeInsets.zero,
-                                    alignment: Alignment.centerLeft,
-                                    child: statee.value == null
-                                        ? Text(
-                                            "Date of Birth",
-                                            style: TextStyle(
-                                              color:
-                                                  Colors.white.withOpacity(0.6),
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: dobSize,
-                                            ),
-                                          )
-                                        : Text(
-                                            DateFormat("dd/MM/yyy")
-                                                .format(statee.value)
-                                                .toString()
-                                                .split(" ")[0],
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: dobSize,
-                                            ),
-                                          ),
-                                  ),
-                                ),
-                                onTap: () async {
-                                  DatePicker.showDatePicker(
-                                    context,
-                                    showTitleActions: true,
-                                    currentTime: statee.value == null
-                                        ? DateTime.now()
-                                        : statee.value,
-                                    locale: LocaleType.en,
-                                    minTime: DateTime(1940, 1, 1),
-                                    maxTime: DateTime.now(),
-                                    onConfirm: (date) {
-                                      statee.validate();
-                                      setState(
-                                        () {
-                                          statee.didChange(date);
-                                          widget.user.dob = date;
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
+                            
+                            initialValue:widget.user.dob ,
                           ),
                         ),
                         Row(

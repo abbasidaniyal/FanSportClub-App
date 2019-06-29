@@ -9,9 +9,6 @@ description: FSC is an icon of Fan Sports Club where players participate in diff
 # Read more about versioning at semver.org.
 version: 1.5.1+22
 
-
-
-
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
@@ -21,9 +18,10 @@ dependencies:
   flutter_calendar: ^0.0.8
   flutter_signin_button: ^0.2.6
   scoped_model: ^1.0.1
-  http:
+  http: ^0.12.0+2
   flutter_datetime_picker: ^1.1.6
   splashscreen:
+  datetime_picker_formfield: ^0.2.0
   material_design_icons_flutter: ^3.2.3595
   flutter_picker: ^1.0.10
   dynamic_theme: ^1.0.0
