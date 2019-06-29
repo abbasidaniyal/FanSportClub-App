@@ -118,6 +118,8 @@ mixin Login on Model {
   Future<bool> logoutUser() async {
     token = null;
     loggedInUser = null;
+    GoogleSignIn().disconnect();
+    FacebookLogin().logOut();
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
     isUserSignedIn = false;

@@ -30,17 +30,22 @@ class MyDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.pushReplacement(
+                      if (model.isUserSignedIn) {
+                        Navigator.push(
                   context,
                   CupertinoPageRoute(
                     builder: (BuildContext context) {
-                      if (model.isUserSignedIn) {
-                        return PlayerProfilePage(model.loggedInUser);
-                      } else
-                        return CalendarPage();
-                    },
-                  ),
-                );
+                
+                        return PlayerProfilePage(model.loggedInUser);}));
+                      } else{
+                    Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (BuildContext context) {
+                    return CalendarPage();
+                    }));}
+                  
+                
               },
               child: Container(
                 margin: EdgeInsets.all(3.0),
