@@ -17,43 +17,43 @@ mixin UserProfileModel on Model {
           await http.get("$baseUrl/users/user-profile-list/", headers: {
         'Authorization': '$token',
       });
-      if (res.statusCode != 200 && res.statusCode != 201)
-        return false;
-      else {
-        profiles = [];
-        profiles = json.decode(res.body);
-        playerProfiles = [];
+      if (res.statusCode != 200 && res.statusCode != 201) return false;
 
-        for (var players in profiles) {
-          UserProfile temp = UserProfile(
-              city: players["city"],
-              dob: DateTime.parse(players["date_of_birth"]),
-              backhandStyle: players["backhand_style"] == "DOUBLE"
-                  ? BACKHANDSTYLE.DOUBLE
-                  : players["backhand_style"] == "SINGLE"
-                      ? BACKHANDSTYLE.SINGLE
-                      : BACKHANDSTYLE.MIXED,
-              name: players["name"],
-              roleModel: players["role_model"],
-              strongHand: players["strong_hand"] == "LEFT"
-                  ? STRONGHAND.LEFT
-                  : STRONGHAND.RIGHT,
-              homeClub: players["home_club"],
-              achievements: players["achievements"],
-              profilePhotoUrl: players["profile_photo"],
-              gender: players["player_gender"] == "MALE"
-                  ? GENDER.MALE
-                  : GENDER.FEMALE,
-              id: players["player_id"]);
-          if (temp.name != "")
-            playerProfiles.add(temp);
-          else
-            continue;
-        }
-        print((playerProfiles).toString());
-        notifyListeners();
-        return true;
+      print(res.body);
+      profiles = [];
+      profiles = json.decode(res.body);
+      playerProfiles = [];
+
+      for (var players in profiles) {
+        UserProfile temp = UserProfile(
+            city: players["city"],
+            dob: players["date_of_birth"] == null
+                ? null
+                : DateTime.parse(players["date_of_birth"]),
+            backhandStyle: players["backhand_style"] == "DOUBLE"
+                ? BACKHANDSTYLE.DOUBLE
+                : players["backhand_style"] == "SINGLE"
+                    ? BACKHANDSTYLE.SINGLE
+                    : BACKHANDSTYLE.MIXED,
+            name: players["name"],
+            roleModel: players["role_model"],
+            strongHand: players["strong_hand"] == "LEFT"
+                ? STRONGHAND.LEFT
+                : STRONGHAND.RIGHT,
+            homeClub: players["home_club"],
+            achievements: players["achievements"],
+            profilePhotoUrl: players["profile_photo"],
+            gender: players["player_gender"] == "MALE"
+                ? GENDER.MALE
+                : GENDER.FEMALE,
+            id: players["player_id"]);
+        if (temp.name != "")
+          playerProfiles.add(temp);
+        else
+          continue;
       }
+      notifyListeners();
+      return true;
     } catch (e) {
       print("Error = $e");
       return false;

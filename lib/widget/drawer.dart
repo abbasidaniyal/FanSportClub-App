@@ -23,71 +23,84 @@ class MyDrawer extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(left: 20.0, top: 25),
         color: Theme.of(context).primaryColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+
           children: <Widget>[
             GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();
-                      if (model.isUserSignedIn) {
-                        Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (BuildContext context) {
-                
-                        return PlayerProfilePage(model.loggedInUser);}));
-                      } else{
-                    Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (BuildContext context) {
+                if (model.isUserSignedIn) {
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (BuildContext context) {
+                    return PlayerProfilePage(model.loggedInUser);
+                  }));
+                } else {
+                  Navigator.pushReplacement(context,
+                      CupertinoPageRoute(builder: (BuildContext context) {
                     return CalendarPage();
-                    }));}
-                  
-                
+                  }));
+                }
               },
               child: Container(
-                margin: EdgeInsets.all(3.0),
+                // margin: EdgeInsets.all(3.0),
                 // height: 200.0,
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                // width: MediaQuery.of(context).size.width * 0.25,
+                height: MediaQuery.of(context).size.width * 0.25,
+                padding: EdgeInsets.only(
+                    left: 25, top: 10.0, bottom: 10.0, right: 180),
                 child: !model.isUserSignedIn
                     ? Image.asset(
                         "assets/logo-fsc.png",
-                        alignment: Alignment.topLeft,
-                        width: 110,
+                        alignment: Alignment.center,
                       )
                     : Container(
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        height: MediaQuery.of(context).size.width * 0.25,
-                        margin: EdgeInsets.only(top: 25, left: 20.0),
+                      // alignment: Alignment(-1, 0),
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        height: MediaQuery.of(context).size.width * 0.35,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.0),
                             color: Theme.of(context).primaryColor),
                         foregroundDecoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 3.0),
+                          border: Border.all(color: Colors.white, width: 1.5),
                           borderRadius: BorderRadius.circular(100.0),
                           image: DecorationImage(
                             image: model.isUserSignedIn &&
                                     model.loggedInUser.profilePhotoUrl != null
                                 ? NetworkImage(
-                                    model.loggedInUser.profilePhotoUrl)
-                                : AssetImage("assets/profilePicture.jpeg"),
+                                    model.loggedInUser.profilePhotoUrl,
+
+                                    // fit: BoxFit.cover,
+
+                                    // width: 50,
+                                  )
+                                : AssetImage(
+                                    "assets/profilePicture.jpeg",
+                                  ),
                           ),
                         ),
                       ),
+                
               ),
             ),
             Container(
               padding: EdgeInsets.only(left: 25, bottom: 20.0),
               child: model.isUserSignedIn
                   ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          model.loggedInUser.name,
-                          style: TextStyle(color: Colors.white),
+                        Container(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            model.loggedInUser.name,
+                            textScaleFactor: 1.2,
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                         IconButton(
+                          alignment: Alignment.topLeft,
                           icon: Icon(
                             Icons.mode_edit,
                             color: Colors.white,
@@ -102,7 +115,14 @@ class MyDrawer extends StatelessWidget {
                         ),
                       ],
                     )
-                  : Container(),
+                  : Container(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text(
+                        "FAN SPORTS CLUB",
+                        textScaleFactor: 1.2,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
             ),
             Container(
               padding: EdgeInsets.only(right: 20.0, bottom: 10.0),

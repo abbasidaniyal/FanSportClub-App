@@ -14,9 +14,8 @@ mixin ITFPlayerRankingModel on Model {
 
   Future<bool> getRankingData(String token) async {
     await http.get(
-        "http://api.fansportsclub.com/tournaments/player-ranking-itf/",
-        headers: {'Authorization': 'Token $token',
-      'Authorization': 'Bearer $token',}).then(
+        "$baseUrl/tournaments/player-ranking-itf/",
+        headers: {'Authorization': '$token',}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
           itfRanking = [];
