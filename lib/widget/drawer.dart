@@ -21,12 +21,9 @@ class MyDrawer extends StatelessWidget {
     MainModel model = ScopedModel.of(context);
     return Drawer(
       child: Container(
-        padding: EdgeInsets.only(left: 20.0, top: 25),
+        padding: EdgeInsets.only(left: 20.0, top: 10),
         color: Theme.of(context).primaryColor,
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.start,
-
           children: <Widget>[
             GestureDetector(
               onTap: () {
@@ -56,7 +53,7 @@ class MyDrawer extends StatelessWidget {
                         alignment: Alignment.center,
                       )
                     : Container(
-                      // alignment: Alignment(-1, 0),
+                        // alignment: Alignment(-1, 0),
                         width: MediaQuery.of(context).size.width * 0.35,
                         height: MediaQuery.of(context).size.width * 0.35,
                         decoration: BoxDecoration(
@@ -81,7 +78,6 @@ class MyDrawer extends StatelessWidget {
                           ),
                         ),
                       ),
-                
               ),
             ),
             Container(
@@ -108,7 +104,7 @@ class MyDrawer extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
+                                .push(CupertinoPageRoute(builder: (context) {
                               return ProfileUpdatePage(model.loggedInUser);
                             }));
                           },
@@ -292,17 +288,28 @@ class MyDrawer extends StatelessWidget {
                   color: Theme.of(context).textTheme.title.color,
                 ),
               ),
-              onTap: () async {
-                await model.logoutUser().then(
+              onTap: () {
+                // Navigator.pop(context);
+
+                model.logoutUser().then(
                   (onValue) {
-                    Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, a, s) {
-                          return LandingPage();
-                        },
-                      ),
-                    );
+                    model.isUserSignedIn
+                        ? Navigator.pushReplacement(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) {
+                                return LandingPage();
+                              },
+                            ),
+                          )
+                        : Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) {
+                                return LandingPage();
+                              },
+                            ),
+                          );
                   },
                 );
               },
