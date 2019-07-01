@@ -6,6 +6,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model/main.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -20,6 +21,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
+    
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
@@ -34,6 +36,8 @@ class CustomSearchDelegate extends SearchDelegate {
 
     final results = model.playerProfiles
         .where((a) => a.name.toLowerCase().contains(query.toLowerCase()));
+
+        
 
     return ListView.builder(
       padding: EdgeInsets.all(0),

@@ -29,16 +29,25 @@ mixin GalleryModel on Model {
         a["user_tags"].forEach((x) {
           users.add(
             UserProfile(
-                city: x["city"],
-                dob: x["date_of_birth"],
-                backhandStyle: x["backhand_style"],
-                name: x["name"],
-                roleModel: x["role_model"],
-                strongHand: x["strong_hand"],
-                homeClub: x["home_club"],
-                achievements: x["achievements"],
-                profilePhotoUrl: x["profile_photo"],
-                id: x["player_id"]),
+              city: x["city"],
+              dob: DateTime.parse(x["date_of_birth"]),
+              backhandStyle: x["backhand_style"] == "DOUBLE"
+                  ? BACKHANDSTYLE.DOUBLE
+                  : x["backhand_style"] == "SINGLE"
+                      ? BACKHANDSTYLE.SINGLE
+                      : BACKHANDSTYLE.MIXED,
+              name: x["name"],
+              roleModel: x["role_model"],
+              strongHand: x["strong_hand"] == "RIGHT"
+                  ? STRONGHAND.RIGHT
+                  : STRONGHAND.LEFT,
+              homeClub: x["home_club"],
+              achievements: x["achievements"],
+              profilePhotoUrl: x["profile_photo"],
+              id: x["player_id"],
+              gender:
+                  x["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
+            ),
           );
         });
         galleryImages.add(GalleryImage(

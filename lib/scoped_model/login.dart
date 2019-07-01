@@ -190,6 +190,8 @@ mixin Login on Model {
   }
 
   Future<bool> googleSignIn() async {
+    GoogleSignIn googleUser = GoogleSignIn();
+
     try {
       GoogleSignInAccount signedInUser = await googleUser.signIn();
 
@@ -204,6 +206,8 @@ mixin Login on Model {
   }
 
   Future<bool> facebookSignIn() async {
+    FacebookLogin facebookUser = FacebookLogin();
+
     try {
       facebookSignedInUser = await facebookUser
           .logInWithReadPermissions(["email", 'public_profile']);

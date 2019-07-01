@@ -237,17 +237,17 @@ class _SigningPageState extends State<SigningPage> {
                         });
                         MainModel model = ScopedModel.of(context);
                         bool successSignIn = await model.googleSignIn();
-                        // print("GOOGLE SIGN IN : $successSignIn");
+                        print("GOOGLE SIGN IN : $successSignIn");
                         if (successSignIn) {
                           bool successLogin = await model.serverGoogleOauth();
-                          // print("SERVER OAUTH : $successLogin");
+                          print("SERVER OAUTH : $successLogin");
                           if (successLogin) {
                             bool convertToken =
                                 await model.convertGoogleToken();
-                            // print("CONVERT TOKEN : $convertToken");
+                            print("CONVERT TOKEN : $convertToken");
                             if (convertToken) {
                               int newUser = await model.initLoggedInUser();
-                              // print("INIT LOGGED : $newUser");
+                              print("INIT LOGGED : $newUser");
                               if (newUser == 1) {
                                 showDialog(
                                     context: context,

@@ -99,10 +99,11 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
           },
         );
       }
+    } else {
+      setState(() {
+        isLoading = false;
+      });
     }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   void uploadImage() async {
@@ -565,17 +566,21 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                     onTap: uploadImage,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.08,
-                    height: MediaQuery.of(context).size.width * 0.08,
-                    margin: EdgeInsets.only(top: 130, left: 125.0),
+                    width: MediaQuery.of(context).size.width * 0.10,
+                    height: MediaQuery.of(context).size.width * 0.10,
+                    margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.32,
+                      left: MediaQuery.of(context).size.width * 0.28,
+                    ),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100.0),
                         color: Theme.of(context).primaryColor),
                     child: IconButton(
+                      alignment: Alignment.centerLeft,
                       icon: Icon(
-                        Icons.add_a_photo,
+                        Icons.add,
                         color: Theme.of(context).accentColor,
-                        size: 15.0,
+                        size: 25.0,
                       ),
                       onPressed: uploadImage,
                     ),
