@@ -56,7 +56,7 @@ mixin Login on Model {
       return 1;
     }
 
-    var userProfileID = json.decode(res.body)["profile"][0];
+    var userProfileID = json.decode(res.body)["profile"];
     print(userProfileID);
 
     http.Response res2;
@@ -75,16 +75,11 @@ mixin Login on Model {
     var userData = json.decode(res2.body);
 
     if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
-    loggedInUser = UserProfile(id: userData["player_id"]);
-
-    if (userData["name"] == "") {
-      notifyListeners();
-      return 2;
-    }
-
     loggedInUser = UserProfile(
-      city: userData["city"],
-      dob: DateTime.parse(userData["date_of_birth"]),
+      city: userData["city"] == null ? "" : userData["city"],
+      dob: userData["date_of_birth"] == null
+          ? null
+          : DateTime.parse(userData["date_of_birth"]),
       backhandStyle: userData["backhand_style"] == "DOUBLE"
           ? BACKHANDSTYLE.DOUBLE
           : userData["backhand_style"] == "SINGLE"
@@ -101,6 +96,12 @@ mixin Login on Model {
       gender: userData["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
       id: userData["player_id"],
     );
+
+    if (userData["name"] == "") {
+      notifyListeners();
+      return 2;
+    }
+
     notifyListeners();
     isUserSignedIn = true;
     return 3;
@@ -118,12 +119,18 @@ mixin Login on Model {
   Future<bool> logoutUser() async {
     token = null;
     loggedInUser = null;
+
     try {
-      GoogleSignIn().disconnect()..catchError((onError){});
-      FacebookLogin().logOut().catchError((onError){});
+      GoogleSignIn().disconnect().catchError((onError) {});
     } catch (e) {
       print("Error = $e");
     }
+    try {
+      FacebookLogin().logOut().catchError((onError) {});
+    } catch (e) {
+      print("Error = $e");
+    }
+
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
     isUserSignedIn = false;

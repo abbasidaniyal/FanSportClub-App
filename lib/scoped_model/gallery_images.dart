@@ -44,7 +44,7 @@ mixin GalleryModel on Model {
         galleryImages.add(GalleryImage(
           imageUrl: a["image"],
           tournamentTag: FSCTournament(
-            ageGroup: a["tournament_tag"]["age_group"],
+            // ageGroup: a["tournament_tag"]["age_group"],
             contactEmail: a["tournament_tag"]["coordinator_email"],
             contactNumber: a["tournament_tag"]["coordinator_contact_number"],
             contactPerson: a["tournament_tag"]["coordinator_name"],

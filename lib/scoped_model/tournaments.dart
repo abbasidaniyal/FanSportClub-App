@@ -67,43 +67,43 @@ mixin TournamentModel on Model {
         //print(res.body);
         fscTournaments = [];
         fsc = json.decode(res.body);
-        for (var event in fsc) {
+        for (var tournamentDetails in fsc) {
+          
           FSCTournament temp = FSCTournament(
-            tournamentName: event["tournament_name"],
-            ageGroup: event["age_group"],
-            venue: event["tournament_venue"],
-            date: DateTime.parse(event["date"] + " 12:00:00z"),
-            description: event["tournament_description"],
-            locationURL: event["event_location_url"],
-            contactNumber: event["coordinator_contact_number"],
-            contactEmail: event["coordinator_email"],
-            contactPerson: event["coordinator_name"],
-            tournamentWinner: event["tournament_winner"] != null
+            tournamentName: tournamentDetails["tournament_name"],
+            venue: tournamentDetails["tournament_venue"],
+            date: DateTime.parse(tournamentDetails["date"] + " 12:00:00z"),
+            description: tournamentDetails["tournament_description"],
+            locationURL: tournamentDetails["tournamentDetails_location_url"],
+            contactNumber: tournamentDetails["coordinator_contact_number"],
+            contactEmail: tournamentDetails["coordinator_email"],
+            contactPerson: tournamentDetails["coordinator_name"],
+            tournamentWinner: tournamentDetails["tournament_winner"] != null
                 ? UserProfile(
-                    city: event["tournament_winner"]["city"],
+                    city: tournamentDetails["tournament_winner"]["city"],
                     dob: DateTime.parse(
-                        event["tournament_winner"]["date_of_birth"]),
+                        tournamentDetails["tournament_winner"]["date_of_birth"]),
                     backhandStyle:
-                        event["tournament_winner"]["backhand_style"] == "DOUBLE"
+                        tournamentDetails["tournament_winner"]["backhand_style"] == "DOUBLE"
                             ? BACKHANDSTYLE.DOUBLE
-                            : event["tournament_winner"]["backhand_style"] ==
+                            : tournamentDetails["tournament_winner"]["backhand_style"] ==
                                     "SINGLE"
                                 ? BACKHANDSTYLE.SINGLE
                                 : BACKHANDSTYLE.MIXED,
-                    name: event["tournament_winner"]["name"],
-                    roleModel: event["tournament_winner"]["role_model"],
+                    name: tournamentDetails["tournament_winner"]["name"],
+                    roleModel: tournamentDetails["tournament_winner"]["role_model"],
                     strongHand:
-                        event["tournament_winner"]["strong_hand"] == "LEFT"
+                        tournamentDetails["tournament_winner"]["strong_hand"] == "LEFT"
                             ? STRONGHAND.LEFT
                             : STRONGHAND.RIGHT,
-                    homeClub: event["tournament_winner"]["home_club"],
-                    achievements: event["tournament_winner"]["achievements"],
-                    profilePhotoUrl: event["tournament_winner"]
+                    homeClub: tournamentDetails["tournament_winner"]["home_club"],
+                    achievements: tournamentDetails["tournament_winner"]["achievements"],
+                    profilePhotoUrl: tournamentDetails["tournament_winner"]
                         ["profile_photo"],
-                    gender: event["tournament_winner"]["gender"] == "M"
+                    gender: tournamentDetails["tournament_winner"]["gender"] == "M"
                         ? GENDER.MALE
                         : GENDER.FEMALE,
-                    id: event["tournament_winner"]["player_id"])
+                    id: tournamentDetails["tournament_winner"]["player_id"])
                 : null,
           );
 

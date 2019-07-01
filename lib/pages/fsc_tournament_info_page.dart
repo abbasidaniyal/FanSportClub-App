@@ -123,7 +123,8 @@ class FSCInfoPage extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: Text(
-                              tournamentData.ageGroup.toString(),
+                              "",
+                              // tournamentData.ageGroup.toString(),
                               textScaleFactor: 1,
                               style: TextStyle(fontSize: 15),
                             ),

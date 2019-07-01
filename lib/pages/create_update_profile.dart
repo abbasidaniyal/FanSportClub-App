@@ -24,6 +24,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   File profileUploadedImage;
   Map<String, String> profileData = {};
   GlobalKey<FormState> _key = GlobalKey<FormState>();
+  bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,9 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
   }
 
   void submitProfile() async {
+    setState(() {
+      isLoading = true;
+    });
     if (_key.currentState.validate()) {
       _key.currentState.save();
       print(profileData);
@@ -62,6 +66,9 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                         child: Text("Ok"),
                         onPressed: () {
                           Navigator.of(context).pop();
+                          setState(() {
+                            isLoading = false;
+                          });
                         },
                       )
                     ],
@@ -82,6 +89,9 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                   child: Text("Ok"),
                   onPressed: () {
                     Navigator.of(context).pop();
+                    setState(() {
+                      isLoading = false;
+                    });
                   },
                 )
               ],
@@ -90,6 +100,9 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
         );
       }
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void uploadImage() async {
@@ -562,7 +575,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                       icon: Icon(
                         Icons.add_a_photo,
                         color: Theme.of(context).accentColor,
-                        size: 20.0,
+                        size: 15.0,
                       ),
                       onPressed: uploadImage,
                     ),
@@ -717,14 +730,14 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
           height: MediaQuery.of(context).size.height * 0.06,
           alignment: Alignment(0.0, 0.0),
           child: InkWell(
-              child: Builder(builder: (context) {
-                return Text(
-                  "Submit Changes",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 24, color: Theme.of(context).accentColor),
-                );
-              }),
+              child: isLoading
+                  ? CircularProgressIndicator()
+                  : Text(
+                      "Submit Changes",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 24, color: Theme.of(context).accentColor),
+                    ),
               onTap: submitProfile)),
     );
   }

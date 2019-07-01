@@ -114,10 +114,14 @@ class _LandingPageState extends State<LandingPage> {
                   onTap: () async {
                     // MainModel model = ScopedModel.of(context);
                     // await model.getGeneralToken("fsc", "fsc");
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      return CalendarPage();
-                    }));
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CalendarPage();
+                        },
+                      ),
+                    );
                     // Navigator.pop(context);
                   },
                 ),
