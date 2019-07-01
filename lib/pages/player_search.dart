@@ -5,8 +5,46 @@ import 'package:scoped_model/scoped_model.dart';
 
 import '../scoped_model/main.dart';
 
-class CustomSearchDelegate extends SearchDelegate {
+class PlayerSearch extends StatefulWidget {
+  @override
+  _PlayerSearchState createState() => _PlayerSearchState();
+}
 
+class _PlayerSearchState extends State<PlayerSearch> {
+  bool loadingStatus;
+  @override
+  void initState() {
+    loadingStatus = true;
+    MainModel model = ScopedModel.of(context);
+    model.intiProfileData(model.token).then((success) {
+      if (success) {
+        setState(() {
+          loadingStatus = false;
+        });
+        showSearch(
+          context: context,
+          delegate: CustomSearchDelegate(),
+        ).then((onValue) {
+          Navigator.pop(context);
+        });
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: loadingStatus
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -21,11 +59,11 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildLeading(BuildContext context) {
-    
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
         close(context, query);
+        // Navigator.pop(context);
       },
     );
   }
@@ -36,8 +74,6 @@ class CustomSearchDelegate extends SearchDelegate {
 
     final results = model.playerProfiles
         .where((a) => a.name.toLowerCase().contains(query.toLowerCase()));
-
-        
 
     return ListView.builder(
       padding: EdgeInsets.all(0),

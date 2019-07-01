@@ -26,7 +26,6 @@ class MyDrawer extends StatelessWidget {
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overscroll) {
             overscroll.disallowGlow();
-            
           },
           child: ListView(
             children: <Widget>[
@@ -230,13 +229,12 @@ class MyDrawer extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    model.intiProfileData(model.token);
-
                     Navigator.pop(context);
-
-                    showSearch(
-                      context: context,
-                      delegate: CustomSearchDelegate(),
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => PlayerSearch(),
+                      ),
                     );
                   }),
               ListTile(
