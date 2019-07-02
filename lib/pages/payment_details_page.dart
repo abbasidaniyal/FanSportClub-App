@@ -12,8 +12,25 @@ class PaymentConfirmPage extends StatefulWidget {
 }
 
 class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
-  var paymentData = {};
+  Map<String, dynamic> paymentData = {};
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+
+  void _submitForm(context) async {
+    MainModel model = ScopedModel.of(context);
+    //validate and save and them send. Write validators
+    if (_globalKey.currentState.validate()) {
+      _globalKey.currentState.save();
+      bool generateOrderId = await model.getOrderId(
+          eventID: paymentData["eventID"],
+          token: model.token,
+          userID: model.loggedInUser.id);
+      if (generateOrderId) {
+        bool success = await model.payment();
+        if (success) {
+        } else {}
+      } else {}
+    }
+  }
 
   @override
   void initState() {
@@ -60,6 +77,10 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   validator: (value) {
                     return value.isEmpty ? "Please enter a valid value" : null;
                   },
+                  onSaved: (value) {
+                    paymentData["name"] = value;
+                    paymentData["userID"] = model.loggedInUser.id;
+                  },
                   enabled: false,
                   initialValue: model.loggedInUser.name,
                   decoration: InputDecoration(
@@ -79,7 +100,9 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                     // return value.isEmpty ? "Please enter a valid value" : null;
                   },
                   initialValue: model.selectedTournamentEvents.first,
-                  onSaved: (d) {},
+                  onSaved: (value) {
+                    paymentData["eventID"] = value.id;
+                  },
 
                   //
                   builder: (FormFieldState<TournamentEvent> state) {
@@ -144,6 +167,9 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   validator: (value) {
                     return value.isEmpty ? "Please enter a valid value" : null;
                   },
+                  onSaved: (value) {
+                    paymentData["email"] = value;
+                  },
                   // enabled: false,
                   initialValue: model.loggedInUser.email,
                   decoration: InputDecoration(
@@ -162,6 +188,9 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   keyboardType: TextInputType.phone,
                   validator: (value) {
                     return value.isEmpty ? "Please enter a valid value" : null;
+                  },
+                  onSaved: (value) {
+                    paymentData["contact"] = value;
                   },
                   // enabled: false,
                   // initialValue: model.loggedInUser.,
@@ -193,7 +222,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(10.0),
+                margin: EdgeInsets.only(top: 10.0, left: 15, bottom: 20),
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -206,8 +235,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                     Container(
                       child: Text(
                         "₹ ${model.selectedEvent.entryFee.toString()}",
-                        style: TextStyle(
-                            color: Colors.grey.shade700, fontSize: 15),
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),
                   ],
@@ -217,16 +245,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                 margin: EdgeInsets.all(10.0),
                 padding: EdgeInsets.all(5.0),
                 child: Center(
-                  child: MyButton(
-                    "Submit",
-                    () async {
-                      MainModel model = ScopedModel.of(context);
-                      //validate and save and them send. Write validators
-                      bool success = await model.payment();
-                      if (success) {
-                      } else {}
-                    },
-                  ),
+                  child: MyButton("Submit", _submitForm,args: context,),
                 ),
               ),
             ],

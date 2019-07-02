@@ -1,9 +1,32 @@
-import 'package:http/http.dart';
+import 'dart:convert';
+
+import 'package:Fan_Sports/scoped_model/baseUrl.dart';
+import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
 // import 'package:razorpay_plugin/razorpay_plugin.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 mixin PaymentModel on Model {
+  String orderID;
+
+  Future<bool> getOrderId({String token, int eventID, int userID}) async {
+    try {
+      http.Response res = await http.post("$baseUrl/payments/create-payment/",
+          headers: {'Authorization': token, "Content-Type": "application/json"},
+          body: json.encode({
+            "event_id": eventID.toString(),
+            "user_id": userID.toString(),
+          }));
+
+      print(res.statusCode);
+      print(res.body);
+      return true;
+    } catch (error) {
+      print("ERROR : $error");
+      return false;
+    }
+  }
+
   Future<bool> payment({
     String address,
     String name,
@@ -52,7 +75,7 @@ mixin PaymentModel on Model {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-    
+
     await _razorpay.open(options);
 
     print("response $paymentResponse");
@@ -62,7 +85,7 @@ mixin PaymentModel on Model {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print("SUCCESS");// Do something when payment succeeds
+    print("SUCCESS"); // Do something when payment succeeds
     // response.signature
     // print("Success" + response.signature);
     print(response.paymentId);
