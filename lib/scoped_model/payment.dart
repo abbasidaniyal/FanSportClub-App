@@ -17,9 +17,14 @@ mixin PaymentModel on Model {
             "event_id": eventID.toString(),
             "user_id": userID.toString(),
           }));
+          
+      if (res.statusCode != 200 && res.statusCode != 201) return false;
 
       print(res.statusCode);
       print(res.body);
+      orderID = json.decode(res.body)["order_id"];
+      notifyListeners();
+
       return true;
     } catch (error) {
       print("ERROR : $error");
