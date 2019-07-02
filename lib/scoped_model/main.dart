@@ -1,4 +1,5 @@
 
+import 'package:Fan_Sports/scoped_model/tournament_register.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './itf_player_ranking.dart';
@@ -17,5 +18,6 @@ class MainModel extends Model
         Login,
         SendCIENMail,
         GalleryModel,
+        TournamentReigisterModel,
         
         PaymentModel {}

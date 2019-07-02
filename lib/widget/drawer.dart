@@ -281,11 +281,11 @@ class MyDrawer extends StatelessWidget {
                 ),
                 onTap: () async {
                   await model.payment(
-                      address: "",
-                      amountInRZPSyntax: "",
-                      contact: "",
-                      description: "",
-                      email: "",
+                      address: "TEST ADDRESS",
+                      amountInRZPSyntax: 12000,
+                      contact: "+919999997762",
+                      description: "TEST TRANSACTION",
+                      email: "test@tets.com",
                       name: "TESTER");
                 },
               ),

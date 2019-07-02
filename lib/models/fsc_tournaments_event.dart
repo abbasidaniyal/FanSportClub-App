@@ -1,16 +1,13 @@
 class TournamentEvent {
-  int eventID;
-  double entryFee;
-  String ageCategory;
-  String ageCategoryDescription;
+  int id;
+  int entryFee;
+  int ageCategory;
   String eventType;
-  String eventTypeDescription;
 
-  TournamentEvent(
-      {this.ageCategory,
-      this.ageCategoryDescription,
-      this.entryFee,
-      this.eventID,
-      this.eventType,
-      this.eventTypeDescription});
+  TournamentEvent({this.id, this.ageCategory, this.entryFee, this.eventType});
+
+  @override
+  String toString() {
+    return eventType + " +" + ageCategory.toString();
+  }
 }

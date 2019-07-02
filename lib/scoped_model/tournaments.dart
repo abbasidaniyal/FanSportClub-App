@@ -76,6 +76,7 @@ mixin TournamentModel on Model {
             description: tournamentDetails["tournament_description"],
             locationURL: tournamentDetails["tournamentDetails_location_url"],
             contactNumber: tournamentDetails["coordinator_contact_number"],
+            id: tournamentDetails["id"],
             contactEmail: tournamentDetails["coordinator_email"],
             contactPerson: tournamentDetails["coordinator_name"],
             tournamentWinner: tournamentDetails["tournament_winner"] != null

@@ -13,11 +13,25 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'payment_details_page.dart';
 import 'player_profile_page.dart';
 
-class FSCInfoPage extends StatelessWidget {
+class FSCInfoPage extends StatefulWidget {
   final FSCTournament tournamentData;
   final int index;
-  String website = "www.fansportsclub.com";
+
   FSCInfoPage(this.tournamentData, this.index);
+
+  @override
+  _FSCInfoPageState createState() => _FSCInfoPageState();
+}
+
+class _FSCInfoPageState extends State<FSCInfoPage> {
+  String website = "www.fansportsclub.com";
+  bool isLoading = false;
+
+  void changeStatus() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +65,7 @@ class FSCInfoPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 10.0),
                         child: Text(
-                          tournamentData.tournamentName,
+                          widget.tournamentData.tournamentName,
                           textScaleFactor: 1,
                           style: TextStyle(
                               fontWeight: FontWeight.values[5], fontSize: 18),
@@ -73,7 +87,7 @@ class FSCInfoPage extends StatelessWidget {
                             margin: EdgeInsets.symmetric(vertical: 5.0),
                             child: Text(
                               DateFormat("dd/MM/yyy")
-                                  .format(tournamentData.date)
+                                  .format(widget.tournamentData.date)
                                   .toString(),
                               style: TextStyle(fontSize: 15),
                               textScaleFactor: 1,
@@ -99,7 +113,7 @@ class FSCInfoPage extends StatelessWidget {
                             child: Container(
                               margin: EdgeInsets.symmetric(vertical: 5.0),
                               child: Text(
-                                tournamentData.venue.toString(),
+                                widget.tournamentData.venue.toString(),
                                 textScaleFactor: 1,
                                 maxLines: 5,
                                 style: TextStyle(fontSize: 15),
@@ -148,14 +162,14 @@ class FSCInfoPage extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.only(bottom: 5.0),
                             child: Text(
-                              tournamentData.description.toString(),
+                              widget.tournamentData.description.toString(),
                               textScaleFactor: 1,
                               style: TextStyle(fontSize: 15),
                             ),
                           ),
                         ],
                       ),
-                      tournamentData.contactPerson != null
+                      widget.tournamentData.contactPerson != null
                           ? Row(
                               children: <Widget>[
                                 Container(
@@ -171,7 +185,7 @@ class FSCInfoPage extends StatelessWidget {
                                 Container(
                                   margin: EdgeInsets.symmetric(vertical: 5.0),
                                   child: Text(
-                                    tournamentData.contactPerson,
+                                    widget.tournamentData.contactPerson,
                                     style: TextStyle(fontSize: 15),
                                     textScaleFactor: 1,
                                   ),
@@ -179,7 +193,7 @@ class FSCInfoPage extends StatelessWidget {
                               ],
                             )
                           : Container(),
-                      tournamentData.contactNumber != null
+                      widget.tournamentData.contactNumber != null
                           ? Row(
                               children: <Widget>[
                                 Container(
@@ -197,7 +211,8 @@ class FSCInfoPage extends StatelessWidget {
                                   child: InkWell(
                                     child: Container(
                                       child: Text(
-                                        tournamentData.contactNumber.toString(),
+                                        widget.tournamentData.contactNumber
+                                            .toString(),
                                         style: TextStyle(
                                             color: Colors.blue[700],
                                             fontSize: 15),
@@ -207,7 +222,7 @@ class FSCInfoPage extends StatelessWidget {
                                     ),
                                     onTap: () {
                                       launch(
-                                        "tel://+91${tournamentData.contactNumber}",
+                                        "tel://+91${widget.tournamentData.contactNumber}",
                                       );
                                     },
                                   ),
@@ -215,7 +230,7 @@ class FSCInfoPage extends StatelessWidget {
                               ],
                             )
                           : Container(),
-                      tournamentData.contactEmail != null
+                      widget.tournamentData.contactEmail != null
                           ? Row(
                               children: <Widget>[
                                 Container(
@@ -235,7 +250,7 @@ class FSCInfoPage extends StatelessWidget {
                                         margin:
                                             EdgeInsets.symmetric(vertical: 5.0),
                                         child: Text(
-                                          tournamentData.contactEmail,
+                                          widget.tournamentData.contactEmail,
                                           style: TextStyle(
                                               color: Colors.blue[700],
                                               fontSize: 15),
@@ -245,7 +260,7 @@ class FSCInfoPage extends StatelessWidget {
                                       ),
                                       onTap: () {
                                         launch(
-                                          "mailto:${tournamentData.contactEmail}?subject=Tournament%20${tournamentData.tournamentName}%20Enquiry%20From%20App",
+                                          "mailto:${widget.tournamentData.contactEmail}?subject=Tournament%20${widget.tournamentData.tournamentName}%20Enquiry%20From%20App",
                                         );
                                       },
                                     ),
@@ -281,7 +296,7 @@ class FSCInfoPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      tournamentData.locationURL != null
+                      widget.tournamentData.locationURL != null
                           ? Container(
                               child: Row(
                                 children: <Widget>[
@@ -310,7 +325,8 @@ class FSCInfoPage extends StatelessWidget {
                                           size: 15,
                                         ),
                                         onPressed: () {
-                                          launch(tournamentData.locationURL);
+                                          launch(widget
+                                              .tournamentData.locationURL);
                                         },
                                       ),
                                     ),
@@ -319,7 +335,7 @@ class FSCInfoPage extends StatelessWidget {
                               ),
                             )
                           : Container(),
-                      tournamentData.tournamentWinner != null
+                      widget.tournamentData.tournamentWinner != null
                           ? Container(
                               child: Row(
                                 children: <Widget>[
@@ -338,7 +354,8 @@ class FSCInfoPage extends StatelessWidget {
                                       margin:
                                           EdgeInsets.symmetric(vertical: 5.0),
                                       child: Text(
-                                        tournamentData.tournamentWinner.name,
+                                        widget.tournamentData.tournamentWinner
+                                            .name,
                                         style: TextStyle(
                                             fontWeight: FontWeight.values[5],
                                             fontSize: 15,
@@ -348,8 +365,8 @@ class FSCInfoPage extends StatelessWidget {
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(builder: (context) {
-                                        return PlayerProfilePage(
-                                            tournamentData.tournamentWinner);
+                                        return PlayerProfilePage(widget
+                                            .tournamentData.tournamentWinner);
                                       }));
                                     },
                                   ),
@@ -374,18 +391,44 @@ class FSCInfoPage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.06,
                 alignment: Alignment(0.0, 0.0),
                 child: InkWell(
-                  child: Text(
-                    "Register Now",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 24, color: Theme.of(context).accentColor),
-                  ),
-                  onTap: () {
+                  child: isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "Register Now",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: Theme.of(context).accentColor),
+                        ),
+                  onTap: () async {
                     //GO TO PAYMENT CONFIRMPAGE
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return PaymentConfirmPage();
-                    }));
+                    changeStatus();
+                    bool success = await model.selectTournamentGetEvents(
+                        widget.tournamentData, model.token);
+                    if (success) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return PaymentConfirmPage();
+                      }));
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: Text("Please try again"),
+                              title: Text("Something went wrong"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text("Ok"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                      changeStatus();
+                    }
                   },
                 ))
             : Container(

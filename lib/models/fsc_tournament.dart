@@ -6,6 +6,7 @@ class FSCTournament {
   String tournamentName;
   DateTime date;
   String venue;
+  int id;
   // String ageGroup;
 
   String description;
@@ -15,17 +16,19 @@ class FSCTournament {
   String contactPerson;
   UserProfile tournamentWinner;
 
-  List<TournamentEvent> eventsList;
+  // List<TournamentEvent> eventsLis>t;
 
-  FSCTournament(
-      {this.tournamentName,
-      this.date,
-      this.venue,
-      this.eventsList,
-      this.description,
-      this.locationURL,
-      this.contactPerson,
-      this.contactNumber,
-      this.contactEmail,
-      this.tournamentWinner});
+  FSCTournament({
+    this.tournamentName,
+    this.date,
+    this.venue,
+    this.id,
+    // this.eventsList,
+    this.description,
+    this.locationURL,
+    this.contactPerson,
+    this.contactNumber,
+    this.contactEmail,
+    this.tournamentWinner,
+  });
 }
