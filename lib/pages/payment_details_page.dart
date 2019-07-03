@@ -17,21 +17,34 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
   Map<String, dynamic> paymentData = {};
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
-  void handlePaymentSuccess(PaymentSuccessResponse response) {
-    print("SUCCESS"); // Do something when payment succeeds
-    // response.signature
+  void handlePaymentSuccess(PaymentSuccessResponse response) async {
+    print("SUCCESS");
     print("Signature :" + response.signature);
     print("Payment ID :" + response.paymentId);
     print("Order ID :" + response.orderId);
 
-    //model. VERIFY SUGNATURE WITH BACKEND then
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return StatusPage();
-    }));
+    MainModel model = ScopedModel.of(context);
+
+    bool success = await model.verifyPayment(
+      response.signature,
+      response.orderId,
+      response.paymentId,
+      model.token,
+    );
+
+    if (success) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return StatusPage();
+          },
+        ),
+      );
+    }
   }
 
   void handlePaymentError(PaymentFailureResponse response) {
-    // Do something when payment fails
     print("ERROR");
     print("Message : " + response.message);
     print("Code : " + response.code.toString());

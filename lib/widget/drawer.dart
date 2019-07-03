@@ -1,5 +1,6 @@
 import 'package:Fan_Sports/pages/UnAuthorizedUser/landing_page.dart';
 import 'package:Fan_Sports/pages/create_update_profile.dart';
+import 'package:Fan_Sports/pages/payment_history_page.dart';
 import 'package:Fan_Sports/pages/player_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -271,23 +272,22 @@ class MyDrawer extends StatelessWidget {
                   );
                 },
               ),
-              // ListTile(
-              //   contentPadding: EdgeInsets.only(left: 25.0),
-              //   title: Text(
-              //     'Payment',
-              //     style: TextStyle(
-              //       color: Theme.of(context).textTheme.title.color,
-              //     ),
-              //   ),
-              //   onTap: () async {
-              //     await model.payment(
-              //         address: "TEST ADDRESS",
-              //         contact: "+919999997762",
-              //         description: "TEST TRANSACTION",
-              //         email: "test@tets.com",
-              //         name: "TESTER");
-              //   },
-              // ),
+              !model.isUserSignedIn
+                  ? Container()
+                  : ListTile(
+                      contentPadding: EdgeInsets.only(left: 25.0),
+                      title: Text(
+                        'Payment History',
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.title.color,
+                        ),
+                      ),
+                      onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                          return PaymentHistory();
+                        }));
+                      },
+                    ),
               ListTile(
                 contentPadding: EdgeInsets.only(left: 25.0),
                 title: Text(

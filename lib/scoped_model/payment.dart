@@ -9,6 +9,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 mixin PaymentModel on Model {
   String orderID;
+  int localPaymentId;
 
   Future<bool> getOrderId({
     String token,
@@ -20,8 +21,8 @@ mixin PaymentModel on Model {
       http.Response res = await http.post("$baseUrl/payments/create-payment/",
           headers: {'Authorization': token, "Content-Type": "application/json"},
           body: json.encode({
-            "event_id": eventID.toString(),
-            "user_id": userID.toString(),
+            "event": eventID.toString(),
+            "user": userID.toString(),
           }));
 
       if (res.statusCode == 403) {
@@ -39,11 +40,12 @@ mixin PaymentModel on Model {
       print(res.statusCode);
       print(res.body);
       orderID = json.decode(res.body)["order_id"];
+      localPaymentId = json.decode(res.body)["payment_id"];
       notifyListeners();
 
       return true;
     } catch (error) {
-      print("ERROR : $error");
+      print("ERROR Create Order : $error");
       showDialogFunction(
           "Something went wrong. Try again or contact tounament admin");
       return false;
@@ -83,11 +85,25 @@ mixin PaymentModel on Model {
   }
 
   Future<bool> verifyPayment(
-      String signature, String orderID, String paymentID) async {
+      String signature, String orderID, String paymentID, String token) async {
     try {
-      http.Response res = await http.post("$baseUrl/");
+      http.Response res = await http.patch(
+        "$baseUrl/payments/verify-payment/$localPaymentId",
+        headers: {'Authorization': token, "Content-Type": "application/json"},
+        body: json.encode({
+          "razorpay_payment_id": paymentID,
+          "razorpay_signature": signature,
+          "two_way_auth": "C",
+        }),
+      );
+
+      if (res.statusCode != 200 && res.statusCode != 201) return false;
+
+      print(res.body);
+
+      return true;
     } catch (error) {
-      print("Error : $error");
+      print("Error Verify Payment : $error");
       return false;
     }
   }
