@@ -85,16 +85,20 @@ mixin Login on Model {
           : userData["backhand_style"] == "SINGLE"
               ? BACKHANDSTYLE.SINGLE
               : BACKHANDSTYLE.MIXED,
+
       name: userData["name"],
       roleModel: userData["role_model"],
       strongHand: userData["strong_hand"] == "LEFT"
           ? STRONGHAND.LEFT
           : STRONGHAND.RIGHT,
       homeClub: userData["home_club"],
+      email: userData["registered_user"]["email"],
       achievements: userData["achievements"],
       profilePhotoUrl: userData["profile_photo"],
       gender: userData["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
       id: userData["player_id"],
+      
+      
     );
 
     if (userData["name"] == "") {

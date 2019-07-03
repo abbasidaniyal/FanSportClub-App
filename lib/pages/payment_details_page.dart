@@ -1,10 +1,12 @@
 import 'package:Fan_Sports/models/fsc_tournaments_event.dart';
 import 'package:Fan_Sports/widget/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model/main.dart';
+import 'paymentSuccessPage.dart';
 
 class PaymentConfirmPage extends StatefulWidget {
   @override
@@ -15,17 +17,81 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
   Map<String, dynamic> paymentData = {};
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
+  void handlePaymentSuccess(PaymentSuccessResponse response) {
+    print("SUCCESS"); // Do something when payment succeeds
+    // response.signature
+    print("Signature :" + response.signature);
+    print("Payment ID :" + response.paymentId);
+    print("Order ID :" + response.orderId);
+
+    //model. VERIFY SUGNATURE WITH BACKEND then
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return StatusPage();
+    }));
+  }
+
+  void handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+    print("ERROR");
+    print("Message : " + response.message);
+    print("Code : " + response.code.toString());
+    errorDialog("Could not precess payment");
+    // response.code
+  }
+
+  void handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet was selected
+    print("WALLET");
+    print(response.walletName);
+    // print(response.);
+  }
+
+  void errorDialog(String errorText) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text(errorText),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+    // showDialog(
+
+    //   AlertDialog()
+    // );
+  }
+
   void _submitForm(context) async {
     MainModel model = ScopedModel.of(context);
     //validate and save and them send. Write validators
     if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
       bool generateOrderId = await model.getOrderId(
-          eventID: paymentData["eventID"],
-          token: model.token,
-          userID: model.loggedInUser.id);
+        eventID: paymentData["eventID"],
+        token: model.token,
+        userID: model.loggedInUser.id,
+        showDialogFunction: errorDialog,
+      );
       if (generateOrderId) {
-        bool success = await model.payment();
+        bool success = await model.payment(
+          contact: paymentData["contact"],
+          email: paymentData["email"],
+          name: paymentData["name"],
+          address: paymentData["address"],
+          description:
+              "Registration for event : EVENT ID = ${paymentData['eventID']}, by user : USER ID + ${model.loggedInUser.id}",
+          handleExternalWallet: handleExternalWallet,
+          handlePaymentError: handlePaymentError,
+          handlePaymentSuccess: handlePaymentSuccess,
+        );
         if (success) {
         } else {}
       } else {}
@@ -34,7 +100,6 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     MainModel model = ScopedModel.of(context);
     model.selectedEvent = model.selectedTournamentEvents.first;
     super.initState();
@@ -219,6 +284,9 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                     border: UnderlineInputBorder(),
                     contentPadding: EdgeInsets.all(5.0),
                   ),
+                  onSaved: (value) {
+                    paymentData["address"] = value;
+                  },
                 ),
               ),
               Container(
@@ -245,7 +313,11 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                 margin: EdgeInsets.all(10.0),
                 padding: EdgeInsets.all(5.0),
                 child: Center(
-                  child: MyButton("Submit", _submitForm,args: context,),
+                  child: MyButton(
+                    "Submit",
+                    _submitForm,
+                    args: context,
+                  ),
                 ),
               ),
             ],

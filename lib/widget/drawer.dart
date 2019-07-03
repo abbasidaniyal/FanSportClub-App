@@ -271,24 +271,23 @@ class MyDrawer extends StatelessWidget {
                   );
                 },
               ),
-              ListTile(
-                contentPadding: EdgeInsets.only(left: 25.0),
-                title: Text(
-                  'Payment',
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.title.color,
-                  ),
-                ),
-                onTap: () async {
-                  await model.payment(
-                      address: "TEST ADDRESS",
-                      amountInRZPSyntax: 12000,
-                      contact: "+919999997762",
-                      description: "TEST TRANSACTION",
-                      email: "test@tets.com",
-                      name: "TESTER");
-                },
-              ),
+              // ListTile(
+              //   contentPadding: EdgeInsets.only(left: 25.0),
+              //   title: Text(
+              //     'Payment',
+              //     style: TextStyle(
+              //       color: Theme.of(context).textTheme.title.color,
+              //     ),
+              //   ),
+              //   onTap: () async {
+              //     await model.payment(
+              //         address: "TEST ADDRESS",
+              //         contact: "+919999997762",
+              //         description: "TEST TRANSACTION",
+              //         email: "test@tets.com",
+              //         name: "TESTER");
+              //   },
+              // ),
               ListTile(
                 contentPadding: EdgeInsets.only(left: 25.0),
                 title: Text(

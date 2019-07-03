@@ -34,16 +34,18 @@ class UserProfile {
     return ((dob).difference(DateTime.now())).toString();
   }
 
-  UserProfile(
-      { this.name,
-       this.dob,
-       this.strongHand,
-       this.backhandStyle,
-      this.city,
-      this.homeClub,
-      @required this.id,
-      this.roleModel,
-      this.gender,
-      this.achievements,
-      this.profilePhotoUrl});
+  UserProfile({
+    this.name,
+    this.dob,
+    this.strongHand,
+    this.backhandStyle,
+    this.city,
+    this.homeClub,
+    @required this.id,
+    this.roleModel,
+    this.gender,
+    this.email,
+    this.achievements,
+    this.profilePhotoUrl,
+  });
 }

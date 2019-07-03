@@ -63,6 +63,8 @@ flutter:
     - assets/splashScreen.jpg
     - assets/itf-card.jpg
     - assets/about-cover.jpg
+    - assets/regret.png
+    - assets/success.gif
   
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
