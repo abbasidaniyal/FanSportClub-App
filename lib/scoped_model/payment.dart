@@ -24,8 +24,8 @@ mixin PaymentModel on Model {
             "event": eventID.toString(),
             "user": userID.toString(),
           }));
-
-      if (res.statusCode == 403) {
+      print(res.statusCode);
+      if (res.statusCode == 400) {
         showDialogFunction(
             "You can not register for this tournament as you have exceeded the limit of participation or you have already registered for this event.");
         return false;

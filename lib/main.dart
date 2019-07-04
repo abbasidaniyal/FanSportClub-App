@@ -9,19 +9,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  String token;
+  String token, refreshToken;
   preferences.containsKey("accessToken")
       ? token = preferences.get("accessToken")
       : token = null;
+  preferences.containsKey("refreshToken")
+      ? refreshToken = preferences.get("refreshToken")
+      : refreshToken = null;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((onValue) {
-    runApp(MyApp(token));
+    runApp(MyApp(token, refreshToken));
   });
 }
 
 class MyApp extends StatelessWidget {
   final String token;
-  MyApp(this.token);
+  final String refreshToken;
+  MyApp(this.token, this.refreshToken);
   @override
   Widget build(BuildContext context) {
     return ScopedModel(
@@ -51,9 +55,11 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (BuildContext context) {
             MainModel model = ScopedModel.of(context);
-            print("$token");
-            token!=null?model.autoLogin(token):model.getGeneralToken("fsc", "fsc");
-            return WelcomePage(token);
+            // print("$token");
+            token != null
+                ? model.autoLogin(token, refreshToken)
+                : model.getGeneralToken("fsc", "fsc");
+            return WelcomePage(token, refreshToken);
           },
         },
       ),

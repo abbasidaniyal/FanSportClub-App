@@ -85,7 +85,6 @@ mixin Login on Model {
           : userData["backhand_style"] == "SINGLE"
               ? BACKHANDSTYLE.SINGLE
               : BACKHANDSTYLE.MIXED,
-
       name: userData["name"],
       roleModel: userData["role_model"],
       strongHand: userData["strong_hand"] == "LEFT"
@@ -97,8 +96,6 @@ mixin Login on Model {
       profilePhotoUrl: userData["profile_photo"],
       gender: userData["player_gender"] == "MALE" ? GENDER.MALE : GENDER.FEMALE,
       id: userData["player_id"],
-      
-      
     );
 
     if (userData["name"] == "") {
@@ -111,13 +108,38 @@ mixin Login on Model {
     return 3;
   }
 
-  Future<Null> autoLogin(storedToken) async {
+  Future<Null> autoLogin(storedAccessToken, refreshToken) async {
     //REFRESH TOKEN
+    if (refreshToken == null) {
+      token = storedAccessToken;
+      await initLoggedInUser();
+      notifyListeners();
+      return;
+    } else {
+      try {
+        print("REFRESHING TOKEN SOCIAL");
+        http.Response res = await http.post(
+          "$baseUrl/users/oauth/token",
+          body: {
+            'grant_type': "refresh_token",
+            'client_id': 'L8s8yCGLgZwFmmcna6Z9Ly5gjjoDCiiVLeK2V4qK',
+            'refresh_token': refreshToken,
+          },
+        );
+        print("REFRESHING TOKEN SOCIAL");
+        token = "Bearer " + json.decode(res.body)["access_token"];
+        _preferences = await SharedPreferences.getInstance();
+        _preferences.setString("accessToken", token);
+        _preferences.setString(
+            "refreshToken", json.decode(res.body)["refresh_token"]);
 
-    token = storedToken;
-    await initLoggedInUser();
-    notifyListeners();
-    return;
+        await initLoggedInUser();
+        notifyListeners();
+        return;
+      } catch (e) {
+        print("ERROR = $e");
+      }
+    }
   }
 
   Future<bool> logoutUser() async {
@@ -137,6 +159,7 @@ mixin Login on Model {
 
     _preferences = await SharedPreferences.getInstance();
     _preferences.remove("accessToken");
+    _preferences.remove("refreshToken");
     isUserSignedIn = false;
     await getGeneralToken("fsc", "fsc");
     notifyListeners();
@@ -177,7 +200,7 @@ mixin Login on Model {
           'password': password,
         },
       );
-      // print(res.body);
+      print(res.body);
       if (res.statusCode != 200 && res.statusCode != 201) return false;
 
       token = "Token " + json.decode(res.body)["token"];
@@ -218,6 +241,7 @@ mixin Login on Model {
       // print(facebookSignedInUser.accessToken.token);
       // print(facebookSignedInUser.status);
       // print(facebookSignedInUser.errorMessage);
+      // facebookSignedInUser.
       return true;
     } catch (error) {
       print("Error = $error");
@@ -269,6 +293,7 @@ mixin Login on Model {
       token = "Bearer " + temp["access_token"];
       _preferences = await SharedPreferences.getInstance();
       _preferences.setString("accessToken", token);
+      _preferences.setString("refreshToken", temp["refresh_token"]);
       // print(token);
 
       notifyListeners();
@@ -294,6 +319,7 @@ mixin Login on Model {
       token = "Bearer " + temp["access_token"];
       _preferences = await SharedPreferences.getInstance();
       _preferences.setString("accessToken", token);
+      _preferences.setString("refreshToken", temp["refresh_token"]);
       print(token);
       notifyListeners();
       return true;

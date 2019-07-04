@@ -17,7 +17,10 @@ class _FscPage extends State<FscPage>
     with AutomaticKeepAliveClientMixin<FscPage> {
   bool isLoading = false;
   List<FSCTournament> array = [];
+  List<FSCTournament> listFSCTournament = [];
   DateTime selectedDate;
+  TextEditingController controller = TextEditingController();
+  
   bool isDateChanged = false;
 
   ScrollController _scrollController;
@@ -70,6 +73,7 @@ class _FscPage extends State<FscPage>
     if (fscStatus) {
       setState(() {
         array = model.fscTournaments;
+        listFSCTournament = model.fscTournaments;
         isLoading = false;
       });
     }
@@ -112,12 +116,28 @@ class _FscPage extends State<FscPage>
     }
   }
 
+    void filterTournaments(String query) {
+    print("REACHING ON CHANGE 1");
+    List<FSCTournament> results = listFSCTournament
+        .where(
+          (a) => a.venue.toLowerCase().contains(
+                query.toLowerCase(),
+              ),
+        )
+        .toList();
+    print("REACHING ON CHANGE 2");
+    setState(() {
+      array = results;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     // print("BEFORE BUILD"+isLoading + array.length);
     MainModel model = ScopedModel.of(context);
 
-    if (isLoading == true || array.length <= 0) {
+    if (isLoading == true) {
       // if (model.fscError == true) {
       //   return AlertDialog(
       //     content: Text(
@@ -151,19 +171,62 @@ class _FscPage extends State<FscPage>
                 showTodayAction: false,
               ),
             ),
-            Expanded(
-                child: Container(
-              margin: EdgeInsets.only(top: 10.0),
-              child: ListView.builder(
-                controller: _scrollController,
-                itemCount: array.length,
-                itemBuilder: (BuildContext context, int index) {
-                  checkDateChange();
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              // height: 40,
+              color: Colors.white,
+              // padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      controller: controller,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
 
-                  return FSCCardRender(array[index], imageUrl, index);
-                },
+                      decoration: InputDecoration.collapsed(
+                          fillColor: Colors.white,
+
+                          // filled: true,
+                          hintText: "Search Tournament Location"),
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.start,
+                      // textAlignVertical: TextAlignVertical.center,
+                      onChanged: (value) {
+                        print("REACHING $value");
+                        filterTournaments(value);
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      filterTournaments("");
+                      controller.clear();
+                    },
+                  )
+                ],
               ),
-            )),
+            ),
+            array.length <= 0
+                ? Center(child: Text("No Results Found"))
+                : Expanded(
+                    child: Container(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      itemCount: array.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        checkDateChange();
+
+                        return FSCCardRender(array[index], imageUrl, index);
+                      },
+                    ),
+                  )),
           ],
         ),
       );

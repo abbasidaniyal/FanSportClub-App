@@ -8,7 +8,8 @@ import './UnAuthorizedUser/landing_page.dart';
 
 class WelcomePage extends StatelessWidget {
   final String token;
-  WelcomePage(this.token);
+  final String refreshToken;
+  WelcomePage(this.token,this.refreshToken);
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
     return SplashScreen(

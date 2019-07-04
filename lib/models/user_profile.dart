@@ -41,7 +41,7 @@ class UserProfile {
     this.backhandStyle,
     this.city,
     this.homeClub,
-    @required this.id,
+    this.id,
     this.roleModel,
     this.gender,
     this.email,
