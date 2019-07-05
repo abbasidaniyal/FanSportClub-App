@@ -20,9 +20,18 @@ class _ItfPage extends State<ItfPage>
   bool isLoading = true;
   DateTime selectedDate;
   bool isDateChanged = false;
-  TextEditingController controller = TextEditingController();
+  TextEditingController controllerLocation = TextEditingController();
+  TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerGrade = TextEditingController();
+  TextEditingController controllerSurface = TextEditingController();
   ScrollController _scrollController;
+  String nameQuery = "";
+  String locationQuery = "";
+  String gardeQuery = "";
+  String surfaceQuery = "";
+
   final double elementHeight = 150.0;
+
   final String imageUrl = 'assets/logoITF.jpg';
   List<ITFTournament> array = [];
   bool get wantKeepAlive => true;
@@ -79,20 +88,104 @@ class _ItfPage extends State<ItfPage>
     }
   }
 
-  void filterTournaments(String query) {
+  void updateFilterTournaments() {
     print("REACHING ON CHANGE 1");
+
     List<ITFTournament> results = listOfTournaments
         .where(
           (a) => a.venue.toLowerCase().contains(
-                query.toLowerCase(),
+                locationQuery.toLowerCase(),
               ),
         )
         .toList();
+    results = results
+        .where(
+          (a) => a.name.toLowerCase().contains(
+                nameQuery.toLowerCase(),
+              ),
+        )
+        .toList();
+    results = results
+        .where(
+          (a) => a.grade.toLowerCase().contains(
+                gardeQuery.toLowerCase(),
+              ),
+        )
+        .toList();
+    results = results
+        .where(
+          (a) => a.surface.toLowerCase().contains(
+                surfaceQuery.toLowerCase(),
+              ),
+        )
+        .toList();
+
     print("REACHING ON CHANGE 2");
     setState(() {
       array = results;
+      isDateChanged = true;
     });
   }
+
+  // void filterTournamentsLocation(String query) {
+  //   print("REACHING ON CHANGE 1");
+  //   List<ITFTournament> results = listOfTournaments
+  //       .where(
+  //         (a) => a.venue.toLowerCase().contains(
+  //               query.toLowerCase(),
+  //             ),
+  //       )
+  //       .toList();
+  //   print("REACHING ON CHANGE 2");
+  //   setState(() {
+  //     array = results;
+  //   });
+  // }
+
+  // void filterTournamentsName(String query) {
+  //   print("REACHING ON CHANGE 1");
+  //   List<ITFTournament> results = listOfTournaments
+  //       .where(
+  //         (a) => a.name.toLowerCase().contains(
+  //               query.toLowerCase(),
+  //             ),
+  //       )
+  //       .toList();
+  //   print("REACHING ON CHANGE 2");
+  //   setState(() {
+  //     array = results;
+  //   });
+  // }
+
+  // void filterTournamentsGrade(String query) {
+  //   print("REACHING ON CHANGE 1");
+  //   List<ITFTournament> results = listOfTournaments
+  //       .where(
+  //         (a) => a.grade.toLowerCase().contains(
+  //               query.toLowerCase(),
+  //             ),
+  //       )
+  //       .toList();
+  //   print("REACHING ON CHANGE 2");
+  //   setState(() {
+  //     array = results;
+  //   });
+  // }
+
+  // void filterTournamentsSurface(String query) {
+  //   print("REACHING ON CHANGE 1");
+  //   List<ITFTournament> results = listOfTournaments
+  //       .where(
+  //         (a) => a.surface.toLowerCase().contains(
+  //               query.toLowerCase(),
+  //             ),
+  //       )
+  //       .toList();
+  //   print("REACHING ON CHANGE 2");
+  //   setState(() {
+  //     array = results;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +224,54 @@ class _ItfPage extends State<ItfPage>
                   Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: TextField(
-                      controller: controller,
+                      controller: controllerName,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+
+                      decoration: InputDecoration.collapsed(
+                          fillColor: Colors.white,
+
+                          // filled: true,
+                          hintText: "Search Tournament Name"),
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.start,
+                      // textAlignVertical: TextAlignVertical.center,
+                      onChanged: (value) {
+                        print("REACHING $value");
+                        setState(() {
+                          nameQuery = value;
+                        });
+                        updateFilterTournaments();
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      setState(() {
+                        nameQuery = "";
+                      });
+                      updateFilterTournaments();
+                      controllerName.clear();
+                    },
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              // height: 40,
+              color: Colors.white,
+              // padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      controller: controllerLocation,
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -146,15 +286,116 @@ class _ItfPage extends State<ItfPage>
                       // textAlignVertical: TextAlignVertical.center,
                       onChanged: (value) {
                         print("REACHING $value");
-                        filterTournaments(value);
+                        setState(() {
+                          locationQuery = value;
+                        });
+                        updateFilterTournaments();
                       },
                     ),
                   ),
                   IconButton(
                     icon: Icon(Icons.clear),
                     onPressed: () {
-                      filterTournaments("");
-                      controller.clear();
+                      setState(() {
+                        locationQuery = "";
+                      });
+                      updateFilterTournaments();
+                      controllerLocation.clear();
+                    },
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              // height: 40,
+              color: Colors.white,
+              // padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      controller: controllerSurface,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+
+                      decoration: InputDecoration.collapsed(
+                          fillColor: Colors.white,
+
+                          // filled: true,
+                          hintText:
+                              "Search Tournament Surface, Indoor/Outdoor"),
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.start,
+                      // textAlignVertical: TextAlignVertical.center,
+                      onChanged: (value) {
+                        print("REACHING $value");
+                        setState(() {
+                          surfaceQuery = value;
+                        });
+                        updateFilterTournaments();
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      setState(() {
+                        surfaceQuery = "";
+                      });
+                      updateFilterTournaments();
+                      controllerSurface.clear();
+                    },
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              // height: 40,
+              color: Colors.white,
+              // padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: TextField(
+                      controller: controllerGrade,
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+
+                      decoration: InputDecoration.collapsed(
+                          fillColor: Colors.white,
+
+                          // filled: true,
+                          hintText: "Search Tournament Grade"),
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.start,
+                      // textAlignVertical: TextAlignVertical.center,
+                      onChanged: (value) {
+                        print("REACHING $value");
+                        setState(() {
+                          gardeQuery = value;
+                        });
+                        updateFilterTournaments();
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.clear),
+                    onPressed: () {
+                      setState(() {
+                        gardeQuery = "";
+                      });
+                      updateFilterTournaments();
+                      controllerGrade.clear();
                     },
                   )
                 ],

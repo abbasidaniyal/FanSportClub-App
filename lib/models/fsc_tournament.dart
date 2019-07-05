@@ -31,4 +31,8 @@ class FSCTournament {
     this.contactEmail,
     this.tournamentWinner,
   });
+
+  String ageCateroties(){
+    
+  }
 }

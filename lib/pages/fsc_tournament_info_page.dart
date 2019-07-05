@@ -388,7 +388,7 @@ class _FSCInfoPageState extends State<FSCInfoPage> {
                 child: isLoading
                     ? CircularProgressIndicator()
                     : Text(
-                        "Register Now",
+                        "Register",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 24, color: Theme.of(context).accentColor),
