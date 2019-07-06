@@ -102,12 +102,26 @@ mixin Login on Model {
     if (userData["name"] == "") {
       FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
       String registrationID;
-      _firebaseMessaging.getToken().then((String token) {
-        assert(token != null);
-        registrationID = token;
-        print(token);
-      });
+      _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+          print("onMessage: $message");
+        },
+        onLaunch: (Map<String, dynamic> message) async {
+          print("onLaunch: $message");
+        },
+        onResume: (Map<String, dynamic> message) async {
+          print("onResume: $message");
+        },
+      );
+      _firebaseMessaging.requestNotificationPermissions();
+      _firebaseMessaging.setAutoInitEnabled(true);
+
       try {
+        _firebaseMessaging.getToken().then((String token) {
+          // assert(token != null);
+          registrationID = token;
+          print(token);
+        });
         http
             .post("$baseUrl/users/fcm-token/",
                 headers: {
