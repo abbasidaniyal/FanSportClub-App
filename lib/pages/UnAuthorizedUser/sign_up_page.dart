@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../calendar_page.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 import '../../scoped_model/main.dart';
 import '../create_update_profile.dart';
@@ -44,8 +45,8 @@ class _SignupPageState extends State<SignupPage> {
                 Container(
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.12),
-                  width: 200,
-                  height: 200,
+                  width: 150,
+                  height: 150,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
@@ -55,8 +56,16 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 Container(
-                  color: Colors.grey.withOpacity(0.5),
-                  margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+                  // color: Colors.grey.withOpacity(0.5),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.white.withOpacity(0.5),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  margin: EdgeInsets.only(top: 10, left: 30, right: 30),
                   child: TextFormField(
                     controller: emailController,
                     cursorColor: Colors.white,
@@ -73,15 +82,29 @@ class _SignupPageState extends State<SignupPage> {
                     },
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                        labelText: "EMAIL",
-                        labelStyle: TextStyle(color: Colors.white),
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder()),
+                      labelText: "EMAIL",
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                      fillColor: Colors.white,
+                      border: UnderlineInputBorder(),
+
+                      // border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
                 Container(
-                  color: Colors.grey.withOpacity(0.5),
-                  margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.white.withOpacity(0.5),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  // color: Colors.grey.withOpacity(0.5),
+                  margin: EdgeInsets.only(top: 10, left: 30, right: 30),
                   child: Row(
                     children: <Widget>[
                       Flexible(
@@ -95,19 +118,21 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           decoration: InputDecoration(
                               labelText: "PASSWORD",
-                              labelStyle: TextStyle(color: Colors.white),
+                              labelStyle:
+                                  TextStyle(color: Colors.white, fontSize: 14),
                               fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                  //  borderSide: 1,
-                                  )),
+                              border: UnderlineInputBorder()),
                         ),
                       ),
                       Container(
                         width: 50.0,
                         child: IconButton(
                           icon: _obsceuretext
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off),
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Colors.grey,
+                                )
+                              : Icon(Icons.visibility_off, color: Colors.grey),
                           onPressed: () {
                             setState(() {
                               _obsceuretext = !_obsceuretext;
@@ -119,8 +144,16 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 Container(
-                  color: Colors.grey.withOpacity(0.5),
-                  margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+                  // color: Colors.grey.withOpacity(0.5),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.white.withOpacity(0.5),
+                        width: 1.5,
+                      ),
+                    ),
+                  ),
+                  margin: EdgeInsets.only(top: 10, left: 30, right: 30),
                   child: TextFormField(
                     controller: confirmPassword,
                     obscureText: true,
@@ -131,13 +164,11 @@ class _SignupPageState extends State<SignupPage> {
                         return "Passwords do not match";
                     },
                     decoration: InputDecoration(
-                      labelText: "CONFIRM PASSWORD",
-                      labelStyle: TextStyle(color: Colors.white),
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          //  borderSide: 1,
-                          ),
-                    ),
+                        labelText: "CONFIRM PASSWORD",
+                        labelStyle:
+                            TextStyle(color: Colors.white, fontSize: 14),
+                        fillColor: Colors.white,
+                        border: UnderlineInputBorder()),
                   ),
                 ),
                 Container(
@@ -147,9 +178,9 @@ class _SignupPageState extends State<SignupPage> {
                       right: MediaQuery.of(context).size.width * 0.1),
                   child: Container(
                     // width: MediaQuery.of(context).size.width * 0.8 + 20,
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.065,
                     child: RaisedButton(
-                      color: Theme.of(context).accentColor.withOpacity(0.8),
+                      color: Theme.of(context).accentColor,
                       child: isLoading
                           ? CircularProgressIndicator()
                           : Text(
@@ -215,14 +246,12 @@ class _SignupPageState extends State<SignupPage> {
                     children: <Widget>[
                       Container(
                         width: MediaQuery.of(context).size.width * 0.35,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        child: RaisedButton(
-                          color: Color.fromRGBO(219, 50, 54, 1),
-                          child: Text(
-                            "GOOGLE",
-                            textScaleFactor: 1.3,
-                            style: TextStyle(color: Colors.white),
-                          ),
+                        height: MediaQuery.of(context).size.height * 0.065,
+                        child: SignInButton(
+                          Buttons.Google,
+
+                          // mini: true,
+                          text: "Google",
                           onPressed: () async {
                             MainModel model = ScopedModel.of(context);
                             bool successSignIn = await model.googleSignIn();
@@ -331,55 +360,72 @@ class _SignupPageState extends State<SignupPage> {
                         width: MediaQuery.of(context).size.width * 0.1,
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        child: RaisedButton(
-                          color: Color.fromRGBO(59, 89, 152, 1),
-                          child: Text(
-                            "FACEBOOK ",
-                            textScaleFactor: 1.3,
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: () async {
-                            MainModel model = ScopedModel.of(context);
-                            bool successSignin = await model.facebookSignIn();
-                            if (successSignin) {
-                              bool successLogin =
-                                  await model.serverFacebookOauth();
-                              if (successLogin) {
-                                bool convertToken =
-                                    await model.convertFacebookToken();
-                                if (convertToken) {
-                                  int newUser = await model.initLoggedInUser();
-                                  if (newUser == 1) {
+                          height: MediaQuery.of(context).size.height * 0.065,
+                          width: MediaQuery.of(context).size.width * 0.35,
+                          child: SignInButton(
+                            Buttons.Facebook,
+
+                            // mini: true,
+                            text: "Facebook",
+                            onPressed: () async {
+                              MainModel model = ScopedModel.of(context);
+                              bool successSignin = await model.facebookSignIn();
+                              if (successSignin) {
+                                bool successLogin =
+                                    await model.serverFacebookOauth();
+                                if (successLogin) {
+                                  bool convertToken =
+                                      await model.convertFacebookToken();
+                                  if (convertToken) {
+                                    int newUser =
+                                        await model.initLoggedInUser();
+                                    if (newUser == 1) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text("Login Failed"),
+                                          content: Text("Please try again"),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text("Ok"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else if (newUser == 2) {
+                                      Navigator.pushReplacement(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return ProfileUpdatePage(
+                                            model.loggedInUser);
+                                      }));
+                                    } else {
+                                      Navigator.pushReplacement(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return CalendarPage();
+                                      }));
+                                    }
+                                  } else {
                                     showDialog(
                                       context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: Text("Login Failed"),
-                                        content: Text("Please try again"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      ),
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title:
+                                              Text("Facebook sign in failed"),
+                                          content: Text("Please try again"),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text("Ok"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      },
                                     );
-                                  } else if (newUser == 2) {
-                                    Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return ProfileUpdatePage(
-                                          model.loggedInUser);
-                                    }));
-                                  } else {
-                                    Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return CalendarPage();
-                                    }));
                                   }
                                 } else {
                                   showDialog(
@@ -419,28 +465,8 @@ class _SignupPageState extends State<SignupPage> {
                                   },
                                 );
                               }
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text("Facebook sign in failed"),
-                                    content: Text("Please try again"),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        child: Text("Ok"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      )
+                            },
+                          ))
                     ],
                   ),
                 )

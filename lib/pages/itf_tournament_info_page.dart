@@ -26,11 +26,8 @@ class ITFInfoPage extends StatelessWidget {
       body: Container(
         child: ListView(
           children: <Widget>[
-            Hero(
-              tag: index,
-              child: Image(
-                image: AssetImage("assets/itf-card.jpg"),
-              ),
+            Image(
+              image: AssetImage("assets/itf-card.jpg"),
             ),
             Container(
                 padding: EdgeInsets.only(top: 5.0, left: 10.0),

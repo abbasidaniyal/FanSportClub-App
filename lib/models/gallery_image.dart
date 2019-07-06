@@ -1,4 +1,5 @@
 import 'package:Fan_Sports/main.dart';
+import './fsc_tournament.dart';
 import 'package:flutter/foundation.dart';
 
 import 'user_profile.dart';
@@ -17,4 +18,11 @@ class GalleryImage {
     this.tournamentTag,
     this.taggedUserList,
   });
+}
+
+class TournamentImage {
+  FSCTournament tournament;
+  List<GalleryImage> tournamentImages;
+
+  TournamentImage({this.tournament, this.tournamentImages});
 }

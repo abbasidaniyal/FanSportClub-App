@@ -157,7 +157,7 @@ class _SigningPageState extends State<SigningPage> {
                   right: MediaQuery.of(context).size.width * 0.1),
               child: Container(
                 // width: MediaQuery.of(context).size.width * 0.8 + 20,
-                height: MediaQuery.of(context).size.height * 0.07,
+                height: MediaQuery.of(context).size.height * 0.065,
                 decoration: BoxDecoration(
                   boxShadow: [BoxShadow(
                     color: Colors.transparent

@@ -157,16 +157,13 @@ class ITFCardRender extends StatelessWidget {
                 ),
               ),
             ),
-            Hero(
-              tag: index,
-              child: Container(
-                  margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 35.0),
-                  child: Image.asset(
-                    imageUrl,
-                    height: 178.0,
-                    width: 80.0,
-                  )),
-            ),
+            Container(
+                margin: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 35.0),
+                child: Image.asset(
+                  imageUrl,
+                  height: 178.0,
+                  width: 80.0,
+                )),
           ],
         ),
       ),

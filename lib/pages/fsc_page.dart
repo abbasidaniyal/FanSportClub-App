@@ -15,12 +15,13 @@ class FscPage extends StatefulWidget {
 
 class _FscPage extends State<FscPage>
     with AutomaticKeepAliveClientMixin<FscPage> {
-  bool isLoading = false;
+  bool isLoading = true;
   List<FSCTournament> array = [];
   List<FSCTournament> listFSCTournament = [];
   DateTime selectedDate;
+  bool isSearchMode = false;
   TextEditingController controller = TextEditingController();
-  
+
   bool isDateChanged = false;
 
   ScrollController _scrollController;
@@ -116,7 +117,7 @@ class _FscPage extends State<FscPage>
     }
   }
 
-    void filterTournaments(String query) {
+  void filterTournaments(String query) {
     print("REACHING ON CHANGE 1");
     List<FSCTournament> results = listFSCTournament
         .where(
@@ -131,25 +132,12 @@ class _FscPage extends State<FscPage>
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     // print("BEFORE BUILD"+isLoading + array.length);
     MainModel model = ScopedModel.of(context);
 
     if (isLoading == true) {
-      // if (model.fscError == true) {
-      //   return AlertDialog(
-      //     content: Text(
-      //       "Server did not respond. \nPlease check your internet connection",
-      //       textScaleFactor: 1,
-      //     ),
-      //     title: Text(
-      //       "ERROR",
-      //       textScaleFactor: 1,
-      //     ),
-      //   );
-      // } else {
       return Container(
         child: Center(
           child: CircularProgressIndicator(
@@ -159,75 +147,85 @@ class _FscPage extends State<FscPage>
       );
       // }
     } else {
-      return Container(
-        color: Color.fromRGBO(245, 245, 245, 0.8),
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 5.0),
-              child: Calendar(
-                onDateSelected: (a) => setSelectedDate(a),
-                isExpandable: false,
-                showTodayAction: false,
+      return Scaffold(
+        body: Container(
+          color: Color.fromRGBO(245, 245, 245, 0.8),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 5.0),
+                child: Calendar(
+                  onDateSelected: (a) => setSelectedDate(a),
+                  isExpandable: false,
+                  showTodayAction: false,
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              // height: 40,
-              color: Colors.white,
-              // padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      controller: controller,
-                      style: TextStyle(
-                        fontSize: 20,
+              isSearchMode
+                  ? Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 24.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      height: 40,
+                      color: Colors.white,
+                      // padding: EdgeInsets.symmetric(horizontal: 24),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width * 0.83,
+                        child: TextField(
+                          controller: controller,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+
+                          decoration: InputDecoration.collapsed(
+                              fillColor: Colors.white,
+
+                              // filled: true,
+                              hintText: "Search Tournament Location"),
+                          keyboardType: TextInputType.text,
+                          textAlign: TextAlign.start,
+                          // textAlignVertical: TextAlignVertical.center,
+                          onChanged: (value) {
+                            print("REACHING $value");
+                            filterTournaments(value);
+                          },
+                        ),
                       ),
+                    )
+                  : Container(),
+              array.length <= 0
+                  ? Center(child: Text("No Results Found"))
+                  : Expanded(
+                      child: Container(
+                      margin: EdgeInsets.only(top: 10.0),
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: array.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          checkDateChange();
 
-                      decoration: InputDecoration.collapsed(
-                          fillColor: Colors.white,
-
-                          // filled: true,
-                          hintText: "Search Tournament Location"),
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.start,
-                      // textAlignVertical: TextAlignVertical.center,
-                      onChanged: (value) {
-                        print("REACHING $value");
-                        filterTournaments(value);
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      filterTournaments("");
-                      controller.clear();
-                    },
-                  )
-                ],
-              ),
-            ),
-            array.length <= 0
-                ? Center(child: Text("No Results Found"))
-                : Expanded(
-                    child: Container(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      itemCount: array.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        checkDateChange();
-
-                        return FSCCardRender(array[index], imageUrl, index);
-                      },
-                    ),
-                  )),
-          ],
+                          return FSCCardRender(array[index], imageUrl, index);
+                        },
+                      ),
+                    )),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          child: isSearchMode
+              ? Icon(
+                  Icons.clear,
+                  color: Theme.of(context).accentColor,
+                )
+              : Icon(Icons.search, color: Theme.of(context).accentColor),
+          onPressed: () {
+            setState(() {
+              filterTournaments("");
+              controller.clear();
+              isSearchMode = !isSearchMode;
+            });
+          },
         ),
       );
     }

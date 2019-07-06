@@ -20,10 +20,8 @@ class _ItfPage extends State<ItfPage>
   bool isLoading = true;
   DateTime selectedDate;
   bool isDateChanged = false;
-  TextEditingController controllerLocation = TextEditingController();
-  TextEditingController controllerName = TextEditingController();
-  TextEditingController controllerGrade = TextEditingController();
-  TextEditingController controllerSurface = TextEditingController();
+  bool isSearchMode = false;
+  TextEditingController controller = TextEditingController();
   ScrollController _scrollController;
   String nameQuery = "";
   String locationQuery = "";
@@ -88,34 +86,13 @@ class _ItfPage extends State<ItfPage>
     }
   }
 
-  void updateFilterTournaments() {
+  void filterTournaments(String query) {
     print("REACHING ON CHANGE 1");
 
     List<ITFTournament> results = listOfTournaments
         .where(
           (a) => a.venue.toLowerCase().contains(
-                locationQuery.toLowerCase(),
-              ),
-        )
-        .toList();
-    results = results
-        .where(
-          (a) => a.name.toLowerCase().contains(
-                nameQuery.toLowerCase(),
-              ),
-        )
-        .toList();
-    results = results
-        .where(
-          (a) => a.grade.toLowerCase().contains(
-                gardeQuery.toLowerCase(),
-              ),
-        )
-        .toList();
-    results = results
-        .where(
-          (a) => a.surface.toLowerCase().contains(
-                surfaceQuery.toLowerCase(),
+                query.toLowerCase(),
               ),
         )
         .toList();
@@ -126,66 +103,6 @@ class _ItfPage extends State<ItfPage>
       isDateChanged = true;
     });
   }
-
-  // void filterTournamentsLocation(String query) {
-  //   print("REACHING ON CHANGE 1");
-  //   List<ITFTournament> results = listOfTournaments
-  //       .where(
-  //         (a) => a.venue.toLowerCase().contains(
-  //               query.toLowerCase(),
-  //             ),
-  //       )
-  //       .toList();
-  //   print("REACHING ON CHANGE 2");
-  //   setState(() {
-  //     array = results;
-  //   });
-  // }
-
-  // void filterTournamentsName(String query) {
-  //   print("REACHING ON CHANGE 1");
-  //   List<ITFTournament> results = listOfTournaments
-  //       .where(
-  //         (a) => a.name.toLowerCase().contains(
-  //               query.toLowerCase(),
-  //             ),
-  //       )
-  //       .toList();
-  //   print("REACHING ON CHANGE 2");
-  //   setState(() {
-  //     array = results;
-  //   });
-  // }
-
-  // void filterTournamentsGrade(String query) {
-  //   print("REACHING ON CHANGE 1");
-  //   List<ITFTournament> results = listOfTournaments
-  //       .where(
-  //         (a) => a.grade.toLowerCase().contains(
-  //               query.toLowerCase(),
-  //             ),
-  //       )
-  //       .toList();
-  //   print("REACHING ON CHANGE 2");
-  //   setState(() {
-  //     array = results;
-  //   });
-  // }
-
-  // void filterTournamentsSurface(String query) {
-  //   print("REACHING ON CHANGE 1");
-  //   List<ITFTournament> results = listOfTournaments
-  //       .where(
-  //         (a) => a.surface.toLowerCase().contains(
-  //               query.toLowerCase(),
-  //             ),
-  //       )
-  //       .toList();
-  //   print("REACHING ON CHANGE 2");
-  //   setState(() {
-  //     array = results;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -199,222 +116,82 @@ class _ItfPage extends State<ItfPage>
         ),
       );
     } else {
-      return Container(
-        color: Color.fromRGBO(245, 245, 245, 0.8),
-        child: Column(
-          children: <Widget>[
-            Container(
-              color: Color.fromRGBO(245, 245, 245, 0.8),
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Calendar(
-                onDateSelected: (a) => setSelectedDate(a),
-                isExpandable: false,
-                showTodayAction: false,
+      return Scaffold(
+        body: Container(
+          color: Color.fromRGBO(245, 245, 245, 0.8),
+          child: Column(
+            children: <Widget>[
+              Container(
+                color: Color.fromRGBO(245, 245, 245, 0.8),
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Calendar(
+                  onDateSelected: (a) => setSelectedDate(a),
+                  isExpandable: false,
+                  showTodayAction: false,
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              // height: 40,
-              color: Colors.white,
-              // padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      controller: controllerName,
-                      style: TextStyle(
-                        fontSize: 20,
+              isSearchMode
+                  ? Container(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 24.0),
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      height: 40,
+                      color: Colors.white,
+                      // padding: EdgeInsets.symmetric(horizontal: 24),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width * 0.83,
+                        child: TextField(
+                          controller: controller,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+
+                          decoration: InputDecoration.collapsed(
+                              fillColor: Colors.white,
+
+                              // filled: true,
+                              hintText: "Search Tournament Location"),
+                          keyboardType: TextInputType.text,
+                          textAlign: TextAlign.start,
+                          // textAlignVertical: TextAlignVertical.center,
+                          onChanged: (value) {
+                            print("REACHING $value");
+                            filterTournaments(value);
+                          },
+                        ),
                       ),
-
-                      decoration: InputDecoration.collapsed(
-                          fillColor: Colors.white,
-
-                          // filled: true,
-                          hintText: "Search Tournament Name"),
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.start,
-                      // textAlignVertical: TextAlignVertical.center,
-                      onChanged: (value) {
-                        print("REACHING $value");
-                        setState(() {
-                          nameQuery = value;
-                        });
-                        updateFilterTournaments();
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      setState(() {
-                        nameQuery = "";
-                      });
-                      updateFilterTournaments();
-                      controllerName.clear();
-                    },
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              // height: 40,
-              color: Colors.white,
-              // padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      controller: controllerLocation,
-                      style: TextStyle(
-                        fontSize: 20,
+                    )
+                  : Container(),
+              array.length <= 0
+                  ? Center(child: Text("No Results Found"))
+                  : Expanded(
+                      child: Container(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: array.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          checkDateChange();
+                          return ITFCardRender(array[index], imageUrl, index);
+                        },
                       ),
-
-                      decoration: InputDecoration.collapsed(
-                          fillColor: Colors.white,
-
-                          // filled: true,
-                          hintText: "Search Tournament Location"),
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.start,
-                      // textAlignVertical: TextAlignVertical.center,
-                      onChanged: (value) {
-                        print("REACHING $value");
-                        setState(() {
-                          locationQuery = value;
-                        });
-                        updateFilterTournaments();
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      setState(() {
-                        locationQuery = "";
-                      });
-                      updateFilterTournaments();
-                      controllerLocation.clear();
-                    },
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              // height: 40,
-              color: Colors.white,
-              // padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      controller: controllerSurface,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-
-                      decoration: InputDecoration.collapsed(
-                          fillColor: Colors.white,
-
-                          // filled: true,
-                          hintText:
-                              "Search Tournament Surface, Indoor/Outdoor"),
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.start,
-                      // textAlignVertical: TextAlignVertical.center,
-                      onChanged: (value) {
-                        print("REACHING $value");
-                        setState(() {
-                          surfaceQuery = value;
-                        });
-                        updateFilterTournaments();
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      setState(() {
-                        surfaceQuery = "";
-                      });
-                      updateFilterTournaments();
-                      controllerSurface.clear();
-                    },
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 7.0),
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              // height: 40,
-              color: Colors.white,
-              // padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: TextField(
-                      controller: controllerGrade,
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
-
-                      decoration: InputDecoration.collapsed(
-                          fillColor: Colors.white,
-
-                          // filled: true,
-                          hintText: "Search Tournament Grade"),
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.start,
-                      // textAlignVertical: TextAlignVertical.center,
-                      onChanged: (value) {
-                        print("REACHING $value");
-                        setState(() {
-                          gardeQuery = value;
-                        });
-                        updateFilterTournaments();
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.clear),
-                    onPressed: () {
-                      setState(() {
-                        gardeQuery = "";
-                      });
-                      updateFilterTournaments();
-                      controllerGrade.clear();
-                    },
-                  )
-                ],
-              ),
-            ),
-            array.length <= 0
-                ? Center(child: Text("No Results Found"))
-                : Expanded(
-                    child: Container(
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      itemCount: array.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        checkDateChange();
-                        return ITFCardRender(array[index], imageUrl, index);
-                      },
-                    ),
-                  ))
-          ],
+                    ))
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          child: isSearchMode
+              ? Icon(
+                  Icons.clear,
+                  color: Theme.of(context).accentColor,
+                )
+              : Icon(Icons.search, color: Theme.of(context).accentColor),
+          onPressed: () {
+            setState(() {
+              isSearchMode = !isSearchMode;
+            });
+          },
         ),
       );
     }
