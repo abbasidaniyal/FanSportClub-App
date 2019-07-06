@@ -68,7 +68,11 @@ mixin TournamentModel on Model {
         fscTournaments = [];
         fsc = json.decode(res.body);
         for (var tournamentDetails in fsc) {
-          
+          List<int> ageGroup = [];
+          tournamentDetails["events_tournament"].forEach((f) {
+            ageGroup.add(f["category"]);
+          });
+          ageGroup.sort();
           FSCTournament temp = FSCTournament(
             tournamentName: tournamentDetails["tournament_name"],
             venue: tournamentDetails["tournament_venue"],
@@ -79,26 +83,29 @@ mixin TournamentModel on Model {
             id: tournamentDetails["id"],
             contactEmail: tournamentDetails["coordinator_email"],
             contactPerson: tournamentDetails["coordinator_name"],
+            ageGroup: ageGroup,
             tournamentWinner: tournamentDetails["tournament_winner"] != null
                 ? UserProfile(
                     city: tournamentDetails["tournament_winner"]["city"],
-                    dob: DateTime.parse(
-                        tournamentDetails["tournament_winner"]["date_of_birth"]),
+                    dob: DateTime.parse(tournamentDetails["tournament_winner"]
+                        ["date_of_birth"]),
                     backhandStyle:
                         tournamentDetails["tournament_winner"]["backhand_style"] == "DOUBLE"
                             ? BACKHANDSTYLE.DOUBLE
-                            : tournamentDetails["tournament_winner"]["backhand_style"] ==
-                                    "SINGLE"
+                            : tournamentDetails["tournament_winner"]["backhand_style"] == "SINGLE"
                                 ? BACKHANDSTYLE.SINGLE
                                 : BACKHANDSTYLE.MIXED,
                     name: tournamentDetails["tournament_winner"]["name"],
-                    roleModel: tournamentDetails["tournament_winner"]["role_model"],
+                    roleModel: tournamentDetails["tournament_winner"]
+                        ["role_model"],
                     strongHand:
                         tournamentDetails["tournament_winner"]["strong_hand"] == "LEFT"
                             ? STRONGHAND.LEFT
                             : STRONGHAND.RIGHT,
-                    homeClub: tournamentDetails["tournament_winner"]["home_club"],
-                    achievements: tournamentDetails["tournament_winner"]["achievements"],
+                    homeClub: tournamentDetails["tournament_winner"]
+                        ["home_club"],
+                    achievements: tournamentDetails["tournament_winner"]
+                        ["achievements"],
                     profilePhotoUrl: tournamentDetails["tournament_winner"]
                         ["profile_photo"],
                     gender: tournamentDetails["tournament_winner"]["gender"] == "M"

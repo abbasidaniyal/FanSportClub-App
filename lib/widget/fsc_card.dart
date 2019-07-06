@@ -21,7 +21,7 @@ class FSCCardRender extends StatelessWidget {
 
   FSCCardRender(this.tournamentData, this.imageUrl, this.index) {
     name = tournamentData.tournamentName;
-    // age_group = tournamentData.ageGroup;
+    age_group = tournamentData.ageGroup;
     venue = tournamentData.venue;
     date = tournamentData.date;
     description = tournamentData.description;
@@ -81,8 +81,8 @@ class FSCCardRender extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        "",
-                        // "Age Groups : " + age_group,
+                        // "",
+                        "Age Groups : " + age_group,
                         textScaleFactor: 1,
                         maxLines: 1,
                         overflow: TextOverflow.clip,

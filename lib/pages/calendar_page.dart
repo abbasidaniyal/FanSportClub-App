@@ -46,10 +46,10 @@ class _CalendarPageState extends State<CalendarPage> {
         .listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
-    _firebaseMessaging.getToken().then((String token) {
-      assert(token != null);
-      print(token);
-    });
+    // _firebaseMessaging.getToken().then((String token) {
+    //   assert(token != null);
+    //   print(token);
+    // });
     return DefaultTabController(
       length: 2,
       child: Scaffold(

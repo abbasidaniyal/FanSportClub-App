@@ -7,7 +7,7 @@ class FSCTournament {
   DateTime date;
   String venue;
   int id;
-  // String ageGroup;
+  String ageGroup;
 
   String description;
   String locationURL;
@@ -18,21 +18,24 @@ class FSCTournament {
 
   // List<TournamentEvent> eventsLis>t;
 
-  FSCTournament({
-    this.tournamentName,
-    this.date,
-    this.venue,
-    this.id,
-    // this.eventsList,
-    this.description,
-    this.locationURL,
-    this.contactPerson,
-    this.contactNumber,
-    this.contactEmail,
-    this.tournamentWinner,
-  });
-
-  String ageCateroties(){
-    
+  FSCTournament(
+      {this.tournamentName,
+      this.date,
+      this.venue,
+      this.id,
+      // this.eventsList,
+      this.description,
+      this.locationURL,
+      this.contactPerson,
+      this.contactNumber,
+      this.contactEmail,
+      this.tournamentWinner,
+      List<int> ageGroup}) {
+    this.ageGroup = "";
+    ageGroup.forEach((f) {
+      this.ageGroup += "+" + f.toString() + " ";
+    });
   }
+
+  // String ageCateroties() {}
 }

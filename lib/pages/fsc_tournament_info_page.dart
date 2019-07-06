@@ -134,8 +134,8 @@ class _FSCInfoPageState extends State<FSCInfoPage> {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
-                            "",
-                            // tournamentData.ageGroup.toString(),
+                            // "",
+                            widget.tournamentData.ageGroup,
                             textScaleFactor: 1,
                             style: TextStyle(fontSize: 15),
                           ),
@@ -397,8 +397,27 @@ class _FSCInfoPageState extends State<FSCInfoPage> {
                   //GO TO PAYMENT CONFIRMPAGE
                   changeStatus();
                   bool success = await model.selectTournamentGetEvents(
-                      widget.tournamentData, model.token);
-                  if (success) {
+                      widget.tournamentData, model.token, model.loggedInUser);
+                      
+                  if(model.selectedTournamentEvents.isEmpty){
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text("You are not eligible for any events :( "),
+                            title: Text("Sorry"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Ok"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          );
+                        });
+                    changeStatus();
+                  }else if (success ) {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       return PaymentConfirmPage();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Fan_Sports/models/fsc_tournaments_event.dart';
+import 'package:Fan_Sports/models/user_profile.dart';
 import 'package:Fan_Sports/scoped_model/baseUrl.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +14,7 @@ mixin TournamentReigisterModel on Model {
   TournamentEvent selectedEvent;
 
   Future<bool> selectTournamentGetEvents(
-      FSCTournament tournament, String token) async {
+      FSCTournament tournament, String token, UserProfile user) async {
     try {
       selectedTournament = tournament;
       http.Response res = await http.get(
@@ -34,7 +35,10 @@ mixin TournamentReigisterModel on Model {
             eventType: event["event_type"],
             id: event["id"]);
         print(newEvent);
-        selectedTournamentEvents.add(newEvent);
+        if (newEvent.ageCategory <= user.userAge()) {
+          selectedTournamentEvents.add(newEvent);
+        }
+        ;
       });
       return true;
     } catch (error) {

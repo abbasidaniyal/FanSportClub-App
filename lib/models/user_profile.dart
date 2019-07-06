@@ -30,9 +30,9 @@ class UserProfile {
   GENDER gender;
   int id;
 
-  String age() {
-    return ((dob).difference(DateTime.now())).toString();
-  }
+  // String age() {
+  //   return ((dob).difference(DateTime.now())).toString();
+  // }
 
   UserProfile({
     this.name,
@@ -48,4 +48,8 @@ class UserProfile {
     this.achievements,
     this.profilePhotoUrl,
   });
+
+  int userAge() {
+    return ((DateTime.now().difference(this.dob).inDays) / 365).floor();
+  }
 }

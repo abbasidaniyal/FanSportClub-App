@@ -6,6 +6,7 @@ import 'package:Fan_Sports/models/user_profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,6 +100,29 @@ mixin Login on Model {
     );
 
     if (userData["name"] == "") {
+      FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+      String registrationID;
+      _firebaseMessaging.getToken().then((String token) {
+        assert(token != null);
+        registrationID = token;
+        print(token);
+      });
+      try {
+        http
+            .post("$baseUrl/users/fcm-token/",
+                headers: {
+                  'Authorization': '$token',
+                },
+                body: json.encode({
+                  "registration_id": registrationID,
+                  "type": Platform.isAndroid ? "android" : "ios"
+                }))
+            .then((onValue) {
+          print(onValue.body);
+        });
+      } catch (e) {
+        print("ERROR $e");
+      }
       notifyListeners();
       return 2;
     }

@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model/main.dart';
 
-
 class PaymentConfirmPage extends StatefulWidget {
   @override
   _PaymentConfirmPageState createState() => _PaymentConfirmPageState();
@@ -177,6 +176,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   validator: (value) {
                     // return value.isEmpty ? "Please enter a valid value" : null;
                   },
+
                   initialValue: model.selectedTournamentEvents.first,
                   onSaved: (value) {
                     paymentData["eventID"] = value.id;
