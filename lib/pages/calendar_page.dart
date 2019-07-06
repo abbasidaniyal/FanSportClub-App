@@ -30,12 +30,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
     
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
+    
     // _firebaseMessaging.getToken().then((String token) {
     //   assert(token != null);
     //   print(token);

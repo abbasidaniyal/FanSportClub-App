@@ -113,7 +113,12 @@ mixin Login on Model {
           print("onResume: $message");
         },
       );
-      _firebaseMessaging.requestNotificationPermissions();
+      _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
       _firebaseMessaging.setAutoInitEnabled(true);
 
       try {
