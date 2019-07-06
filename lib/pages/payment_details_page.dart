@@ -1,12 +1,12 @@
 import 'package:Fan_Sports/models/fsc_tournaments_event.dart';
+import 'package:Fan_Sports/pages/calendar_page.dart';
 import 'package:Fan_Sports/widget/button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../scoped_model/main.dart';
-import 'paymentSuccessPage.dart';
+
 
 class PaymentConfirmPage extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return StatusPage();
+            return CalendarPage();
           },
         ),
       );

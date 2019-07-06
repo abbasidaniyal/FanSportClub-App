@@ -8,6 +8,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../calendar_page.dart';
 
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+
 import '../../scoped_model/main.dart';
 
 class SigningPage extends StatefulWidget {
@@ -46,8 +48,8 @@ class _SigningPageState extends State<SigningPage> {
             Container(
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.12),
-              width: 200,
-              height: 200,
+              width: 150,
+              height: 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
@@ -57,22 +59,45 @@ class _SigningPageState extends State<SigningPage> {
               ),
             ),
             Container(
-              color: Colors.grey.withOpacity(0.5),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    //                   <--- left side
+                    color: Colors.white.withOpacity(0.5),
+                    width: 1.5,
+                  ),
+                ),
+              ),
               margin: EdgeInsets.only(top: 20, left: 30, right: 30),
               child: TextField(
                 controller: username,
                 cursorColor: Colors.white,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                    labelText: "USERNAME OR EMAIL",
-                    labelStyle: TextStyle(color: Colors.white),
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder()),
+                  labelText: "USERNAME OR EMAIL",
+                  labelStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                  // fillColor: Colors.white,
+                  border: UnderlineInputBorder(),
+
+                  // border: OutlineInputBorder(),
+                ),
               ),
             ),
             Container(
-              color: Colors.grey.withOpacity(0.5),
-              margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    //                   <--- left side
+                    color: Colors.white.withOpacity(0.5),
+                    width: 1.5,
+                  ),
+                ),
+              ),
+              // color: Colors.grey.withOpacity(0.5),
+              margin: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -83,11 +108,9 @@ class _SigningPageState extends State<SigningPage> {
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
                         labelText: "PASSWORD",
-                        labelStyle: TextStyle(color: Colors.white),
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                            //  borderSide: 1,
-                            ),
+                        labelStyle:
+                            TextStyle(color: Colors.white, fontSize: 14),
+                        // fillColor: Colors.white,
                       ),
                     ),
                   ),
@@ -95,8 +118,11 @@ class _SigningPageState extends State<SigningPage> {
                     // padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.75),
                     // alignment: Alignment(1,0.5),
                     icon: _obsceuretext
-                        ? Icon(Icons.visibility)
-                        : Icon(Icons.visibility_off),
+                        ? Icon(
+                            Icons.visibility,
+                            color: Colors.grey,
+                          )
+                        : Icon(Icons.visibility_off, color: Colors.grey),
                     onPressed: () {
                       setState(() {
                         _obsceuretext = !_obsceuretext;
@@ -109,11 +135,11 @@ class _SigningPageState extends State<SigningPage> {
             InkWell(
               child: Container(
                 margin: EdgeInsets.only(
-                  top: 15,
-                  left: 40,
+                  top: 20,
+                  left: 31,
                 ),
                 child: Text(
-                  "Forget Password?",
+                  "Forgot Password?",
                   style: TextStyle(
                     color: Colors.white,
                     decoration: TextDecoration.underline,
@@ -132,10 +158,19 @@ class _SigningPageState extends State<SigningPage> {
               child: Container(
                 // width: MediaQuery.of(context).size.width * 0.8 + 20,
                 height: MediaQuery.of(context).size.height * 0.07,
-                child: RaisedButton(
-                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(
+                    color: Colors.transparent
+                  )]
+                ),
+                child: FlatButton(
+                  highlightColor: Colors.transparent,
+
+                  color: Theme.of(context).accentColor.withOpacity(1),
                   child: isLoading
-                      ? CircularProgressIndicator()
+                      ? CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      )
                       : Text(
                           "LOGIN",
                           textScaleFactor: 1.3,
@@ -223,14 +258,12 @@ class _SigningPageState extends State<SigningPage> {
                 children: <Widget>[
                   Container(
                     width: MediaQuery.of(context).size.width * 0.35,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    child: RaisedButton(
-                      color: Color.fromRGBO(219, 50, 54, 1),
-                      child: Text(
-                        "GOOGLE",
-                        textScaleFactor: 1.3,
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    height: MediaQuery.of(context).size.height * 0.065,
+                    child: SignInButton(
+                      Buttons.Google,
+
+                      // mini: true,
+                      text: "Google",
                       onPressed: () async {
                         setState(() {
                           isLoading = true;
@@ -359,17 +392,11 @@ class _SigningPageState extends State<SigningPage> {
                     width: MediaQuery.of(context).size.width * 0.1,
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: MediaQuery.of(context).size.height * 0.065,
                     width: MediaQuery.of(context).size.width * 0.35,
-                    child: RaisedButton(
-                      color: Color.fromRGBO(59, 89, 152, 1),
-                      child: Text(
-                        "FACEBOOK",
-                        textScaleFactor: 1.3,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                    child: SignInButton(
+                      Buttons.Facebook,
+                      text: "Facebook",
                       onPressed: () async {
                         setState(() {
                           isLoading = true;

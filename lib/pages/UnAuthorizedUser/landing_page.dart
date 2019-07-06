@@ -30,8 +30,8 @@ class _LandingPageState extends State<LandingPage> {
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.15),
-                width: 200,
-                height: 200,
+                width: 150,
+                height: 150,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage(
@@ -50,9 +50,13 @@ class _LandingPageState extends State<LandingPage> {
                       tag: 123,
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.07,
+                        height: MediaQuery.of(context).size.height * 0.065,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(0.0),
+                        ),
                         child: RaisedButton(
-                          color: Theme.of(context).accentColor.withOpacity(0.8),
+
+                          color: Theme.of(context).accentColor.withOpacity(1),
                           child: Text(
                             "LOGIN",
                             textScaleFactor: 1.3,
@@ -75,7 +79,7 @@ class _LandingPageState extends State<LandingPage> {
                       width: 20.0,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.07,
+                      height: MediaQuery.of(context).size.height * 0.065,
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: RaisedButton(
                         color: Colors.grey,
@@ -107,7 +111,7 @@ class _LandingPageState extends State<LandingPage> {
                   child: Text(
                     "Continue Without Login",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey,
                         decoration: TextDecoration.underline,
                         fontSize: 15),
                   ),
