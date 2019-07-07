@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import '../pages/player_profile_page.dart';
-import '../pages/gallery_image_details.dart';
+import 'package:photo_view/photo_view.dart';
 
 class GalleryTile extends StatelessWidget {
   final GalleryImage image;
@@ -149,11 +149,27 @@ class GalleryTile extends StatelessWidget {
         ),
       ),
       onTap: () {
+        // Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //   return PhotoView(
+        //     imageProvider: NetworkImage(image.imageUrl),
+        //     backgroundDecoration:
+        //         BoxDecoration(color: Colors.white.withOpacity(0.3)),
+        //     gaplessPlayback: true,
+        //   );
+        // }));
         showDialog(
             context: context,
             builder: (context) {
-              return Dialog(
-                child: Image.network(image.imageUrl),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: PhotoView(
+                  imageProvider: NetworkImage(image.imageUrl),
+                  backgroundDecoration:
+                      BoxDecoration(color: Colors.black.withOpacity(0.3)),
+                  gaplessPlayback: true,
+                ),
               );
             });
 
