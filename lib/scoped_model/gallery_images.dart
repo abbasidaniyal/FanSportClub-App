@@ -23,10 +23,9 @@ mixin GalleryModel on Model {
 
       print(temp);
       //GET TOURNAMENT IMAGES AND USER DETAILS
-      int i = 0;
+
       galleryImages = [];
       temp.forEach((a) {
-        print(i++);
         List<UserProfile> users = [];
         a["user_tags"].forEach((x) {
           users.add(
@@ -52,7 +51,6 @@ mixin GalleryModel on Model {
             ),
           );
         });
-        print(i - 1);
         // print(a["tournament_tag"]["tournament_description"]);
         // print();
         // print();
