@@ -93,7 +93,7 @@ class _FscPage extends State<FscPage>
     _scrollController.dispose();
   }
 
-  void checkDateChange() {
+  void checkDateChange() async{
     DateTime d;
     if (isDateChanged) {
       if (array.last.date.isBefore(selectedDate)) {
@@ -107,8 +107,8 @@ class _FscPage extends State<FscPage>
           d = array[i].date;
           // print(d.toString() + "   " + selectedDate .toString());
           if (d.isAfter(selectedDate) || d == selectedDate) {
-            _scrollController.animateTo(i * elementHeight,
-                duration: Duration(milliseconds: 1000), curve: Curves.ease);
+  try{          _scrollController.animateTo(i * elementHeight,
+                duration: Duration(milliseconds: 1000), curve: Curves.ease);}catch (e){}
             break;
           }
         }

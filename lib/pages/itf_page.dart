@@ -41,7 +41,7 @@ class _ItfPage extends State<ItfPage>
     selectedDate = DateTime.now();
     isDateChanged = true;
 
-    _scrollController = ScrollController(initialScrollOffset: 0.0);
+    _scrollController = ScrollController();
   }
 
   void initItfData() async {
@@ -70,15 +70,20 @@ class _ItfPage extends State<ItfPage>
     super.dispose();
   }
 
-  void checkDateChange() {
+  void checkDateChange() async{
+    print("Reaching Checkdate 1");
     DateTime d;
     if (isDateChanged) {
+      
       for (int i = 0; i < array.length; i++) {
         d = array[i].startDate;
+        
 
         if (d.isAfter(selectedDate) || d.isAtSameMomentAs(selectedDate)) {
-          _scrollController.animateTo(i * elementHeight,
-              duration: Duration(milliseconds: 1000), curve: Curves.ease);
+ try         
+{          _scrollController.animateTo(i * elementHeight,
+              duration: Duration(milliseconds: 1000), curve: Curves.ease);} catch(e){}
+          print("Reaching Checkdate 2");
           break;
         }
       }
@@ -88,6 +93,9 @@ class _ItfPage extends State<ItfPage>
 
   void filterTournaments(String query) {
     print("REACHING ON CHANGE 1");
+    setState(() {
+      isLoading = true;
+    });
 
     List<ITFTournament> results = listOfTournaments
         .where(
@@ -99,8 +107,12 @@ class _ItfPage extends State<ItfPage>
 
     print("REACHING ON CHANGE 2");
     setState(() {
+      
       array = results;
+      isLoading=false;
+      
       isDateChanged = true;
+      
     });
   }
 
@@ -171,6 +183,7 @@ class _ItfPage extends State<ItfPage>
                         controller: _scrollController,
                         itemCount: array.length,
                         itemBuilder: (BuildContext context, int index) {
+                          print("REaching 1");
                           checkDateChange();
                           return ITFCardRender(array[index], imageUrl, index);
                         },
