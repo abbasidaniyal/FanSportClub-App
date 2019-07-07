@@ -576,7 +576,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                         borderRadius: BorderRadius.circular(100.0),
                         color: Theme.of(context).primaryColor),
                     child: IconButton(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       icon: Icon(
                         Icons.add,
                         color: Theme.of(context).accentColor,
