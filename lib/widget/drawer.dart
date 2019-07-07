@@ -68,7 +68,7 @@ class MyDrawer extends StatelessWidget {
                           : Container(
                               // alignment: Alignment(-1, 0),
                               width: MediaQuery.of(context).size.width * 0.20,
-                              height: MediaQuery.of(context).size.width * 0.10,
+                              height: MediaQuery.of(context).size.width * 0.20,
                               // padding: EdgeInsets.only(right: 120),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(500.0),
