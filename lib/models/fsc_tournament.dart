@@ -18,19 +18,20 @@ class FSCTournament {
 
   // List<TournamentEvent> eventsLis>t;
 
-  FSCTournament(
-      {this.tournamentName,
-      this.date,
-      this.venue,
-      this.id,
-      // this.eventsList,
-      this.description,
-      this.locationURL,
-      this.contactPerson,
-      this.contactNumber,
-      this.contactEmail,
-      this.tournamentWinner,
-      List<int> ageGroup}) {
+  FSCTournament({
+    this.tournamentName,
+    this.date,
+    this.venue,
+    this.id,
+    // this.eventsList,
+    this.description,
+    this.locationURL,
+    this.contactPerson,
+    this.contactNumber,
+    this.contactEmail,
+    this.tournamentWinner,
+    List<int> ageGroup,
+  }) {
     this.ageGroup = "";
     ageGroup.forEach((f) {
       this.ageGroup += "+" + f.toString() + " ";

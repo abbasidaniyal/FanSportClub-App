@@ -66,7 +66,7 @@ class GalleryTile extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(top: 20.0, left: 15.0),
                   child: Text(
-                    image.tournamentTag.tournamentName,
+                    image.tournamentName,
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.9),
                       fontWeight: FontWeight.bold,
@@ -92,10 +92,10 @@ class GalleryTile extends StatelessWidget {
               padding: EdgeInsets.only(top: 10.0, left: 20.0, bottom: 5),
               child: Text(
                 DateFormat.yMMMMd("en_US")
-                        .format(image.tournamentTag.date)
+                        .format(image.tournamentDate)
                         .toString() +
                     " - " +
-                    image.tournamentTag.venue,
+                    image.tournammentVenue,
                 textScaleFactor: 1,
                 style: TextStyle(fontSize: 14),
               ), //+ image.tournamentTag.tournamentName
@@ -113,10 +113,9 @@ class GalleryTile extends StatelessWidget {
               shrinkWrap: true,
 
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 4,
-                crossAxisCount: 3
-                // crossAxisSpacing: 60,
-              ),
+                  childAspectRatio: 4, crossAxisCount: 3
+                  // crossAxisSpacing: 60,
+                  ),
               // scrollDirection: Axis.vertical,
               itemCount: image.taggedUserList.length,
               itemBuilder: (context, index) {
@@ -124,7 +123,9 @@ class GalleryTile extends StatelessWidget {
                   child: Container(
                     // height: 30,
                     alignment: Alignment(0, 0),
-                    padding: EdgeInsets.symmetric(horizontal: 10.0,),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                    ),
                     child: Text(
                       image.taggedUserList[index].name,
                       maxLines: 1,

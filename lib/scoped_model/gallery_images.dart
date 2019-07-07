@@ -23,8 +23,10 @@ mixin GalleryModel on Model {
 
       print(temp);
       //GET TOURNAMENT IMAGES AND USER DETAILS
+      int i = 0;
       galleryImages = [];
       temp.forEach((a) {
+        print(i++);
         List<UserProfile> users = [];
         a["user_tags"].forEach((x) {
           users.add(
@@ -50,19 +52,25 @@ mixin GalleryModel on Model {
             ),
           );
         });
+        print(i - 1);
+        // print(a["tournament_tag"]["tournament_description"]);
+        // print();
+        // print();
+        // var q = json.decode(source)
+        // FSCTournament tournamentzz = ;
+        // print(i);
+
         galleryImages.add(GalleryImage(
           imageUrl: a["image"],
-          tournamentTag: FSCTournament(
-            // ageGroup: a["tournament_tag"]["age_group"],
-            contactEmail: a["tournament_tag"]["coordinator_email"],
-            contactNumber: a["tournament_tag"]["coordinator_contact_number"],
-            contactPerson: a["tournament_tag"]["coordinator_name"],
-            date: DateTime.parse(a["tournament_tag"]["date"]),
-            description: a["tournament_tag"]["tournament_description"],
-            locationURL: a["tournament_tag"]["event_location_url"],
-            tournamentName: a["tournament_tag"]["tournament_name"],
-            venue: a["tournament_tag"]["tournament_venue"],
-          ),
+          tournamentDate: DateTime.parse(a["tournament_tag"]["date"]),
+          tournamentName: a["tournament_tag"]["tournament_name"],
+          tournammentVenue: a["tournament_tag"]["tournament_venue"],
+          // tournamentTag: FSCTournament(
+          //   date: DateTime.parse(a["tournament_tag"]["date"]),
+          //   description: a["tournament_tag"]["tournament_description"],
+          //   tournamentName: a["tournament_tag"]["tournament_name"],
+          //   venue: a["tournament_tag"]["tournament_venue"],
+          // ),
           description: a["description"],
           taggedUserList: users,
         ));
@@ -70,7 +78,7 @@ mixin GalleryModel on Model {
       notifyListeners();
       return true;
     } catch (e) {
-      print("error: " + e);
+      print("error: " + e.toString());
       return false;
     }
   }

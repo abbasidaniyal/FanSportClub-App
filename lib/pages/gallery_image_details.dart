@@ -15,7 +15,7 @@ class GalleryImageDetailsPage extends StatelessWidget {
           pinned: true,
           expandedHeight: 350.0,
           forceElevated: true,
-          title: Text(image.tournamentTag.tournamentName),
+          title: Text(image.tournamentName),
           flexibleSpace: FlexibleSpaceBar(
             background: Image(
               image: NetworkImage(image.imageUrl),
@@ -35,8 +35,7 @@ class GalleryImageDetailsPage extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.all(10.0),
-                        child: Text("Tournament : " +
-                            image.tournamentTag.tournamentName),
+                        child: Text("Tournament : " + image.tournamentName),
                       ),
                       Container(
                         padding: EdgeInsets.all(10.0),
@@ -44,16 +43,15 @@ class GalleryImageDetailsPage extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.all(10.0),
-                        child: Text("Venue : " + image.tournamentTag.venue),
+                        child: Text("Venue : " + image.tournammentVenue),
                       ),
                       Container(
                         padding: EdgeInsets.all(10.0),
                         child: Text("Date : " +
-                            DateFormat.yMMMMd()
-                                .format(image.tournamentTag.date)),
+                            DateFormat.yMMMMd().format(image.tournamentDate)),
                       ),
                       Container(
-                          padding: EdgeInsets.only(left:10.0,top: 10.0),
+                          padding: EdgeInsets.only(left: 10.0, top: 10.0),
                           child: Text("Tagged Users")),
                       ListView.builder(
                         controller: ScrollController(keepScrollOffset: true),
@@ -62,7 +60,8 @@ class GalleryImageDetailsPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             child: Container(
-                              padding: EdgeInsets.only(bottom: 10.0,left: 10.0),
+                              padding:
+                                  EdgeInsets.only(bottom: 10.0, left: 10.0),
                               child: Text(
                                 image.taggedUserList[index].name,
                                 style: TextStyle(color: Colors.blue),
