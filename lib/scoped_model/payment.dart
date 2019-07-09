@@ -4,7 +4,6 @@ import 'package:Fan_Sports/scoped_model/baseUrl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:scoped_model/scoped_model.dart';
-// import 'package:razorpay_plugin/razorpay_plugin.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 mixin PaymentModel on Model {
