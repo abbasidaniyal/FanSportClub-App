@@ -59,7 +59,10 @@ class MyDrawer extends StatelessWidget {
                       // width: MediaQuery.of(context).size.width * 0.25,
                       height: MediaQuery.of(context).size.width * 0.25,
                       padding: EdgeInsets.only(
-                          left: 5, top: 12.0, bottom: 12.0,),
+                        left: 5,
+                        top: 12.0,
+                        bottom: 12.0,
+                      ),
                       child: !model.isUserSignedIn
                           ? Image.asset(
                               "assets/logo-fsc.png",
@@ -112,7 +115,6 @@ class MyDrawer extends StatelessWidget {
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              
                             ],
                           )
                         : Container(),
@@ -172,32 +174,32 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
               ),
-              Container(
-                  child: model.isUserSignedIn
-                      ? Container()
-                      : Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-                          child: InkWell(
-                            child: Text(
-                              'CIEN Registration',
-                              textScaleFactor: 1,
-                              style: TextStyle(
-                                color: Theme.of(context).textTheme.title.color,
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
+              // Container(
+              //     child: model.isUserSignedIn
+              //         ? Container()
+              //         : Container(
+              //             padding:
+              //                 EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+              //             child: InkWell(
+              //               child: Text(
+              //                 'CIEN Registration',
+              //                 textScaleFactor: 1,
+              //                 style: TextStyle(
+              //                   color: Theme.of(context).textTheme.title.color,
+              //                 ),
+              //               ),
+              //               onTap: () {
+              //                 Navigator.pop(context);
 
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => CIENPage(),
-                                ),
-                              );
-                            },
-                          ),
-                        )),
+              //                 Navigator.push(
+              //                   context,
+              //                   CupertinoPageRoute(
+              //                     builder: (context) => CIENPage(),
+              //                   ),
+              //                 );
+              //               },
+              //             ),
+              //           )),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
@@ -265,6 +267,7 @@ class MyDrawer extends StatelessWidget {
                   child: Text(
                     'Gallery',
                     textAlign: TextAlign.left,
+                    textScaleFactor: 1,
                     style: TextStyle(
                       color: Theme.of(context).textTheme.title.color,
                     ),
@@ -312,6 +315,7 @@ class MyDrawer extends StatelessWidget {
                 child: InkWell(
                   child: Text(
                     model.isUserSignedIn ? 'Logout' : "Login",
+                    textScaleFactor: 1.1,
                     style: TextStyle(
                       color: Theme.of(context).textTheme.title.color,
                     ),

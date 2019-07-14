@@ -607,7 +607,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                       ),
                       child: Text(
                         "Player Info",
-                        textScaleFactor: 1,
+                        // textScaleFactor: 1,
                         style: TextStyle(
                             fontWeight: FontWeight.values[5], fontSize: 17),
                       ),
@@ -617,7 +617,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                       child: Text(
                         "City",
                         textScaleFactor: 1,
-                        style: TextStyle(color: Colors.grey[500]),
+                        style: TextStyle(color: Colors.grey[500], fontSize: 15),
                       ),
                     ),
                     Container(
@@ -626,7 +626,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                         decoration: InputDecoration.collapsed(
                           hintText: "Enter your city",
                         ),
-                        style: TextStyle(fontWeight: FontWeight.values[0]),
+                        style: TextStyle(
+                            fontWeight: FontWeight.values[0], fontSize: 15),
                         initialValue:
                             widget.user.city == null ? "" : widget.user.city,
                         onSaved: (city) {
@@ -642,7 +643,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                       child: Text(
                         "Home Ground/Club",
                         textScaleFactor: 1,
-                        style: TextStyle(color: Colors.grey[500]),
+                        style: TextStyle(color: Colors.grey[500], fontSize: 15),
                       ),
                     ),
                     Container(
@@ -653,7 +654,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                             hintStyle: TextStyle(
                                 // color: Colors.white.withOpacity(0.6),
                                 )),
-                        style: TextStyle(fontWeight: FontWeight.values[0]),
+                        style: TextStyle(
+                            fontWeight: FontWeight.values[0], fontSize: 15),
                         onSaved: (homeClub) {
                           profileData["home_club"] = homeClub;
                         },
@@ -671,7 +673,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                       child: Text(
                         "Role Model/Favorite Player",
                         textScaleFactor: 1,
-                        style: TextStyle(color: Colors.grey[500]),
+                        style: TextStyle(color: Colors.grey[500], fontSize: 15),
                       ),
                     ),
                     Container(
@@ -680,7 +682,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                         decoration: InputDecoration.collapsed(
                           hintText: "Enter your Role Model",
                         ),
-                        style: TextStyle(fontWeight: FontWeight.values[0]),
+                        style: TextStyle(
+                            fontWeight: FontWeight.values[0], fontSize: 15),
                         initialValue: widget.user.roleModel == null
                             ? ""
                             : widget.user.roleModel,
@@ -698,7 +701,7 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                       child: Text(
                         "Achievements",
                         textScaleFactor: 1,
-                        style: TextStyle(color: Colors.grey[500]),
+                        style: TextStyle(color: Colors.grey[500], fontSize: 15),
                       ),
                     ),
                     Container(
@@ -707,7 +710,8 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
                         decoration: InputDecoration.collapsed(
                           hintText: "Enter your Achievements",
                         ),
-                        style: TextStyle(fontWeight: FontWeight.values[0]),
+                        style: TextStyle(
+                            fontWeight: FontWeight.values[0], fontSize: 15),
                         initialValue: widget.user.achievements == null
                             ? ""
                             : widget.user.achievements,

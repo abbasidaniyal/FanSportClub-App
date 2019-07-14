@@ -34,6 +34,7 @@ mixin Login on Model {
         body: json.encode(newUserData),
       );
       print(res.body);
+      
       if (res.statusCode != 200 && res.statusCode != 201) return false;
       return true;
     } catch (error) {
@@ -60,6 +61,8 @@ mixin Login on Model {
     var userProfileID = json.decode(res.body)["profile"];
     print(userProfileID);
 
+    
+
     http.Response res2;
     try {
       res2 = await http.get(
@@ -73,9 +76,11 @@ mixin Login on Model {
       return 1;
     }
     print("BODY " + res2.body);
-    var userData = json.decode(res2.body);
 
     if (res2.statusCode != 200 && res2.statusCode != 201) return 1;
+
+    var userData = json.decode(res2.body);
+
     loggedInUser = UserProfile(
       city: userData["city"] == null ? "" : userData["city"],
       dob: userData["date_of_birth"] == null
@@ -114,11 +119,11 @@ mixin Login on Model {
         },
       );
       _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(sound: true, badge: true, alert: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
+          const IosNotificationSettings(sound: true, badge: true, alert: true));
+      _firebaseMessaging.onIosSettingsRegistered
+          .listen((IosNotificationSettings settings) {
+        print("Settings registered: $settings");
+      });
       _firebaseMessaging.setAutoInitEnabled(true);
 
       try {
