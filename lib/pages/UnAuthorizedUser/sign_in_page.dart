@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../calendar_page.dart';
 
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -42,7 +43,7 @@ class _SigningPageState extends State<SigningPage> {
           ),
         ),
         child: ListView(
-          dragStartBehavior: DragStartBehavior.down,
+          // dragStartBehavior: DragStartBehavior.,
           primary: false,
           children: <Widget>[
             Container(
@@ -60,16 +61,13 @@ class _SigningPageState extends State<SigningPage> {
               ),
             ),
             Container(
-              // decoration: BoxDecoration(
-              //   border: Border(
-              //     bottom: BorderSide(
-              //       //                   <--- left side
-              //       color: Colors.white.withOpacity(0.5),
-              //       width: 1.5,
-              //     ),
-              //   ),
-              // ),
-              margin: EdgeInsets.only(top: 20, left: 30, right: 30),
+              height: MediaQuery.of(context).size.height * 0.07,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.02,
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1),
+
+              // margin: EdgeInsets.only(top: 20, left: 30, right: 30),
               child: TextField(
                 controller: username,
                 cursorColor: Colors.white,
@@ -79,23 +77,36 @@ class _SigningPageState extends State<SigningPage> {
                   // hasFloatingPlaceholder: false,
                   labelStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
+
                   filled: true,
                   focusedBorder: InputBorder.none,
                   fillColor: Colors.grey.withOpacity(0.5),
                   // fillColor: Colors.white,
                   border: OutlineInputBorder(),
 
+                  disabledBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  // focusedBorder: OutlineInputBorder(),
+
                   // border: OutlineInputBorder(),
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10, left: 30, right: 30),
+              // margin: EdgeInsets.only(top: 10, left: 30, right: 30),
+              height: MediaQuery.of(context).size.height * 0.07,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.02,
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1),
+
               child: Row(
                 children: <Widget>[
-                  Expanded(
+                  Flexible(
                     child: TextField(
                       controller: password,
                       obscureText: _obsceuretext,
@@ -110,7 +121,7 @@ class _SigningPageState extends State<SigningPage> {
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,
                         labelStyle:
-                            TextStyle(color: Colors.white, fontSize: 14),
+                            TextStyle(color: Colors.white, fontSize: 12),
                         // border: Do,
                         border: InputBorder.none,
                         // focusedBorder: OutlineInputBorder(),
@@ -122,11 +133,10 @@ class _SigningPageState extends State<SigningPage> {
                   ),
                   Container(
                     color: Colors.grey.withOpacity(0.5),
-                    height: 57.0,
+                    height: MediaQuery.of(context).size.height * 0.07,
                     child: VerticalDivider(
-                      
                       color: Colors.grey,
-                      
+
                       indent: 5,
                       endIndent: 5,
                       // height: 20.0,
@@ -134,7 +144,11 @@ class _SigningPageState extends State<SigningPage> {
                   ),
                   Container(
                     // margin: EdgeInsets.only(top: 10),
-                    height: 57.0,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    // margin: EdgeInsets.only(
+                    //     top: MediaQuery.of(context).size.height * 0.02,
+                    //     left: MediaQuery.of(context).size.width * 0.1,
+                    //     right: MediaQuery.of(context).size.width * 0.1),
 
                     color: Colors.grey.withOpacity(0.5),
                     child: IconButton(
@@ -159,10 +173,16 @@ class _SigningPageState extends State<SigningPage> {
             ),
             InkWell(
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.03,
                 margin: EdgeInsets.only(
-                  top: 20,
-                  left: 31,
-                ),
+                    top: MediaQuery.of(context).size.height * 0.02,
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    right: MediaQuery.of(context).size.width * 0.1),
+
+                // margin: EdgeInsets.only(
+                //   top: 20,
+                //   left: 31,
+                // ),
                 child: Text(
                   "Forgot Password?",
                   style: TextStyle(
@@ -177,123 +197,140 @@ class _SigningPageState extends State<SigningPage> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.05,
-                  left: MediaQuery.of(context).size.width * 0.2,
-                  right: MediaQuery.of(context).size.width * 0.2),
-              child: Container(
-                // width: MediaQuery.of(context).size.width * 0.8 + 20,
-                height: MediaQuery.of(context).size.height * 0.065,
-                decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(color: Colors.transparent)]),
-                child: FlatButton(
-                  highlightColor: Colors.transparent,
-                  color: Theme.of(context).accentColor.withOpacity(1),
-                  child: isLoading
-                      ? CircularProgressIndicator(
-                          backgroundColor: Colors.white,
-                        )
-                      : Text(
-                          "LOGIN",
-                          textScaleFactor: 1.3,
-                          style: TextStyle(color: Color.fromRGBO(48, 48, 48, 1)),
-                        ),
-                  onPressed: isLoading == true
-                      ? () {}
-                      : () async {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          //LOGIN WITH SERVER AND GET TOKEN
-                          MainModel model = ScopedModel.of(context);
-                          bool status = await model.getLocalAuthToken(
-                              username.text, password.text);
-                          if (status) {
-                            int newUser = await model.initLoggedInUser();
-                            if (newUser == 1) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    return AlertDialog(
-                                      title: Text("Login Failed"),
-                                      content: Text("Please try again"),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text("Ok"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  }).then((onValue) {
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              });
-                            } else if (newUser == 2) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return ProfileUpdatePage(
-                                        model.loggedInUser);
-                                  },
-                                ),
-                              );
-                            } else {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CalendarPage();
-                                  },
-                                ),
-                              );
-                            }
-                          } else {
+                  top: MediaQuery.of(context).size.height * 0.02,
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1),
+              height: MediaQuery.of(context).size.height * 0.07,
+              child: FlatButton(
+                highlightColor: Colors.transparent,
+                color: Theme.of(context).accentColor.withOpacity(1),
+                child: isLoading
+                    ? CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      )
+                    : Text(
+                        "LOGIN",
+                        textScaleFactor: 1.2,
+                        style: TextStyle(color: Color.fromRGBO(48, 48, 48, 1)),
+                      ),
+                onPressed: isLoading == true
+                    ? () {}
+                    : () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        //LOGIN WITH SERVER AND GET TOKEN
+                        MainModel model = ScopedModel.of(context);
+                        bool status = await model.getLocalAuthToken(
+                            username.text, password.text);
+                        if (status) {
+                          int newUser = await model.initLoggedInUser();
+                          if (newUser == 1) {
                             showDialog(
-                              context: context,
-                              builder: (context) {
-                                // setState(() {
-                                //   isLoading = false;
-                                // });
-                                return AlertDialog(
-                                  title: Text("Login Failed"),
-                                  content: Text("Please try again"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ok"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                );
-                              },
-                            ).then((onValue) {
+                                context: context,
+                                builder: (context) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  return AlertDialog(
+                                    title: Text("Login Failed"),
+                                    content: Text("Please try again"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Ok"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                }).then((onValue) {
                               setState(() {
                                 isLoading = false;
                               });
                             });
+                          } else if (newUser == 2) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ProfileUpdatePage(model.loggedInUser);
+                                },
+                              ),
+                            );
+                          } else {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return CalendarPage();
+                                },
+                              ),
+                            );
                           }
-                        },
-                ),
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              // setState(() {
+                              //   isLoading = false;
+                              // });
+                              return AlertDialog(
+                                title: Text("Login Failed"),
+                                content: Text("Please try again"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Ok"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          ).then((onValue) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          });
+                        }
+                      },
               ),
             ),
 
             Container(
+              // alignment: Alignment.center,
               // width: MediaQuery.of(context).size.width * 0.35,
-              height: MediaQuery.of(context).size.height * 0.065,
+              height: MediaQuery.of(context).size.height * 0.07,
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.02,
-                  left: MediaQuery.of(context).size.width * 0.2,
-                  right: MediaQuery.of(context).size.width * 0.2),
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1),
 
-              child: SignInButton(
-                Buttons.Google,
+              child: MaterialButton(
+                // child: ,
+                color: Color(0xFFDD4B39),
+                // child: ,
+                child: Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.google,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Sign in with Google",
+                        textScaleFactor: 1.2,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
 
                 // mini: true,
                 // text: "Google",
@@ -435,18 +472,40 @@ class _SigningPageState extends State<SigningPage> {
               ),
             ),
             // SizedBox(
-            //   width: MediaQuery.of(context).size.width * 0.2,
+            //   width: MediaQuery.of(context).size.width * 0.1,
             // ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.065,
+              height: MediaQuery.of(context).size.height * 0.07,
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.02,
-                  left: MediaQuery.of(context).size.width * 0.2,
-                  right: MediaQuery.of(context).size.width * 0.2),
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1),
 
               // width: MediaQuery.of(context).size.width * 0.35,
-              child: SignInButton(
-                Buttons.Facebook,
+              child: MaterialButton(
+                // child: ,
+                color: Color(0xFF3B5998),
+                // child: ,
+                child: Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.facebookF,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Sign in with Facebook",
+                        textScaleFactor: 1.2,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
                 // text: "Facebook",
                 onPressed: isLoading == true
                     ? () {}

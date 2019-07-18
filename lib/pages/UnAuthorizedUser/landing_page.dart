@@ -50,17 +50,17 @@ class _LandingPageState extends State<LandingPage> {
                       tag: 123,
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.065,
+                        height: MediaQuery.of(context).size.height * 0.07,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(0.0),
                         ),
                         child: RaisedButton(
-
                           color: Theme.of(context).accentColor.withOpacity(1),
                           child: Text(
                             "LOGIN",
                             textScaleFactor: 1.3,
-                            style: TextStyle(color: Theme.of(context).primaryColor),
+                            style:
+                                TextStyle(color: Color.fromRGBO(48, 48, 48, 1)),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -79,7 +79,7 @@ class _LandingPageState extends State<LandingPage> {
                       width: 20.0,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.065,
+                      height: MediaQuery.of(context).size.height * 0.07,
                       width: MediaQuery.of(context).size.width * 0.40,
                       child: RaisedButton(
                         color: Colors.grey,
@@ -111,7 +111,7 @@ class _LandingPageState extends State<LandingPage> {
                   child: Text(
                     "Continue Without Login",
                     style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.white.withOpacity(0.8),
                         decoration: TextDecoration.underline,
                         fontSize: 15),
                   ),
