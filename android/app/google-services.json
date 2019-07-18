@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "205109119497",
+    "firebase_url": "https://fsc-test-f4b95.firebaseio.com",
+    "project_id": "fsc-test-f4b95",
+    "storage_bucket": "fsc-test-f4b95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205109119497:android:8ba260c46762020b",
+        "android_client_info": {
+          "package_name": "com.fansportsclub.fansportsclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205109119497-haheo0vfdhetl05pdhbrqsmgno6lfvlj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fansportsclub.fansportsclub",
+            "certificate_hash": "efda340ca8c50d78ac7f321051c1db966261290d"
+          }
+        },
+        {
+          "client_id": "205109119497-ve08p490dgbfg1h0jpbd7v1ntu0rf7t9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0Salc-ZV9WL76aPO2hUEj9YEQo4lBGf4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205109119497-ve08p490dgbfg1h0jpbd7v1ntu0rf7t9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "205109119497-qvg726sgp80v93r1epts26sher4c8dmu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.fansportsclub.fansportsclub"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
