@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>205109119497-qvg726sgp80v93r1epts26sher4c8dmu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.205109119497-qvg726sgp80v93r1epts26sher4c8dmu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>205109119497-haheo0vfdhetl05pdhbrqsmgno6lfvlj.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDMzBWrfT_qLqtne1B5AM_FS2t7ETjielA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>205109119497</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.fansportsclub.fansportsclub</string>
+	<key>PROJECT_ID</key>
+	<string>fsc-test-f4b95</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fsc-test-f4b95.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:205109119497:ios:8ba260c46762020b</string>
+	<key>DATABASE_URL</key>
+	<string>https://fsc-test-f4b95.firebaseio.com</string>
+</dict>
+</plist>

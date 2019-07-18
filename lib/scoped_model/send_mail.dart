@@ -1,6 +1,8 @@
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './baseUrl.dart';
+
 
 mixin SendCIENMail on Model {
   Future<bool> mail(data, token) async {
@@ -9,7 +11,7 @@ mixin SendCIENMail on Model {
         .post(
       "http://api.fansportsclub.com/form/",
       headers: {
-        'Authorization': 'Token $token',
+        'Authorization': '$token',
         "Content-Type": "application/json"
       },
       body: json.encode(data),

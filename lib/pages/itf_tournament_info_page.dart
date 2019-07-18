@@ -7,7 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 class ITFInfoPage extends StatelessWidget {
   final ITFTournament tournamentData;
 
-  ITFInfoPage(this.tournamentData);
+  final int index;
+
+  ITFInfoPage({this.tournamentData, this.index});
 
   @override
   Widget build(BuildContext context) {

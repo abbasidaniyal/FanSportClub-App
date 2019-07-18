@@ -3,17 +3,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
-import './pages/calendar_page.dart';
+import './pages/UnAuthorizedUser/landing_page.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main(){
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((onValue){
-    runApp(MyApp());
+void main() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  String token, refreshToken;
+  preferences.containsKey("accessToken")
+      ? token = preferences.get("accessToken")
+      : token = null;
+  preferences.containsKey("refreshToken")
+      ? refreshToken = preferences.get("refreshToken")
+      : refreshToken = null;
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((onValue) {
+    runApp(MyApp(token, refreshToken));
   });
-  
 }
 
 class MyApp extends StatelessWidget {
+  final String token;
+  final String refreshToken;
+  MyApp(this.token, this.refreshToken);
   @override
   Widget build(BuildContext context) {
     return ScopedModel(
@@ -21,9 +33,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
             buttonTheme: ButtonThemeData(),
-            primaryColor: Color.fromRGBO(33, 33, 33, 1),
-            textSelectionColor: Color.fromRGBO(198, 237, 44, 1),
-            accentColor: Color.fromRGBO(198, 237, 44, 1),//Color.fromRGBO(120, 171, 9, 1), //black
+            primaryColor: Color.fromRGBO(33, 33, 33, 1), //BLACK
+            textSelectionColor: Color.fromRGBO(198, 237, 44, 1), //GREEN
+            accentColor: Color.fromRGBO(198, 237, 44, 1),
             secondaryHeaderColor: Color.fromRGBO(33, 33, 33, 1),
             fontFamily: 'Roboto',
             textTheme: TextTheme(
@@ -42,7 +54,12 @@ class MyApp extends StatelessWidget {
             )),
         routes: {
           "/": (BuildContext context) {
-            return WelcomePage();
+            MainModel model = ScopedModel.of(context);
+            // print("$token");
+            token != null
+                ? model.autoLogin(token, refreshToken)
+                : model.getGeneralToken("fsc", "fsc");
+            return WelcomePage(token, refreshToken);
           },
         },
       ),

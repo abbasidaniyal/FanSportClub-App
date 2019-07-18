@@ -13,12 +13,13 @@ class ITFCardRender extends StatelessWidget {
 
   final ITFTournament tournamentData;
   final imageUrl;
+  final int index;
 
   // String startMonth, endMonth;
   // DateTime startDate, endDate;
   // int startDay, endDay, startMonthInt, endMonthInt, year;
 
-  ITFCardRender(this.tournamentData, this.imageUrl) {
+  ITFCardRender(this.tournamentData, this.imageUrl, this.index) {
     name = tournamentData.name;
     grade = tournamentData.grade;
     venue = tournamentData.venue;
@@ -34,7 +35,10 @@ class ITFCardRender extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ITFInfoPage(tournamentData)));
+                builder: (context) => ITFInfoPage(
+                      tournamentData: tournamentData,
+                      index: index,
+                    )));
       },
       child: Container(
         height: 150.0,
@@ -94,7 +98,6 @@ class ITFCardRender extends StatelessWidget {
                       height: 8.0,
                     ),
                     Container(
-                      
                       child: Row(
                         children: <Widget>[
                           Icon(
