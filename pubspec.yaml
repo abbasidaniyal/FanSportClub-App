@@ -16,7 +16,7 @@ dependencies:
   flutter_linkify: ^1.1.1
   url_launcher: 
   flutter_calendar: ^0.0.8
-  flutter_signin_button: ^0.2.6
+  font_awesome_flutter: ^8.5.0
   scoped_model: ^1.0.1
   http: ^0.12.0+2
   flutter_datetime_picker: ^1.1.6
