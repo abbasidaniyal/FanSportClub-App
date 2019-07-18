@@ -60,7 +60,7 @@ class _LandingPageState extends State<LandingPage> {
                           child: Text(
                             "LOGIN",
                             textScaleFactor: 1.3,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Theme.of(context).primaryColor),
                           ),
                           onPressed: () {
                             Navigator.push(

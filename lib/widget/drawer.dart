@@ -317,7 +317,7 @@ class MyDrawer extends StatelessWidget {
                     model.isUserSignedIn ? 'Logout' : "Login",
                     textScaleFactor: 1.1,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.title.color,
+                      color: Colors.white//Theme.of(context).textTheme.title.color,
                     ),
                   ),
                   onTap: () {

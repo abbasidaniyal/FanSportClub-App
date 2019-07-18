@@ -14,6 +14,7 @@ mixin PaymentModel on Model {
     String token,
     int eventID,
     int userID,
+    String doublesPartner,
     Function showDialogFunction,
   }) async {
     try {
@@ -22,6 +23,7 @@ mixin PaymentModel on Model {
           body: json.encode({
             "event": eventID.toString(),
             "user": userID.toString(),
+            "doubles_partner_name": doublesPartner,
           }));
       print(res.statusCode);
       if (res.statusCode == 400) {
@@ -76,7 +78,9 @@ mixin PaymentModel on Model {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
 
-    await _razorpay.open(options);
+    await _razorpay.open(
+      options,
+    );
 
     _razorpay.clear();
     // _razorpay.clear();

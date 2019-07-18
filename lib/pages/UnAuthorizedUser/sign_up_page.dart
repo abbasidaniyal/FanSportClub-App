@@ -188,53 +188,55 @@ class _SignupPageState extends State<SignupPage> {
                               textScaleFactor: 1.3,
                               style: TextStyle(color: Colors.white),
                             ),
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        print("WOEKING 1");
-                        if (_key.currentState.validate()) {
-                          print("TRUE");
-                          _key.currentState.save();
-                          bool success = await model.newUser(userData);
-                          if (success) {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return SigningPage();
-                                },
-                              ),
-                            );
-                          } else {
-                            setState(() {
-                              isLoading = false;
-                            });
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text(
-                                      "Either email address already exists or Invalid credentials"),
-                                  content: Text("Please try again"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ok"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
+                      onPressed: isLoading
+                          ? () {}
+                          : () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              print("WOEKING 1");
+                              if (_key.currentState.validate()) {
+                                print("TRUE");
+                                _key.currentState.save();
+                                bool success = await model.newUser(userData);
+                                if (success) {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return SigningPage();
                                       },
-                                    )
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        }
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
+                                    ),
+                                  );
+                                } else {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            "Either email address already exists or Invalid credentials"),
+                                        content: Text("Please try again"),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              }
+                              setState(() {
+                                isLoading = false;
+                              });
+                            },
                     ),
                   ),
                 ),
@@ -252,59 +254,99 @@ class _SignupPageState extends State<SignupPage> {
 
                           // mini: true,
                           text: "Google",
-                          onPressed: () async {
-                            MainModel model = ScopedModel.of(context);
-                            bool successSignIn = await model.googleSignIn();
+                          onPressed: isLoading
+                              ? () {}
+                              : () async {
+                                  MainModel model = ScopedModel.of(context);
+                                  bool successSignIn =
+                                      await model.googleSignIn();
 
-                            if (successSignIn) {
-                              bool successLogin =
-                                  await model.serverGoogleOauth();
-                              if (successLogin) {
-                                bool convertToken =
-                                    await model.convertGoogleToken();
-                                if (convertToken) {
-                                  int newUser = await model.initLoggedInUser();
-                                  if (newUser == 1) {
+                                  if (successSignIn) {
+                                    bool successLogin =
+                                        await model.serverGoogleOauth();
+                                    if (successLogin) {
+                                      bool convertToken =
+                                          await model.convertGoogleToken();
+                                      if (convertToken) {
+                                        int newUser =
+                                            await model.initLoggedInUser();
+                                        if (newUser == 1) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: Text("Login Failed"),
+                                              content: Text("Please try again"),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text("Ok"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        } else if (newUser == 2) {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return ProfileUpdatePage(
+                                                    model.loggedInUser);
+                                              },
+                                            ),
+                                          );
+                                        } else {
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) {
+                                                return CalendarPage();
+                                              },
+                                            ),
+                                          );
+                                        }
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title:
+                                                  Text("Google sign in failed"),
+                                              content: Text("Please try again"),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text("Ok"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                          title: Text("Google sign in failed"),
+                                          content: Text("Please try again"),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text("Ok"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  } else {
                                     showDialog(
                                       context: context,
                                       builder: (context) => AlertDialog(
-                                        title: Text("Login Failed"),
-                                        content: Text("Please try again"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  } else if (newUser == 2) {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return ProfileUpdatePage(
-                                              model.loggedInUser);
-                                        },
-                                      ),
-                                    );
-                                  } else {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return CalendarPage();
-                                        },
-                                      ),
-                                    );
-                                  }
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
                                         title: Text("Google sign in failed"),
                                         content: Text("Please try again"),
                                         actions: <Widget>[
@@ -315,45 +357,10 @@ class _SignupPageState extends State<SignupPage> {
                                             },
                                           )
                                         ],
-                                      );
-                                    },
-                                  );
-                                }
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text("Google sign in failed"),
-                                    content: Text("Please try again"),
-                                    actions: <Widget>[
-                                      FlatButton(
-                                        child: Text("Ok"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  title: Text("Google sign in failed"),
-                                  content: Text("Please try again"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Ok"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
-                          },
+                                      ),
+                                    );
+                                  }
+                                },
                         ),
                       ),
                       SizedBox(
@@ -367,105 +374,116 @@ class _SignupPageState extends State<SignupPage> {
 
                             // mini: true,
                             text: "Facebook",
-                            onPressed: () async {
-                              MainModel model = ScopedModel.of(context);
-                              bool successSignin = await model.facebookSignIn();
-                              if (successSignin) {
-                                bool successLogin =
-                                    await model.serverFacebookOauth();
-                                if (successLogin) {
-                                  bool convertToken =
-                                      await model.convertFacebookToken();
-                                  if (convertToken) {
-                                    int newUser =
-                                        await model.initLoggedInUser();
-                                    if (newUser == 1) {
+                            onPressed: isLoading
+                                ? () {}
+                                : () async {
+                                    MainModel model = ScopedModel.of(context);
+                                    bool successSignin =
+                                        await model.facebookSignIn();
+                                    if (successSignin) {
+                                      bool successLogin =
+                                          await model.serverFacebookOauth();
+                                      if (successLogin) {
+                                        bool convertToken =
+                                            await model.convertFacebookToken();
+                                        if (convertToken) {
+                                          int newUser =
+                                              await model.initLoggedInUser();
+                                          if (newUser == 1) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: Text("Login Failed"),
+                                                content:
+                                                    Text("Please try again"),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: Text("Ok"),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  )
+                                                ],
+                                              ),
+                                            );
+                                          } else if (newUser == 2) {
+                                            Navigator.pushReplacement(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return ProfileUpdatePage(
+                                                  model.loggedInUser);
+                                            }));
+                                          } else {
+                                            Navigator.pushReplacement(context,
+                                                MaterialPageRoute(
+                                                    builder: (context) {
+                                              return CalendarPage();
+                                            }));
+                                          }
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    "Facebook sign in failed"),
+                                                content:
+                                                    Text("Please try again"),
+                                                actions: <Widget>[
+                                                  FlatButton(
+                                                    child: Text("Ok"),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  )
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  "Facebook sign in failed"),
+                                              content: Text("Please try again"),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text("Ok"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    } else {
                                       showDialog(
                                         context: context,
-                                        builder: (context) => AlertDialog(
-                                          title: Text("Login Failed"),
-                                          content: Text("Please try again"),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                              child: Text("Ok"),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            )
-                                          ],
-                                        ),
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title:
+                                                Text("Facebook sign in failed"),
+                                            content: Text("Please try again"),
+                                            actions: <Widget>[
+                                              FlatButton(
+                                                child: Text("Ok"),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              )
+                                            ],
+                                          );
+                                        },
                                       );
-                                    } else if (newUser == 2) {
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return ProfileUpdatePage(
-                                            model.loggedInUser);
-                                      }));
-                                    } else {
-                                      Navigator.pushReplacement(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return CalendarPage();
-                                      }));
                                     }
-                                  } else {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title:
-                                              Text("Facebook sign in failed"),
-                                          content: Text("Please try again"),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                              child: Text("Ok"),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            )
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  }
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text("Facebook sign in failed"),
-                                        content: Text("Please try again"),
-                                        actions: <Widget>[
-                                          FlatButton(
-                                            child: Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text("Facebook sign in failed"),
-                                      content: Text("Please try again"),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text("Ok"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        )
-                                      ],
-                                    );
                                   },
-                                );
-                              }
-                            },
                           ))
                     ],
                   ),

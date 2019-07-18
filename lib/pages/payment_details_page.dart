@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:http/http.dart' as http;
+import '../scoped_model/baseUrl.dart';
+
 import '../scoped_model/main.dart';
 
 class PaymentConfirmPage extends StatefulWidget {
@@ -43,9 +46,18 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
     }
   }
 
-  void handlePaymentError(PaymentFailureResponse response) {
+  void handlePaymentError(PaymentFailureResponse response) async {
     print("ERROR");
-    print("Message : " + response.message);
+    print("Message : " + response?.message);
+    MainModel model = ScopedModel.of(context);
+    await http.delete(
+        "$baseUrl/payments/failed-payment/${model.localPaymentId}",
+        headers: {
+          'Authorization': '${model.token}',
+        }).then((res) {
+      print(res.statusCode);
+    });
+
     print("Code : " + response.code.toString());
     errorDialog("Could not precess payment");
     // response.code
@@ -75,10 +87,6 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
             ],
           );
         });
-    // showDialog(
-
-    //   AlertDialog()
-    // );
   }
 
   void _submitForm(context) async {
@@ -89,6 +97,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
       bool generateOrderId = await model.getOrderId(
         eventID: paymentData["eventID"],
         token: model.token,
+        doublesPartner: paymentData["doublesPartner"],
         userID: model.loggedInUser.id,
         showDialogFunction: errorDialog,
       );
@@ -98,9 +107,11 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
           email: paymentData["email"],
           name: paymentData["name"],
           address: paymentData["address"],
+          // doublesPartner: paymentData["doublesPartner"],
           description:
               "Registration for event : EVENT ID = ${paymentData['eventID']}, by user : USER ID + ${model.loggedInUser.id}",
           handleExternalWallet: handleExternalWallet,
+
           handlePaymentError: handlePaymentError,
           handlePaymentSuccess: handlePaymentSuccess,
         );
@@ -300,6 +311,26 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   onSaved: (value) {
                     paymentData["address"] = value;
                   },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    return value.isEmpty ? "Please enter a valid value" : null;
+                  },
+                  onSaved: (value) {
+                    paymentData["doublesPartner"] = value;
+                  },
+                  decoration: InputDecoration(
+                    disabledBorder: InputBorder.none,
+                    labelText: "Doubles Partner*",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
+                    border: UnderlineInputBorder(),
+                    contentPadding: EdgeInsets.all(5.0),
+                  ),
                 ),
               ),
               Container(
