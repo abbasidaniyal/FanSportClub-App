@@ -1,4 +1,7 @@
+import 'package:Fan_Sports/pages/create_update_profile.dart';
+import 'package:Fan_Sports/scoped_model/main.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../models/user_profile.dart';
 
@@ -14,11 +17,24 @@ class PlayerProfilePage extends StatelessWidget {
     double dobSize = MediaQuery.of(context).size.width * 0.04;
     double headingSize = MediaQuery.of(context).size.width * 0.04;
     double contentSize = MediaQuery.of(context).size.width * 0.04;
-
+    MainModel model = ScopedModel.of(context);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
+          actions: <Widget>[
+            model.isUserSignedIn && user.id == model.loggedInUser.id
+                ? IconButton(
+                    icon: Icon(Icons.mode_edit),
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(PageRouteBuilder(pageBuilder: (context, c, v) {
+                        return ProfileUpdatePage(model.loggedInUser);
+                      }));
+                    },
+                  )
+                : Container(),
+          ],
           title: Text(
             "Player Profile",
             textScaleFactor: 1,
@@ -68,8 +84,7 @@ class PlayerProfilePage extends StatelessWidget {
                               left: MediaQuery.of(context).size.width * 0.50,
                               top: 10.0),
                           child: Text(
-                            DateFormat("dd/MM/yyy")
-                                .format(DateTime.parse(user.dob)),
+                            DateFormat("dd/MM/yyy").format(user.dob),
                             maxLines: 1,
                             textScaleFactor: 1,
                             style: TextStyle(
@@ -118,7 +133,7 @@ class PlayerProfilePage extends StatelessWidget {
                                       MediaQuery.of(context).size.width * 0.50,
                                   top: 5.0),
                               child: Text(
-                                "Male",
+                                user.gender == GENDER.MALE ? "Male" : "Female",
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -129,10 +144,7 @@ class PlayerProfilePage extends StatelessWidget {
                               margin: EdgeInsets.only(left: 30.0, top: 5.0),
                               width: MediaQuery.of(context).size.width * 0.2,
                               child: Text(
-                                ((DateTime.now()
-                                            .difference(
-                                                DateTime.parse(user.dob))
-                                            .inDays) /
+                                ((DateTime.now().difference(user.dob).inDays) /
                                         365)
                                     .floor()
                                     .toString(),
@@ -188,7 +200,11 @@ class PlayerProfilePage extends StatelessWidget {
                                   top: 5),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
-                                user.backhandStyle,
+                                user.backhandStyle == BACKHANDSTYLE.SINGLE
+                                    ? "Single Handed"
+                                    : user.backhandStyle == BACKHANDSTYLE.DOUBLE
+                                        ? "Double Handed"
+                                        : "Mixed",
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -197,12 +213,14 @@ class PlayerProfilePage extends StatelessWidget {
                             ),
                             Container(
                               margin: EdgeInsets.only(
-                                  left:
-                                      MediaQuery.of(context).size.width * 0.05,
-                                  top: 5),
+                                left: MediaQuery.of(context).size.width * 0.05,
+                                top: 5,
+                              ),
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
-                                user.strongHand,
+                                user.strongHand == STRONGHAND.RIGHT
+                                    ? "Right Handed"
+                                    : "Left Handed",
                                 textScaleFactor: 1,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -214,20 +232,23 @@ class PlayerProfilePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    height: MediaQuery.of(context).size.width * 0.35,
-                    margin: EdgeInsets.only(top: 25, left: 20.0),
-                    decoration: BoxDecoration(
+                  Hero(
+                    tag: user.id,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: MediaQuery.of(context).size.width * 0.35,
+                      margin: EdgeInsets.only(top: 25, left: 20.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.0),
+                          color: Theme.of(context).primaryColor),
+                      foregroundDecoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 3.0),
                         borderRadius: BorderRadius.circular(100.0),
-                        color: Theme.of(context).primaryColor),
-                    foregroundDecoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 3.0),
-                      borderRadius: BorderRadius.circular(100.0),
-                      image: DecorationImage(
-                        image: user.profilePhotoUrl != null
-                            ? NetworkImage(user.profilePhotoUrl)
-                            : AssetImage("assets/profilePicture.jpeg"),
+                        image: DecorationImage(
+                          image: user.profilePhotoUrl != null
+                              ? NetworkImage(user.profilePhotoUrl)
+                              : AssetImage("assets/profilePicture.jpeg"),
+                        ),
                       ),
                     ),
                   )

@@ -1,12 +1,13 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'dart:core';
+import 'package:Fan_Sports/models/user_profile.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/fsc_tournament.dart';
-import 'dart:convert';
-import 'dart:core';
 import '../models/itf_tournament.dart';
+import './baseUrl.dart';
 
 mixin TournamentModel on Model {
   List<FSCTournament> fscTournaments = [];
@@ -18,91 +19,119 @@ mixin TournamentModel on Model {
   bool fscError = false;
   bool itfError = false;
 
-  Future<void> initItfData(String token) async {
-    print("Reaching");
-    await http.get("http://api.fansportsclub.com/tournaments/tournaments-itf/",
-        headers: {'Authorization': 'Token $token'}).then(
-      (http.Response res) {
-        if (res.statusCode == 200) {
-          itfTournaments = [];
-          fsc = json.decode(res.body);
-          for (var event in fsc) {
-            ITFTournament temp = ITFTournament(
-              name: event["tournament_name"],
-              grade: event["grade"],
-              venue: event["venue"],
-              startDate:
-                  DateTime.parse(event["start_date"].toString() + " 12:00:00z"),
-              endDate:
-                  DateTime.parse(event["end_date"].toString() + " 12:00:00z"),
-              link: event["link"],
-              website: event["website"],
-              surface: event["surface"],
-            );
-            itfTournaments.add(temp);
-          }
-          isITFLoaded = true;
-        } else {
-          print("ERROR");
-          print(res.statusCode);
-          itfError = true;
-          isITFLoaded = false;
+  Future<bool> initItfData(String token) async {
+    try {
+      http.Response res =
+          await http.get("$baseUrl/tournaments/tournaments-itf/", headers: {
+        'Authorization': token,
+        // 'Authorization': 'Bearer $token',
+      });
+
+      if (res.statusCode != 200 && res.statusCode != 201)
+        return false;
+      else {
+        itfTournaments = [];
+        fsc = json.decode(res.body);
+        for (var event in fsc) {
+          ITFTournament temp = ITFTournament(
+            name: event["tournament_name"],
+            grade: event["grade"],
+            venue: event["venue"],
+            startDate:
+                DateTime.parse(event["start_date"].toString() + " 12:00:00z"),
+            endDate:
+                DateTime.parse(event["end_date"].toString() + " 12:00:00z"),
+            link: event["link"],
+            website: event["website"],
+            surface: event["surface"],
+          );
+          itfTournaments.add(temp);
         }
-        notifyListeners();
-      },
-    ).catchError((onError) {
-      print("ERROR");
-      itfError = true;
-      isITFLoaded = false;
-    });
+        return true;
+      }
+    } catch (onError) {
+      print("ERROR in ITF ");
+    }
   }
 
-  Future<void> initFscData(String token) async {
-    print("Reaching");
-    print('Authorization: Token $token');
-    await http.get("http://api.fansportsclub.com/tournaments/tournaments-fsc/",
-        headers: {'Authorization': 'Token $token'}).then((http.Response res) {
-      if (res.statusCode == 200) {
+  Future<bool> initFscData(String token) async {
+    try {
+      http.Response res =
+          await http.get("$baseUrl/tournaments/tournaments-fsc/", headers: {
+        'Authorization': token,
+        // 'Authorization': 'Bearer $token'
+      });
+      if (res.statusCode != 200 && res.statusCode != 201)
+        return false;
+      else {
         //print(res.body);
         fscTournaments = [];
         fsc = json.decode(res.body);
-        for (var event in fsc) {
+        for (var tournamentDetails in fsc) {
+          List<int> ageGroup = [];
+          tournamentDetails["events_tournament"].forEach((f) {
+            ageGroup.add(f["category"]);
+          });
+          ageGroup.sort();
           FSCTournament temp = FSCTournament(
-            tournamentName: event["tournament_name"],
-            ageGroup: event["age_group"],
-            venue: event["tournament_venue"],
-            date: DateTime.parse(event["date"] + " 12:00:00z"),
-            description: event["tournament_description"],
-            locationURL: event["event_location_url"],
-            contactNumber: event["coordinator_contact_number"],
-            contactEmail: event["coordinator_email"],
-            contactPerson: event["coordinator_name"],
+            tournamentName: tournamentDetails["tournament_name"],
+            venue: tournamentDetails["tournament_venue"],
+            date: DateTime.parse(tournamentDetails["date"] + " 12:00:00z"),
+            description: tournamentDetails["tournament_description"],
+            locationURL: tournamentDetails["tournamentDetails_location_url"],
+            contactNumber: tournamentDetails["coordinator_contact_number"],
+            id: tournamentDetails["id"],
+            contactEmail: tournamentDetails["coordinator_email"],
+            contactPerson: tournamentDetails["coordinator_name"],
+            ageGroup: ageGroup,
+            tournamentWinner: tournamentDetails["tournament_winner"] != null
+                ? UserProfile(
+                    city: tournamentDetails["tournament_winner"]["city"],
+                    dob: DateTime.parse(tournamentDetails["tournament_winner"]
+                        ["date_of_birth"]),
+                    backhandStyle:
+                        tournamentDetails["tournament_winner"]["backhand_style"] == "DOUBLE"
+                            ? BACKHANDSTYLE.DOUBLE
+                            : tournamentDetails["tournament_winner"]["backhand_style"] == "SINGLE"
+                                ? BACKHANDSTYLE.SINGLE
+                                : BACKHANDSTYLE.MIXED,
+                    name: tournamentDetails["tournament_winner"]["name"],
+                    roleModel: tournamentDetails["tournament_winner"]
+                        ["role_model"],
+                    strongHand:
+                        tournamentDetails["tournament_winner"]["strong_hand"] == "LEFT"
+                            ? STRONGHAND.LEFT
+                            : STRONGHAND.RIGHT,
+                    homeClub: tournamentDetails["tournament_winner"]
+                        ["home_club"],
+                    achievements: tournamentDetails["tournament_winner"]
+                        ["achievements"],
+                    profilePhotoUrl: tournamentDetails["tournament_winner"]
+                        ["profile_photo"],
+                    gender: tournamentDetails["tournament_winner"]["gender"] == "M"
+                        ? GENDER.MALE
+                        : GENDER.FEMALE,
+                    id: tournamentDetails["tournament_winner"]["player_id"])
+                : null,
           );
 
-          // print(temp.description);
           fscTournaments.add(temp);
         }
-        print(fscTournaments);
-        isFSCLoaded = true;
-      } else {
-        print("ERROR");
-        print(res.statusCode);
-        isFSCLoaded = false;
-        fscError = true;
-        notifyListeners();
+        fscTournaments.sort(
+          (a, b) {
+            return a.date.compareTo(b.date);
+          },
+        );
+        return true;
       }
-    }).catchError((onError) {
-      print("ERROR");
+    } catch (onError) {
+      print("$onError ERROR");
       itfError = true;
       isITFLoaded = false;
       notifyListeners();
-    });
+      return false;
+    }
 
     //SORTING THE INCOMING ARRAY
-    fscTournaments.sort(
-      (a, b) {
-        return a.date.compareTo(b.date);
-      },
-    );
   }
 }

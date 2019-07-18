@@ -4,6 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/itf_ranking.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import './baseUrl.dart';
 
 mixin ITFPlayerRankingModel on Model {
   List<ITFRanking> itfRanking = [];
@@ -13,8 +14,8 @@ mixin ITFPlayerRankingModel on Model {
 
   Future<bool> getRankingData(String token) async {
     await http.get(
-        "http://api.fansportsclub.com/tournaments/player-ranking-itf/",
-        headers: {'Authorization': 'Token $token'}).then(
+        "$baseUrl/tournaments/player-ranking-itf/",
+        headers: {'Authorization': '$token',}).then(
       (http.Response res) {
         if (res.statusCode == 200) {
           itfRanking = [];

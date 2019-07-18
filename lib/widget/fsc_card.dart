@@ -5,6 +5,7 @@ import '../pages/fsc_tournament_info_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FSCCardRender extends StatelessWidget {
+  int index;
   String name;
   String age_group;
   DateTime date;
@@ -12,13 +13,13 @@ class FSCCardRender extends StatelessWidget {
   String description;
 
   final FSCTournament tournamentData;
-  final imageUrl;
+  final String imageUrl;
 
   // String startMonth, endMonth;
   // DateTime startDate, endDate;
   // int startDay, endDay, startMonthInt, endMonthInt, year;
 
-  FSCCardRender(this.tournamentData, this.imageUrl) {
+  FSCCardRender(this.tournamentData, this.imageUrl, this.index) {
     name = tournamentData.tournamentName;
     age_group = tournamentData.ageGroup;
     venue = tournamentData.venue;
@@ -33,7 +34,7 @@ class FSCCardRender extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FSCInfoPage(tournamentData)));
+                builder: (context) => FSCInfoPage(tournamentData, index)));
       },
       child: Container(
         height: 150.0,
@@ -80,7 +81,8 @@ class FSCCardRender extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        "Age Group : " + age_group,
+                        // "",
+                        "Age Groups : " + age_group,
                         textScaleFactor: 1,
                         maxLines: 1,
                         overflow: TextOverflow.clip,
