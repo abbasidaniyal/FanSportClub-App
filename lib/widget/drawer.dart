@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:package_info/package_info.dart';
 
 import '../pages/about_us_page.dart';
 
@@ -18,6 +19,7 @@ import '../pages/player_search.dart';
 
 class MyDrawer extends StatelessWidget {
   String appVersion;
+
   @override
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
@@ -129,7 +131,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                   child: Text(
                     'Calendar',
@@ -153,7 +155,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                   child: Text(
                     'IPIN Renewal',
@@ -174,34 +176,32 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
               ),
-              // Container(
-              //     child: model.isUserSignedIn
-              //         ? Container()
-              //         : Container(
-              //             padding:
-              //                 EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-              //             child: InkWell(
-              //               child: Text(
-              //                 'CIEN Registration',
-              //                 textScaleFactor: 1,
-              //                 style: TextStyle(
-              //                   color: Theme.of(context).textTheme.title.color,
-              //                 ),
-              //               ),
-              //               onTap: () {
-              //                 Navigator.pop(context);
-
-              //                 Navigator.push(
-              //                   context,
-              //                   CupertinoPageRoute(
-              //                     builder: (context) => CIENPage(),
-              //                   ),
-              //                 );
-              //               },
-              //             ),
-              //           )),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                  child:Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                          child: InkWell(
+                            child: Text(
+                              'CIEN Registration',
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                color: Theme.of(context).textTheme.title.color,
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+
+                              Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (context) => CIENPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        )),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                   child: Text(
                     'ITF Ranking',
@@ -223,7 +223,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                     child: Text(
                       'Player Search',
@@ -243,7 +243,7 @@ class MyDrawer extends StatelessWidget {
                     }),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                   child: Text('About us',
                       textScaleFactor: 1,
@@ -262,7 +262,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                   child: Text(
                     'Gallery',
@@ -311,14 +311,15 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
                   child: Text(
                     model.isUserSignedIn ? 'Logout' : "Login",
                     textScaleFactor: 1.1,
                     style: TextStyle(
-                      color: Colors.white//Theme.of(context).textTheme.title.color,
-                    ),
+                        color: Colors
+                            .white //Theme.of(context).textTheme.title.color,
+                        ),
                   ),
                   onTap: () {
                     // Navigator.pop(context);
@@ -347,15 +348,24 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
               ),
-              // appVersion == null
-              //     ? Container()
-              //     : Container(
-              //         child: Text(appVersion),
-              //       )
+              model.appVersion == null
+                  // getVersion().then((onValue) {})
+                  ? Container()
+                  : Container(
+                      padding:
+                          EdgeInsets.symmetric( horizontal: 5),
+                      child: Text(
+                        // ,
+                        "App Version : ${model.appVersion}",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    )
             ],
+
           ),
         ),
       ),
+      
     );
   }
 }
