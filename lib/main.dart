@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (BuildContext context) {
             MainModel model = ScopedModel.of(context);
+            model.getVersion();
             // print("$token");
             token != null
                 ? model.autoLogin(token, refreshToken)

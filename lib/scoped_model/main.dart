@@ -2,6 +2,7 @@ import 'package:Fan_Sports/scoped_model/tournament_register.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './itf_player_ranking.dart';
+import './appVersion.dart';
 import './tournaments.dart';
 import './user_profile_search.dart';
 import './login.dart';
@@ -20,4 +21,5 @@ class MainModel extends Model
         GalleryModel,
         TournamentReigisterModel,
         PaymentHistoryModel,
+        AppVersionModel,
         PaymentModel {}
