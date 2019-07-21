@@ -7,7 +7,7 @@ description: FSC is an icon of Fan Sports Club where players participate in diff
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 1.6.1+34
+version: 1.6.2+35
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^0.5.3+1
   firebase_messaging: ^5.0.4
   image_picker: ^0.6.0+10
+  package_info: ^0.4.0+5
   flutter:
     sdk: flutter
   
