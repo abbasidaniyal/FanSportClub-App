@@ -63,7 +63,7 @@ mixin PaymentModel on Model {
     @required Function handlePaymentError,
     @required Function handleExternalWallet,
   }) async {
-    String apiKey = "rzp_test_YNtxPTIkfqT9x9";
+    String apiKey = razorPayApiKey;
     var options = {
       'key': apiKey,
       'name': name,
