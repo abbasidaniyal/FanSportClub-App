@@ -1,2 +1,2 @@
-String baseUrl = 'http://13.233.144.116:8000';
+String baseUrl = 'http://api.fansportsclub.com';
 String razorPayApiKey = "rzp_live_tGiUTYhLxyR5Ny";
