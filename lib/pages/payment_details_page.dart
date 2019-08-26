@@ -18,6 +18,7 @@ class PaymentConfirmPage extends StatefulWidget {
 class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
   Map<String, dynamic> paymentData = {};
   GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  bool acceptBool = false;
 
   void handlePaymentSuccess(PaymentSuccessResponse response) async {
     print("SUCCESS");
@@ -91,7 +92,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
 
   void _submitForm(context) async {
     MainModel model = ScopedModel.of(context);
-    //validate and save and them send. Write validators
+    
     if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
       bool generateOrderId = await model.getOrderId(
@@ -313,13 +314,10 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   },
                 ),
               ),
+              // """"""
               Container(
                 margin: EdgeInsets.all(10.0),
                 child: TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    return value.isEmpty ? "Please enter a valid value" : null;
-                  },
                   onSaved: (value) {
                     paymentData["doublesPartner"] = value;
                   },
@@ -354,12 +352,47 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.only(top: 10.0, left: 15, bottom: 20),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                          "I agree to the terms and conditions. No payments would be refunded."),
+                    ),
+                    IconButton(
+                      icon: acceptBool
+                          ? Icon(Icons.check_box)
+                          : Icon(Icons.check_box_outline_blank),
+                      onPressed: () {
+                        setState(() {
+                          acceptBool = !acceptBool;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Container(
                 margin: EdgeInsets.all(10.0),
                 padding: EdgeInsets.all(5.0),
                 child: Center(
                   child: MyButton(
                     "Submit",
-                    _submitForm,
+                    acceptBool
+                        ? _submitForm
+                        : (_) {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      "Please accept the terms and conditions first.",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  );
+                                });
+                          },
                     args: context,
                   ),
                 ),

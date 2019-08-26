@@ -30,11 +30,6 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     MainModel model = ScopedModel.of(context);
     
-    
-    // _firebaseMessaging.getToken().then((String token) {
-    //   assert(token != null);
-    //   print(token);
-    // });
     return DefaultTabController(
       length: 2,
       child: Scaffold(
