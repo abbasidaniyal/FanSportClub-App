@@ -70,19 +70,18 @@ class _ItfPage extends State<ItfPage>
     super.dispose();
   }
 
-  void checkDateChange() async{
+  void checkDateChange() async {
     print("Reaching Checkdate 1");
     DateTime d;
     if (isDateChanged) {
-      
       for (int i = 0; i < array.length; i++) {
         d = array[i].startDate;
-        
 
         if (d.isAfter(selectedDate) || d.isAtSameMomentAs(selectedDate)) {
- try         
-{          _scrollController.animateTo(i * elementHeight,
-              duration: Duration(milliseconds: 1000), curve: Curves.ease);} catch(e){}
+          try {
+            _scrollController.animateTo(i * elementHeight,
+                duration: Duration(milliseconds: 1000), curve: Curves.ease);
+          } catch (e) {}
           print("Reaching Checkdate 2");
           break;
         }
@@ -107,12 +106,10 @@ class _ItfPage extends State<ItfPage>
 
     print("REACHING ON CHANGE 2");
     setState(() {
-      
       array = results;
-      isLoading=false;
-      
+      isLoading = false;
+
       isDateChanged = true;
-      
     });
   }
 
