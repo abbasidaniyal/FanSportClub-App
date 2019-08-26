@@ -15,9 +15,6 @@ class ITFCardRender extends StatelessWidget {
   final imageUrl;
   final int index;
 
-  // String startMonth, endMonth;
-  // DateTime startDate, endDate;
-  // int startDay, endDay, startMonthInt, endMonthInt, year;
 
   ITFCardRender(this.tournamentData, this.imageUrl, this.index) {
     name = tournamentData.name;
