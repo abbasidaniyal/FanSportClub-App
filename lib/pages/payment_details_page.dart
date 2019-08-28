@@ -332,6 +332,22 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                 ),
               ),
               Container(
+                margin: EdgeInsets.all(10.0),
+                child: TextFormField(
+                  onSaved: (value) {
+                    paymentData["cienNumber"] = value;
+                  },
+                  decoration: InputDecoration(
+                    disabledBorder: InputBorder.none,
+                    labelText: "CIEN Number",
+                    labelStyle:
+                        TextStyle(color: Colors.grey.shade700, fontSize: 15),
+                    border: UnderlineInputBorder(),
+                    contentPadding: EdgeInsets.all(5.0),
+                  ),
+                ),
+              ),
+              Container(
                 margin: EdgeInsets.only(top: 10.0, left: 15, bottom: 20),
                 child: Row(
                   children: <Widget>[
@@ -353,13 +369,31 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 10.0, left: 15, bottom: 20),
-                child: Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
                       child: Text(
-                          "I hereby agree to the terms and conditions of the tournament and shall abide by the norms. I know well that the fee is non refundable in any case."),
+                        "Description of Event : ",
+                        style: TextStyle(
+                            color: Colors.grey.shade700, fontSize: 15),
+                      ),
                     ),
+                    Container(
+                      child: Text(
+                        "${model.selectedEvent.descriptionOfEvent.toString()}",
+                        maxLines: 10,
+                        
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.0, bottom: 20),
+                child: Row(
+                  children: <Widget>[
                     IconButton(
                       icon: acceptBool
                           ? Icon(Icons.check_box)
@@ -369,6 +403,11 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                           acceptBool = !acceptBool;
                         });
                       },
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                          "I hereby agree to the terms and conditions of the tournament and shall abide by the norms. I know well that the fee is non refundable in any case."),
                     ),
                   ],
                 ),

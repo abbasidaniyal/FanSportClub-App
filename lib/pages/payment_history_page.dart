@@ -66,7 +66,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                           SizedBox(
                             height: 10.0,
                           ),
-                          Text("Event Type : " + array[index].eventType),
+                          Text("Event Type : " + array[index].typeOfEvent),
                         ],
                       ),
                     ),

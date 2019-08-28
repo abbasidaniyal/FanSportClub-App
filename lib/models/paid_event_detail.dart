@@ -18,7 +18,7 @@ import 'fsc_tournaments_event.dart';
   }) : super(
           ageCategory: ageCategory,
           entryFee: entryFee,
-          eventType: eventType,
+          typeOfEvent: eventType,
           id: eventId,
         );
 }

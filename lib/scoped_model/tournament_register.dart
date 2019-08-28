@@ -32,8 +32,10 @@ mixin TournamentReigisterModel on Model {
         TournamentEvent newEvent = TournamentEvent(
             ageCategory: event["category"],
             entryFee: event["price_of_event"],
-            eventType: event["event_type"],
-            id: event["id"]);
+            typeOfEvent: event["event_type"]["type_of_event"],
+            descriptionOfEvent: event["event_type"]["description_of_type"],
+            id: event["id"],
+            );
         print(newEvent);
         if (newEvent.ageCategory <= user.userAge()) {
           selectedTournamentEvents.add(newEvent);

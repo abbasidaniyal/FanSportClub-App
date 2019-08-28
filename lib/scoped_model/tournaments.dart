@@ -81,8 +81,7 @@ mixin TournamentModel on Model {
             locationURL: tournamentDetails["tournamentDetails_location_url"],
             contactNumber: tournamentDetails["coordinator_contact_number"],
             id: tournamentDetails["id"],
-            endDate: DateTime
-                .now(), //DateTime.parse(tournamentDetails["end_date"] + " 12:00:00z"),
+            endDate: DateTime.parse(tournamentDetails["end_date"] + " 12:00:00z"),
             contactEmail: tournamentDetails["coordinator_email"],
             contactPerson: tournamentDetails["coordinator_name"],
             ageGroup: ageGroup,
