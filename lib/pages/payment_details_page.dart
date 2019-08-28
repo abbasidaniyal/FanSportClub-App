@@ -92,7 +92,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
 
   void _submitForm(context) async {
     MainModel model = ScopedModel.of(context);
-    
+
     if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
       bool generateOrderId = await model.getOrderId(
@@ -323,7 +323,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                   },
                   decoration: InputDecoration(
                     disabledBorder: InputBorder.none,
-                    labelText: "Doubles Partner*",
+                    labelText: "Doubles Partner",
                     labelStyle:
                         TextStyle(color: Colors.grey.shade700, fontSize: 15),
                     border: UnderlineInputBorder(),
@@ -358,7 +358,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: Text(
-                          "I agree to the terms and conditions. No payments would be refunded."),
+                          "I hereby agree to the terms and conditions of the tournament and shall abide by the norms. I know well that the fee is non refundable in any case."),
                     ),
                     IconButton(
                       icon: acceptBool
