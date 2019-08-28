@@ -108,6 +108,7 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
           email: paymentData["email"],
           name: paymentData["name"],
           address: paymentData["address"],
+          notes: "CIEN No. : " + paymentData["cienNumber"].toString(),
           // doublesPartner: paymentData["doublesPartner"],
           description:
               "Registration for event : EVENT ID = ${paymentData['eventID']}, by user : USER ID + ${model.loggedInUser.id}",
@@ -383,7 +384,6 @@ class _PaymentConfirmPageState extends State<PaymentConfirmPage> {
                       child: Text(
                         "${model.selectedEvent.descriptionOfEvent.toString()}",
                         maxLines: 10,
-                        
                         style: TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),

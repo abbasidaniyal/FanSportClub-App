@@ -62,6 +62,7 @@ mixin PaymentModel on Model {
     @required Function handlePaymentSuccess,
     @required Function handlePaymentError,
     @required Function handleExternalWallet,
+    String notes,
   }) async {
     String apiKey = razorPayApiKey;
     var options = {
@@ -69,6 +70,7 @@ mixin PaymentModel on Model {
       'name': name,
       'description': description,
       'order_id': orderID,
+      "notes": notes,
       'prefill': {'contact': contact, 'email': email}
     };
 
