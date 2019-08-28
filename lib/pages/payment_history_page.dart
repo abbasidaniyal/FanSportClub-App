@@ -32,7 +32,7 @@ class _PaymentHistoryState extends State<PaymentHistory> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return Scaffold(
       appBar: AppBar(
         title: Text("Payment History"),
@@ -40,7 +40,9 @@ class _PaymentHistoryState extends State<PaymentHistory> {
       body: Container(
         child: isLoading == true
             ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
+            : array.length==0? Center(
+              child: Text("No payment history"),
+            ) :ListView.builder(
                 itemCount: array.length,
                 itemBuilder: (context, index) {
                   return Card(

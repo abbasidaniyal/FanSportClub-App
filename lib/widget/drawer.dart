@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:package_info/package_info.dart';
 
 import '../pages/about_us_page.dart';
 
@@ -105,7 +104,7 @@ class MyDrawer extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(left: 25, top: 20.0),
                     child: model.isUserSignedIn
-                        ? Row(
+                        ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
@@ -117,6 +116,42 @@ class MyDrawer extends StatelessWidget {
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
+                              Container(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Text(
+                                  ((DateTime.now().difference(model.loggedInUser.dob).inDays) / 365)
+                                                  .floor() >
+                                              20 &&
+                                          ((DateTime.now().difference(model.loggedInUser.dob).inDays) /
+                                                      365)
+                                                  .floor() <
+                                              30
+                                      ? "Junior Player"
+                                      : ((DateTime.now().difference(model.loggedInUser.dob).inDays) /
+                                                          365)
+                                                      .floor() >=
+                                                  30 &&
+                                              ((DateTime.now()
+                                                              .difference(model
+                                                                  .loggedInUser
+                                                                  .dob)
+                                                              .inDays) /
+                                                          365)
+                                                      .floor() <
+                                                  45
+                                          ? "Senior Player"
+                                          : ((DateTime.now()
+                                                              .difference(model.loggedInUser.dob)
+                                                              .inDays) /
+                                                          365)
+                                                      .floor() >=
+                                                  45
+                                              ? "Vetran Player"
+                                              : "Amateur",
+                                  textScaleFactor: 1,
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                              )
                             ],
                           )
                         : Container(),
@@ -177,29 +212,28 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
               Container(
-                  child:Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-                          child: InkWell(
-                            child: Text(
-                              'CIEN Registration',
-                              textScaleFactor: 1,
-                              style: TextStyle(
-                                color: Theme.of(context).textTheme.title.color,
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
+                  child: Container(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                child: InkWell(
+                  child: Text(
+                    'CIEN Registration',
+                    textScaleFactor: 1,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.title.color,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
 
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) => CIENPage(),
-                                ),
-                              );
-                            },
-                          ),
-                        )),
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => CIENPage(),
+                      ),
+                    );
+                  },
+                ),
+              )),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                 child: InkWell(
@@ -352,8 +386,7 @@ class MyDrawer extends StatelessWidget {
                   // getVersion().then((onValue) {})
                   ? Container()
                   : Container(
-                      padding:
-                          EdgeInsets.symmetric( horizontal: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 5),
                       child: Text(
                         // ,
                         "App Version : ${model.appVersion}",
@@ -361,11 +394,9 @@ class MyDrawer extends StatelessWidget {
                       ),
                     )
             ],
-
           ),
         ),
       ),
-      
     );
   }
 }

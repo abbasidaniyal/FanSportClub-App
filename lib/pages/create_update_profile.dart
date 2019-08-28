@@ -115,6 +115,28 @@ class _ProfileUpdatePageState extends State<ProfileUpdatePage> {
         return;
       },
     );
+    if (temp.lengthSync() >= 2000000) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Image size can not be greater than  2MB."),
+              content:
+                  Text("Try resizing the image or upload some other image"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            );
+          });
+      setState(() {
+        profileUploadedImage = null;
+      });
+      return;
+    }
+
     setState(() {
       profileUploadedImage = temp;
     });

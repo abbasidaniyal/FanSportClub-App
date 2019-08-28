@@ -5,6 +5,7 @@ import 'user_profile.dart';
 class FSCTournament {
   String tournamentName;
   DateTime date;
+  DateTime endDate;
   String venue;
   int id;
   String ageGroup;
@@ -23,7 +24,7 @@ class FSCTournament {
     this.date,
     this.venue,
     this.id,
-    // this.eventsList,
+    this.endDate,
     this.description,
     this.locationURL,
     this.contactPerson,

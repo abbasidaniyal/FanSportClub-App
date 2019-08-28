@@ -8,7 +8,7 @@ class FSCCardRender extends StatelessWidget {
   int index;
   String name;
   String age_group;
-  DateTime date;
+  DateTime date, endDate;
   String venue;
   String description;
 
@@ -25,6 +25,7 @@ class FSCCardRender extends StatelessWidget {
     venue = tournamentData.venue;
     date = tournamentData.date;
     description = tournamentData.description;
+    endDate = tournamentData.endDate;
   }
 
   @override
@@ -106,10 +107,32 @@ class FSCCardRender extends StatelessWidget {
                           width: 3.0,
                         ),
                         Container(
-                            width: MediaQuery.of(context).size.width * 0.40,
+                            // width: MediaQuery.of(context).size.width * 0.30,
                             child: Text(
                               DateFormat("EEE, dd/MM/yyy")
                                   .format(date)
+                                  .toString(),
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Color.fromRGBO(120, 120, 120, 1)),
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
+                              // textScaleFactor: 1.1,
+                            )),
+                            Text(" to ",
+                              textScaleFactor: 1,
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Color.fromRGBO(120, 120, 120, 1)),
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
+                              // textScaleFactor: 1.1,
+                            ),
+                            Container(
+                            child: Text(
+                              DateFormat("EEE, dd/MM/yyy")
+                                  .format(endDate)
                                   .toString(),
                               textScaleFactor: 1,
                               style: TextStyle(
@@ -124,6 +147,8 @@ class FSCCardRender extends StatelessWidget {
                         ),
                       ],
                     ),
+                    
+                    
                     SizedBox(
                       height: 8.0,
                     ),
