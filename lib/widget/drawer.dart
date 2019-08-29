@@ -324,6 +324,7 @@ class MyDrawer extends StatelessWidget {
                       child: InkWell(
                         child: Text(
                           'Payment History',
+                          textScaleFactor: 1,
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Theme.of(context).textTheme.title.color,
@@ -390,6 +391,7 @@ class MyDrawer extends StatelessWidget {
                       child: Text(
                         // ,
                         "App Version : ${model.appVersion}",
+                        textScaleFactor: 1,
                         style: TextStyle(color: Colors.grey),
                       ),
                     )
