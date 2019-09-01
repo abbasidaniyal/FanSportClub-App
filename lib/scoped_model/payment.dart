@@ -70,7 +70,9 @@ mixin PaymentModel on Model {
       'name': name,
       'description': description,
       'order_id': orderID,
-      "notes": notes,
+      "notes": {
+        "CIEN Number": notes,
+      },
       'prefill': {'contact': contact, 'email': email}
     };
 
