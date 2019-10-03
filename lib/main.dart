@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import './pages/splash_screen_page.dart';
 import './scoped_model/main.dart';
-import './pages/UnAuthorizedUser/landing_page.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+  
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String token, refreshToken;
   preferences.containsKey("accessToken")
