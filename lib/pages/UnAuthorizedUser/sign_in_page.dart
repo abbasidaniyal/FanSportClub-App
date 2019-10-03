@@ -136,9 +136,7 @@ class _SigningPageState extends State<SigningPage> {
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: VerticalDivider(
                       color: Colors.grey,
-
                       indent: 5,
-                      endIndent: 5,
                       // height: 20.0,
                     ),
                   ),
