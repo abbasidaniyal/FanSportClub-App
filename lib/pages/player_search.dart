@@ -158,24 +158,21 @@ class CustomSearchDelegate extends SearchDelegate {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Hero(
-                    tag: results.toList()[index].id,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.1,
-                      height: MediaQuery.of(context).size.width * 0.1,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.0),
-                          color: Colors.grey[400]),
-                      margin: EdgeInsets.only(left: 10.0, right: 20.0),
-                      foregroundDecoration: BoxDecoration(
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    height: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100.0),
-                        border: Border.all(width: 0.1, color: Colors.white),
-                        image: DecorationImage(
-                          image: results.toList()[index].profilePhotoUrl != null
-                              ? NetworkImage(
-                                  results.toList()[index].profilePhotoUrl)
-                              : AssetImage("assets/profilePicture.jpeg"),
-                        ),
+                        color: Colors.grey[400]),
+                    margin: EdgeInsets.only(left: 10.0, right: 20.0),
+                    foregroundDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.0),
+                      border: Border.all(width: 0.1, color: Colors.white),
+                      image: DecorationImage(
+                        image: results.toList()[index].profilePhotoUrl != null
+                            ? NetworkImage(
+                                results.toList()[index].profilePhotoUrl)
+                            : AssetImage("assets/profilePicture.jpeg"),
                       ),
                     ),
                   ),

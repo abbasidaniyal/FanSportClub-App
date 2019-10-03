@@ -69,14 +69,20 @@ class _FscPage extends State<FscPage>
 
   void initData() async {
     MainModel model = ScopedModel.of(context);
-
-    bool fscStatus = await model.initFscData(model.token);
-    if (fscStatus) {
-      setState(() {
-        array = model.fscTournaments;
-        listFSCTournament = model.fscTournaments;
-        isLoading = false;
-      });
+    if (model.token != null) {
+      print("Null False");
+      bool fscStatus = await model.initFscData(model.token);
+      if (fscStatus) {
+        setState(() {
+          array = model.fscTournaments;
+          listFSCTournament = model.fscTournaments;
+          isLoading = false;
+        });
+      }
+      return;
+    } else {
+      print("Null true");
+      initData();
     }
   }
 
@@ -93,7 +99,7 @@ class _FscPage extends State<FscPage>
     _scrollController.dispose();
   }
 
-  void checkDateChange() async{
+  void checkDateChange() async {
     DateTime d;
     if (isDateChanged) {
       if (array.last.date.isBefore(selectedDate)) {
@@ -107,8 +113,10 @@ class _FscPage extends State<FscPage>
           d = array[i].date;
           // print(d.toString() + "   " + selectedDate .toString());
           if (d.isAfter(selectedDate) || d == selectedDate) {
-  try{          _scrollController.animateTo(i * elementHeight,
-                duration: Duration(milliseconds: 1000), curve: Curves.ease);}catch (e){}
+            try {
+              _scrollController.animateTo(i * elementHeight,
+                  duration: Duration(milliseconds: 1000), curve: Curves.ease);
+            } catch (e) {}
             break;
           }
         }
@@ -212,6 +220,7 @@ class _FscPage extends State<FscPage>
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "fsc_hero",
           backgroundColor: Theme.of(context).primaryColor,
           child: isSearchMode
               ? Icon(

@@ -190,6 +190,7 @@ class _ItfPage extends State<ItfPage>
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          heroTag: "itf_hero",
           backgroundColor: Theme.of(context).primaryColor,
           child: isSearchMode
               ? Icon(
